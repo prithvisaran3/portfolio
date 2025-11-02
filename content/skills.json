@@ -1,0 +1,53 @@
+{
+  "languages": [
+    { "name": "Python", "level": "expert" },
+    { "name": "Dart", "level": "expert" },
+    { "name": "Swift", "level": "expert" },
+    { "name": "Java", "level": "advanced" },
+    { "name": "JavaScript", "level": "advanced" },
+    { "name": "TypeScript", "level": "advanced" },
+    { "name": "Kotlin", "level": "advanced" },
+    { "name": "PHP", "level": "advanced" },
+    { "name": "C/C++", "level": "intermediate" },
+    { "name": "HTML/CSS", "level": "expert" },
+    { "name": "SQL", "level": "advanced" }
+  ],
+  "frameworks": [
+    { "name": "Flutter", "level": "expert" },
+    { "name": "SwiftUI", "level": "expert" },
+    { "name": "Core ML", "level": "advanced" },
+    { "name": "Django", "level": "advanced" },
+    { "name": "Laravel", "level": "advanced" },
+    { "name": "Node.js", "level": "advanced" },
+    { "name": "React", "level": "advanced" },
+    { "name": "Next.js", "level": "advanced" },
+    { "name": "GetX", "level": "expert" },
+    { "name": "Riverpod", "level": "advanced" },
+    { "name": "PyTorch", "level": "advanced" },
+    { "name": "Scikit-learn", "level": "advanced" },
+    { "name": "NumPy", "level": "expert" },
+    { "name": "Pandas", "level": "expert" },
+    { "name": "OpenCV", "level": "intermediate" }
+  ],
+  "tools": [
+    { "name": "Firebase", "level": "expert" },
+    { "name": "Supabase", "level": "expert" },
+    { "name": "AWS", "level": "advanced" },
+    { "name": "Git", "level": "expert" },
+    { "name": "GitHub Actions", "level": "advanced" },
+    { "name": "Docker", "level": "advanced" },
+    { "name": "MySQL", "level": "expert" },
+    { "name": "PostgreSQL", "level": "advanced" },
+    { "name": "MongoDB", "level": "advanced" },
+    { "name": "Android Studio", "level": "expert" },
+    { "name": "Xcode", "level": "expert" },
+    { "name": "RESTful APIs", "level": "expert" },
+    { "name": "Mapbox", "level": "advanced" },
+    { "name": "Stripe", "level": "advanced" },
+    { "name": "WooCommerce", "level": "advanced" },
+    { "name": "RIVE", "level": "intermediate" },
+    { "name": "HuggingFace", "level": "advanced" },
+    { "name": "LoRA", "level": "intermediate" }
+  ]
+}
+

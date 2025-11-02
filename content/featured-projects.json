@@ -1,0 +1,87 @@
+[
+  {
+    "name": "AuraTranslate",
+    "description": "iOS native app with ML packages for live translation through images with fluid UI. Current project.",
+    "highlights": [
+      "Real-time image-based translation using Core ML",
+      "Computer vision and NLP integration",
+      "Fluid iOS-native UI following HIG",
+      "Seamless camera and ML model integration"
+    ],
+    "stack": ["Swift", "SwiftUI", "Core ML", "Vision", "NLP"],
+    "url": "https://github.com/prithvisaran3",
+    "image": "/projects/auratranslate.png",
+    "featured": true
+  },
+  {
+    "name": "LLM Fine-Tuning with LoRA",
+    "description": "Adaptive fine-tuning of LLMs for historical event narration using LoRA. Current project.",
+    "highlights": [
+      "Fine-tuning Mistral-7B using LoRA adaptation",
+      "Custom historical event dataset from Wikipedia",
+      "Interactive 'what-if' alternative narratives",
+      "Underrepresented perspectives in history"
+    ],
+    "stack": ["Python", "PyTorch", "LoRA", "Mistral-7B", "HuggingFace"],
+    "url": "https://github.com/prithvisaran3",
+    "image": "/projects/llm-lora.png",
+    "featured": true
+  },
+  {
+    "name": "Amazon Retail Sales Forecasting",
+    "description": "Machine learning model using XGBoost to forecast Amazon retail sales with granular SKU-level insights.",
+    "highlights": [
+      "Led ML model development achieving MAE of 119",
+      "Implemented robust data pipelines for preprocessing",
+      "Provided insights for optimizing logistics and inventory",
+      "Team Lead role with presentation to stakeholders"
+    ],
+    "stack": ["Python", "XGBoost", "Pandas", "NumPy", "Scikit-learn"],
+    "url": "https://github.com/prithvisaran3",
+    "image": "/projects/amazon-forecasting.png",
+    "featured": true
+  },
+  {
+    "name": "Pawfect - Pet Dating iOS App",
+    "description": "Full-featured social iOS app with matchmaking algorithm and real-time chat for pet owners.",
+    "highlights": [
+      "Built with Swift using Apple-native design patterns",
+      "Integrated Firebase and Supabase for backend",
+      "Reduced message delivery latency by 25%",
+      "Google Maps API for local connections"
+    ],
+    "stack": ["Swift", "SwiftUI", "Firebase", "Supabase", "Google Maps"],
+    "url": "https://github.com/prithvisaran3/Pawfect",
+    "image": "/projects/pawfect.png",
+    "featured": true
+  },
+  {
+    "name": "Prommuni - Roommate Finder",
+    "description": "Roommate finder app with real-time chat and smooth liquid UI for iOS and Android.",
+    "highlights": [
+      "Flutter with MVC + GetX architecture",
+      "Supabase backend with cloud functions",
+      "Real-time chat and geolocation features",
+      "Smooth liquid UI across platforms"
+    ],
+    "stack": ["Flutter", "GetX", "Supabase", "Mapbox", "MVC"],
+    "url": "https://github.com/prithvisaran3/Prommuni",
+    "image": "/projects/prommuni.png",
+    "featured": true
+  },
+  {
+    "name": "WooCommerce Flutter App",
+    "description": "E-commerce mobile app bridging WordPress and Flutter with MVVM architecture.",
+    "highlights": [
+      "Unique UI bridging WordPress and Flutter",
+      "WooCommerce REST API integration",
+      "MVVM architecture for clean code",
+      "Firebase for real-time features"
+    ],
+    "stack": ["Flutter", "MVVM", "WooCommerce", "WordPress", "Firebase"],
+    "url": "https://github.com/prithvisaran3",
+    "image": "/projects/woocommerce.png",
+    "featured": true
+  }
+]
+

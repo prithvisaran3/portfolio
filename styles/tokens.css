@@ -1,0 +1,61 @@
+:root {
+  /* Light mode glass tokens */
+  --glass-bg-start: rgba(255, 255, 255, 0.14);
+  --glass-bg-end: rgba(255, 255, 255, 0.06);
+  --glass-border: rgba(255, 255, 255, 0.18);
+  --glass-border-focus: rgba(10, 132, 255, 0.6);
+  --glass-highlight: rgba(255, 255, 255, 0.25);
+  --glass-shadow: rgba(0, 0, 0, 0.1);
+  --glass-shadow-hover: rgba(0, 0, 0, 0.15);
+  --noise-opacity: 0.03;
+  
+  /* Gradient blobs */
+  --blob-1-light: rgba(10, 132, 255, 0.15);
+  --blob-2-light: rgba(175, 82, 222, 0.15);
+  --blob-3-light: rgba(255, 149, 0, 0.12);
+}
+
+.dark {
+  /* Dark mode glass tokens */
+  --glass-bg-start: rgba(30, 30, 30, 0.7);
+  --glass-bg-end: rgba(20, 20, 20, 0.5);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --glass-border-focus: rgba(10, 132, 255, 0.8);
+  --glass-highlight: rgba(255, 255, 255, 0.08);
+  --glass-shadow: rgba(0, 0, 0, 0.3);
+  --glass-shadow-hover: rgba(0, 0, 0, 0.4);
+  --noise-opacity: 0.02;
+  
+  /* Gradient blobs */
+  --blob-1-dark: rgba(10, 132, 255, 0.25);
+  --blob-2-dark: rgba(175, 82, 222, 0.25);
+  --blob-3-dark: rgba(255, 149, 0, 0.2);
+}
+
+/* Utility classes for glass effects */
+.glass-effect {
+  background: linear-gradient(
+    135deg,
+    var(--glass-bg-start) 0%,
+    var(--glass-bg-end) 100%
+  );
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid var(--glass-border);
+  box-shadow: 
+    0 8px 32px 0 var(--glass-shadow),
+    inset 0 1px 0 0 var(--glass-highlight);
+}
+
+.glass-effect-hover {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.3s ease;
+}
+
+.glass-effect-hover:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 
+    0 12px 40px 0 var(--glass-shadow-hover),
+    inset 0 1px 0 0 var(--glass-highlight);
+}
+
