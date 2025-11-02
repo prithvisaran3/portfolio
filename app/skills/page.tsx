@@ -26,7 +26,6 @@ export default function SkillsPage() {
                 <SkillChip
                   key={skill.name}
                   name={skill.name}
-                  level={skill.level as "expert" | "advanced" | "intermediate" | undefined}
                   index={index}
                 />
               ))}
@@ -39,7 +38,6 @@ export default function SkillsPage() {
                 <SkillChip
                   key={skill.name}
                   name={skill.name}
-                  level={skill.level as "expert" | "advanced" | "intermediate" | undefined}
                   index={index}
                 />
               ))}
@@ -52,7 +50,6 @@ export default function SkillsPage() {
                 <SkillChip
                   key={skill.name}
                   name={skill.name}
-                  level={skill.level as "expert" | "advanced" | "intermediate" | undefined}
                   index={index}
                 />
               ))}
