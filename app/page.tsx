@@ -17,32 +17,6 @@ export default function HomePage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8, y: -10 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ 
-                duration: 0.6,
-                type: "spring",
-                stiffness: 200,
-                damping: 15
-              }}
-              className="mb-8"
-            >
-              <motion.span
-                animate={{
-                  scale: [1, 1.05, 1],
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-                className="inline-block px-6 py-3 md:px-8 md:py-4 rounded-full bg-gradient-to-r from-primary/20 via-primary/15 to-primary/20 dark:from-primary/30 dark:via-primary/20 dark:to-primary/30 text-primary text-lg md:text-xl font-bold mb-4 border-2 border-primary/40 shadow-lg shadow-primary/20 backdrop-blur-sm"
-              >
-                ✨ Available May 2026
-              </motion.span>
-            </motion.div>
-
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 px-4">
               Prithvi Saran Sathyasaran
             </h1>
@@ -54,6 +28,13 @@ export default function HomePage() {
             <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-6">
               Flutter · iOS
             </p>
+
+            {/* Available Badge */}
+            <div className="mb-6">
+              <span className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
+                Available May 2026
+              </span>
+            </div>
 
             {/* Roles Section */}
             <div className="mb-8 px-4">
