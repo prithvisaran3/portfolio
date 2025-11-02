@@ -18,8 +18,8 @@ export default function AboutPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <GlassCard elevation={2} className="p-8">
-            <h2 className="text-2xl font-bold mb-4">Hi, I&apos;m Prithvi Saran Sathyasaran 👋</h2>
+          <GlassCard elevation={2} className="p-4 sm:p-6 md:p-8">
+            <h2 className="text-xl sm:text-2xl font-bold mb-4">Hi, I&apos;m Prithvi Saran Sathyasaran 👋</h2>
             <div className="space-y-4 text-muted-foreground">
             <p>
               I&apos;m a passionate mobile app developer and graduate student at The George Washington University

@@ -33,10 +33,10 @@ export default function ExperiencePage() {
                 <div className="absolute left-6 top-8 w-5 h-5 rounded-full bg-primary border-4 border-background hidden md:block z-10" />
 
                 <div className="md:ml-20">
-                  <GlassCard elevation={2} className="p-8">
+                  <GlassCard elevation={2} className="p-4 sm:p-6 md:p-8">
                     <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6">
                       <div className="flex-1">
-                        <h3 className="text-2xl font-bold mb-2">{exp.role}</h3>
+                        <h3 className="text-xl sm:text-2xl font-bold mb-2">{exp.role}</h3>
                         <div className="flex items-center gap-2 text-primary font-semibold text-lg mb-3">
                           <Briefcase className="w-5 h-5" />
                           <span>{exp.company}</span>

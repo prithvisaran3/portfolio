@@ -23,15 +23,15 @@ export default function HomePage() {
               </span>
             </div>
 
-            <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 px-4">
               Prithvi Saran Sathyasaran
             </h1>
 
-            <p className="text-2xl md:text-3xl text-muted-foreground mb-4">
+            <p className="text-xl sm:text-2xl md:text-3xl text-muted-foreground mb-4">
               Mobile App Developer
             </p>
 
-            <p className="text-lg md:text-xl text-muted-foreground mb-8">
+            <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-8">
               Flutter · iOS · Android
             </p>
 
@@ -46,21 +46,21 @@ export default function HomePage() {
               </div>
             </div>
 
-            <div className="flex flex-wrap items-center justify-center gap-4">
-              <Link href="/projects">
-                <Button size="lg" className="gap-2 rounded-full" variant="glass">
+            <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3 sm:gap-4 px-4 w-full max-w-2xl mx-auto">
+              <Link href="/projects" className="w-full sm:w-auto">
+                <Button size="lg" className="gap-2 rounded-full w-full sm:w-auto" variant="glass">
                   See Projects
                   <ArrowRight className="w-4 h-4" />
                 </Button>
               </Link>
-              <Link href="/contact">
-                <Button size="lg" className="gap-2 rounded-full" variant="glass">
+              <Link href="/contact" className="w-full sm:w-auto">
+                <Button size="lg" className="gap-2 rounded-full w-full sm:w-auto" variant="glass">
                   <Mail className="w-4 h-4" />
                   Contact Me
                 </Button>
               </Link>
-              <a href="/assets/PrithviSaranSathyasaran_Resume.pdf" download>
-                <Button size="lg" className="gap-2 rounded-full" variant="glass">
+              <a href="/assets/PrithviSaranSathyasaran_Resume.pdf" download className="w-full sm:w-auto">
+                <Button size="lg" className="gap-2 rounded-full w-full sm:w-auto" variant="glass">
                   <Download className="w-4 h-4" />
                   Download Resume
                 </Button>
