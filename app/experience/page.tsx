@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useScroll, useSpring, useTransform } from "framer-motion";
+import { motion, useScroll, useSpring } from "framer-motion";
 import { Briefcase, Calendar, MapPin } from "lucide-react";
 import { SectionTitle } from "@/components/ios/SectionTitle";
 import { GlassCard } from "@/components/ios/GlassCard";
