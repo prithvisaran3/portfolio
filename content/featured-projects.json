@@ -9,7 +9,7 @@
       "Seamless camera and ML model integration"
     ],
     "stack": ["Swift", "SwiftUI", "Core ML", "Vision", "NLP"],
-    "url": "https://github.com/prithvisaran3",
+    "url": "https://github.com/prithvisaran3?tab=repositories&q=AuraTranslate",
     "image": "/projects/auratranslate.png",
     "featured": true
   },
@@ -23,7 +23,7 @@
       "Underrepresented perspectives in history"
     ],
     "stack": ["Python", "PyTorch", "LoRA", "Mistral-7B", "HuggingFace"],
-    "url": "https://github.com/prithvisaran3",
+    "url": "https://github.com/prithvisaran3?tab=repositories&q=LoRA",
     "image": "/projects/llm-lora.png",
     "featured": true
   },
@@ -37,7 +37,7 @@
       "Team Lead role with presentation to stakeholders"
     ],
     "stack": ["Python", "XGBoost", "Pandas", "NumPy", "Scikit-learn"],
-    "url": "https://github.com/prithvisaran3",
+    "url": "https://github.com/prithvisaran3?tab=repositories&q=Amazon",
     "image": "/projects/amazon-forecasting.png",
     "featured": true
   },
@@ -79,7 +79,7 @@
       "Firebase for real-time features"
     ],
     "stack": ["Flutter", "MVVM", "WooCommerce", "WordPress", "Firebase"],
-    "url": "https://github.com/prithvisaran3",
+    "url": "https://github.com/prithvisaran3?tab=repositories&q=WooCommerce",
     "image": "/projects/woocommerce.png",
     "featured": true
   }

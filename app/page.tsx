@@ -17,11 +17,31 @@ export default function HomePage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <div className="mb-6">
-              <span className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
-                Available May 2026
-              </span>
-            </div>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8, y: -10 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ 
+                duration: 0.6,
+                type: "spring",
+                stiffness: 200,
+                damping: 15
+              }}
+              className="mb-8"
+            >
+              <motion.span
+                animate={{
+                  scale: [1, 1.05, 1],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+                className="inline-block px-6 py-3 md:px-8 md:py-4 rounded-full bg-gradient-to-r from-primary/20 via-primary/15 to-primary/20 dark:from-primary/30 dark:via-primary/20 dark:to-primary/30 text-primary text-lg md:text-xl font-bold mb-4 border-2 border-primary/40 shadow-lg shadow-primary/20 backdrop-blur-sm"
+              >
+                ✨ Available May 2026
+              </motion.span>
+            </motion.div>
 
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 px-4">
               Prithvi Saran Sathyasaran
@@ -31,9 +51,27 @@ export default function HomePage() {
               Mobile App Developer
             </p>
 
-            <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-8">
-              Flutter · iOS · Android
+            <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-6">
+              Flutter · iOS
             </p>
+
+            {/* Roles Section */}
+            <div className="mb-8 px-4">
+              <p className="text-sm text-muted-foreground mb-3 font-medium">Seeking Full-Time Roles:</p>
+              <div className="flex flex-wrap items-center justify-center gap-2">
+                {["Software Engineer", "Software Developer", "Mobile App Developer", "Machine Learning Engineer", "ML Engineer"].map((role, index) => (
+                  <motion.span
+                    key={role}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.7 + index * 0.1 }}
+                    className="px-3 py-1.5 text-xs md:text-sm rounded-full bg-secondary/50 text-secondary-foreground border border-border/50"
+                  >
+                    {role}
+                  </motion.span>
+                ))}
+              </div>
+            </div>
 
             <div className="flex items-center justify-center gap-4 text-sm text-muted-foreground mb-12">
               <div className="flex items-center gap-1.5">
