@@ -11,7 +11,8 @@
     "stack": ["Swift", "SwiftUI", "Core ML", "Vision", "NLP"],
     "url": "https://github.com/prithvisaran3?tab=repositories&q=AuraTranslate",
     "image": "/projects/auratranslate.png",
-    "featured": true
+    "featured": true,
+    "inProgress": true
   },
   {
     "name": "LLM Fine-Tuning with LoRA",
@@ -25,7 +26,8 @@
     "stack": ["Python", "PyTorch", "LoRA", "Mistral-7B", "HuggingFace"],
     "url": "https://github.com/prithvisaran3?tab=repositories&q=LoRA",
     "image": "/projects/llm-lora.png",
-    "featured": true
+    "featured": true,
+    "inProgress": true
   },
   {
     "name": "Amazon Retail Sales Forecasting",

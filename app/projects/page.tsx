@@ -32,10 +32,17 @@ async function ProjectsContent() {
               <GlassCard interactive elevation={2} className="p-6 h-full group">
                 <div className="flex flex-col h-full">
                   <div className="flex items-start justify-between mb-3">
-                    <h3 className="text-xl font-semibold group-hover:text-primary transition-colors">
-                      {project.name}
-                    </h3>
-                    <ExternalLink className="w-4 h-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <div className="flex-1">
+                      <h3 className="text-xl font-semibold group-hover:text-primary transition-colors">
+                        {project.name}
+                      </h3>
+                      {"inProgress" in project && project.inProgress && (
+                        <span className="inline-block mt-2 px-3 py-1 text-xs font-semibold rounded-full bg-primary/20 text-primary border border-primary/30">
+                          In Progress Project
+                        </span>
+                      )}
+                    </div>
+                    <ExternalLink className="w-4 h-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0 ml-2" />
                   </div>
 
                   <p className="text-sm text-muted-foreground mb-4">

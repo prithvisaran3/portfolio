@@ -23,6 +23,7 @@ export interface Education {
   grad: string;
   location?: string;
   gpa?: string;
+  coursework?: string[];
 }
 
 export interface Resume {
@@ -240,6 +241,18 @@ export const resumeData: Resume = {
       degree: "M.S. in Computer Science",
       grad: "May 2026",
       location: "Washington, DC",
+      gpa: "3.81",
+      coursework: [
+        "Design Analysis and Algorithm",
+        "Computer System Architecture",
+        "Advanced Software Paradigms",
+        "Cloud Computing",
+        "Database Management System II",
+        "Machine Learning",
+        "Neural Networks and Deep Learning",
+        "Computer Vision",
+        "Software Engineering",
+      ],
     },
     {
       school: "Vellore Institute of Technology",

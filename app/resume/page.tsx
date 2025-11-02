@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Download, ExternalLink, Briefcase, GraduationCap, Award } from "lucide-react";
+import { Download, ExternalLink, Briefcase, GraduationCap, Award, BookOpen } from "lucide-react";
 import { SectionTitle } from "@/components/ios/SectionTitle";
 import { GlassCard } from "@/components/ios/GlassCard";
 import { Button } from "@/components/ui/button";
@@ -22,6 +22,59 @@ export default function ResumePage() {
         </div>
 
         <div className="space-y-12">
+          {/* Education - Moved to Top */}
+          <section>
+            <div className="flex items-center gap-2 mb-6">
+              <GraduationCap className="w-6 h-6 text-primary" />
+              <h2 className="text-3xl font-bold">Education</h2>
+            </div>
+            <div className="space-y-6">
+              {resumeData.education.map((edu, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: index * 0.1 }}
+                >
+                  <GlassCard elevation={2} className="p-6">
+                    <div className="flex items-start justify-between mb-4">
+                      <div className="flex-1">
+                        <h3 className="text-xl font-semibold">{edu.degree}</h3>
+                        <p className="text-primary font-medium">{edu.school}</p>
+                        {edu.gpa && (
+                          <p className="text-sm font-semibold text-muted-foreground mt-1">GPA: {edu.gpa}</p>
+                        )}
+                      </div>
+                      <div className="text-right text-sm text-muted-foreground">
+                        <p>{edu.grad}</p>
+                        {edu.location && <p>{edu.location}</p>}
+                      </div>
+                    </div>
+                    {edu.coursework && edu.coursework.length > 0 && (
+                      <div className="mt-4 pt-4 border-t border-border">
+                        <div className="flex items-center gap-2 mb-3">
+                          <BookOpen className="w-4 h-4 text-primary" />
+                          <p className="text-sm font-semibold text-foreground">Relevant Coursework:</p>
+                        </div>
+                        <div className="flex flex-wrap gap-2">
+                          {edu.coursework.map((course, i) => (
+                            <span
+                              key={i}
+                              className="px-3 py-1.5 text-xs rounded-full bg-primary/10 text-primary border border-primary/20"
+                            >
+                              {course}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </GlassCard>
+                </motion.div>
+              ))}
+            </div>
+          </section>
+
           {/* Experience */}
           <section>
             <div className="flex items-center gap-2 mb-6">
@@ -130,41 +183,6 @@ export default function ResumePage() {
             </div>
           </section>
 
-          {/* Education */}
-          <section>
-            <div className="flex items-center gap-2 mb-6">
-              <GraduationCap className="w-6 h-6 text-primary" />
-              <h2 className="text-3xl font-bold">Education</h2>
-            </div>
-            <div className="space-y-6">
-              {resumeData.education.map((edu, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4 }}
-                >
-                  <GlassCard elevation={2} className="p-6">
-                    <div className="flex items-start justify-between">
-                      <div>
-                        <h3 className="text-xl font-semibold">{edu.degree}</h3>
-                        <p className="text-primary font-medium">{edu.school}</p>
-                        {edu.gpa && (
-                          <p className="text-sm text-muted-foreground mt-1">GPA: {edu.gpa}</p>
-                        )}
-                      </div>
-                      <div className="text-right text-sm text-muted-foreground">
-                        <p>{edu.grad}</p>
-                        {edu.location && <p>{edu.location}</p>}
-                      </div>
-                    </div>
-                  </GlassCard>
-                </motion.div>
-              ))}
-            </div>
-          </section>
-
           {/* Certifications */}
           {resumeData.certifications && resumeData.certifications.length > 0 && (
             <section>
@@ -199,4 +217,3 @@ export default function ResumePage() {
     </div>
   );
 }
-
