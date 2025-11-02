@@ -5,25 +5,60 @@ import { Briefcase, Calendar, MapPin } from "lucide-react";
 import { SectionTitle } from "@/components/ios/SectionTitle";
 import { GlassCard } from "@/components/ios/GlassCard";
 import { resumeData } from "@/lib/resume";
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 
 export default function ExperiencePage() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const timelineRef = useRef<HTMLDivElement>(null);
+  const [cardPositions, setCardPositions] = useState<number[]>([]);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  // Track scroll progress more accurately
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start center", "end center"],
+    offset: ["start 60%", "end 40%"],
   });
 
-  // Enhanced spring animation
+  // Enhanced spring animation for progress bar
   const scaleY = useSpring(scrollYProgress, {
-    stiffness: 150,
+    stiffness: 100,
     damping: 30,
     restDelta: 0.001,
   });
 
-  // Calculate positions for timeline dots based on actual card positions
-  const totalItems = resumeData.experience.length;
-  const dotPositions = resumeData.experience.map((_, index) => index / (totalItems - 1 || 1));
+  // Calculate dot positions based on actual card positions
+  useEffect(() => {
+    const updatePositions = () => {
+      if (!timelineRef.current || cardRefs.current.length === 0) return;
+
+      const timelineTop = timelineRef.current.offsetTop;
+      const timelineHeight = timelineRef.current.offsetHeight;
+
+      const positions = cardRefs.current
+        .filter((ref) => ref !== null)
+        .map((ref) => {
+          if (!ref) return 0;
+          const cardTop = ref.offsetTop;
+          // Position dot at top of card (where connecting line is) - accounting for top-8 (32px)
+          const dotPosition = (cardTop - timelineTop + 32) / timelineHeight;
+          return Math.max(0, Math.min(1, dotPosition));
+        });
+
+      setCardPositions(positions.length > 0 ? positions : []);
+    };
+
+    updatePositions();
+    window.addEventListener("resize", updatePositions);
+    window.addEventListener("scroll", updatePositions);
+
+    // Update after a short delay to ensure layout is complete
+    setTimeout(updatePositions, 100);
+
+    return () => {
+      window.removeEventListener("resize", updatePositions);
+      window.removeEventListener("scroll", updatePositions);
+    };
+  }, []);
 
   return (
     <div className="container mx-auto px-4 py-20">
@@ -36,55 +71,66 @@ export default function ExperiencePage() {
         <div ref={containerRef} className="relative">
           <div className="relative">
             {/* Left Side Timeline */}
-            <div className="absolute left-8 top-0 bottom-0 w-0.5 hidden md:block">
+            <div
+              ref={timelineRef}
+              className="absolute left-8 top-0 bottom-0 w-0.5 hidden md:block"
+            >
               {/* Background Line */}
               <div className="absolute inset-0 bg-gradient-to-b from-primary/20 via-primary/40 to-transparent" />
-              
+
               {/* Animated Progress Fill */}
               <motion.div
                 className="absolute top-0 left-0 w-full origin-top bg-gradient-to-b from-primary via-primary/80 to-primary/40 shadow-lg shadow-primary/20"
                 style={{ scaleY }}
               />
 
-              {/* Timeline Dots with Enhanced Animations */}
-              {resumeData.experience.map((_, index) => (
-                <motion.div
-                  key={index}
-                  className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2"
-                  style={{
-                    top: `${dotPositions[index] * 100}%`,
-                  }}
-                  initial={{ scale: 0, opacity: 0 }}
-                  whileInView={{ 
-                    scale: [0, 1.2, 1],
-                    opacity: [0, 1, 1],
-                  }}
-                  viewport={{ once: false, margin: "-100px" }}
-                  transition={{
-                    duration: 0.6,
-                    delay: index * 0.15,
-                    type: "spring",
-                    stiffness: 200,
-                    damping: 15,
-                  }}
-                >
-                  {/* Pulsing Glow Effect */}
+              {/* Timeline Dots - Positioned at actual card intersections */}
+              {resumeData.experience.map((_, index) => {
+                // Use calculated positions if available, otherwise fallback to even distribution
+                const position =
+                  cardPositions[index] !== undefined
+                    ? cardPositions[index]
+                    : index / (resumeData.experience.length - 1 || 1);
+
+                return (
                   <motion.div
-                    className="absolute inset-0 rounded-full bg-primary/30 blur-md"
-                    animate={{
-                      scale: [1, 1.5, 1],
-                      opacity: [0.5, 0, 0.5],
+                    key={index}
+                    className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 z-10"
+                    style={{
+                      top: `${position * 100}%`,
                     }}
+                    initial={{ scale: 0, opacity: 0 }}
+                    whileInView={{
+                      scale: [0, 1.2, 1],
+                      opacity: [0, 1, 1],
+                    }}
+                    viewport={{ once: true, margin: "-50px" }}
                     transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      ease: "easeInOut",
+                      duration: 0.5,
+                      delay: index * 0.1,
+                      type: "spring",
+                      stiffness: 200,
+                      damping: 15,
                     }}
-                  />
-                  {/* Main Dot */}
-                  <div className="relative w-6 h-6 rounded-full bg-primary border-4 border-background shadow-xl shadow-primary/30" />
-                </motion.div>
-              ))}
+                  >
+                    {/* Pulsing Glow Effect */}
+                    <motion.div
+                      className="absolute inset-0 rounded-full bg-primary/30 blur-md"
+                      animate={{
+                        scale: [1, 1.5, 1],
+                        opacity: [0.5, 0, 0.5],
+                      }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                      }}
+                    />
+                    {/* Main Dot - perfectly aligned */}
+                    <div className="relative w-5 h-5 rounded-full bg-primary border-4 border-background shadow-xl shadow-primary/30" />
+                  </motion.div>
+                );
+              })}
             </div>
 
             {/* Content Cards */}
@@ -94,9 +140,12 @@ export default function ExperiencePage() {
                 return (
                   <motion.div
                     key={index}
+                    ref={(el) => {
+                      cardRefs.current[index] = el;
+                    }}
                     initial={{ opacity: 0, x: isEven ? -50 : 50 }}
                     whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: false, margin: "-100px" }}
+                    viewport={{ once: true, margin: "-100px" }}
                     transition={{
                       duration: 0.7,
                       delay: index * 0.15,
@@ -106,7 +155,7 @@ export default function ExperiencePage() {
                     }}
                     className="relative"
                   >
-                    {/* Connecting Line from Timeline */}
+                    {/* Connecting Line from Timeline - aligned with dot */}
                     <div className="absolute -left-12 top-8 w-12 h-0.5 bg-gradient-to-r from-primary/40 to-transparent hidden md:block" />
 
                     <motion.div
