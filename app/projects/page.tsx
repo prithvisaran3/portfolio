@@ -45,7 +45,7 @@ async function ProjectsContent() {
                         <div className="flex flex-wrap gap-2 mt-2">
                           {"inProgress" in project && project.inProgress && (
                             <span className="inline-block px-3 py-1 text-xs font-semibold rounded-full bg-primary/20 text-primary border border-primary/30">
-                              In Progress Project
+                              In Progress
                             </span>
                           )}
                           {isPublished && (

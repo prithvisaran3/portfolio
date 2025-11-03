@@ -40,7 +40,7 @@ export default function HomePage() {
             <div className="mb-8 px-4">
               <p className="text-sm text-muted-foreground mb-3 font-medium">Seeking Full-Time Roles:</p>
               <div className="flex flex-wrap items-center justify-center gap-2">
-                {["Software Engineer", "Software Developer", "Mobile App Developer", "Machine Learning Engineer", "ML Engineer"].map((role, index) => (
+                {["Software Engineer", "Software Developer", "Mobile App Developer", "Machine Learning Engineer", "Cloud Engineer"].map((role, index) => (
                   <motion.span
                     key={role}
                     initial={{ opacity: 0, y: 10 }}
