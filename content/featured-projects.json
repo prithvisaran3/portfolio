@@ -16,6 +16,24 @@
     "featured": true
   },
   {
+    "name": "Prommuni - Roommate Finder",
+    "description": "Production roommate finder app available on App Store and Google Play. Built with Flutter for iOS and Android with real-time chat, geolocation, and smooth liquid UI.",
+    "highlights": [
+      "Live on App Store and Google Play Store",
+      "Flutter with MVC + GetX architecture",
+      "Supabase backend with cloud functions",
+      "Real-time chat and Mapbox geolocation features",
+      "Smart location selection for 8 major cities"
+    ],
+    "stack": ["Flutter", "GetX", "Supabase", "Mapbox", "MVC"],
+    "url": "https://github.com/prithvisaran3/Prommuni",
+    "appStoreUrl": "https://apps.apple.com/us/app/prommuni/id6747644654",
+    "playStoreUrl": "https://play.google.com/store/apps/details?id=com.prommuni.app",
+    "image": "/projects/prommuni.png",
+    "featured": true,
+    "published": true
+  },
+  {
     "name": "AuraTranslate",
     "description": "iOS native app with ML packages for live translation through images with fluid UI. Current project.",
     "highlights": [
@@ -75,17 +93,21 @@
   },
   {
     "name": "Prommuni - Roommate Finder",
-    "description": "Roommate finder app with real-time chat and smooth liquid UI for iOS and Android.",
+    "description": "Production roommate finder app available on App Store and Google Play. Built with Flutter for iOS and Android with real-time chat, geolocation, and smooth liquid UI.",
     "highlights": [
+      "Live on App Store and Google Play Store",
       "Flutter with MVC + GetX architecture",
       "Supabase backend with cloud functions",
-      "Real-time chat and geolocation features",
-      "Smooth liquid UI across platforms"
+      "Real-time chat and Mapbox geolocation features",
+      "Smart location selection for 8 major cities"
     ],
     "stack": ["Flutter", "GetX", "Supabase", "Mapbox", "MVC"],
     "url": "https://github.com/prithvisaran3/Prommuni",
+    "appStoreUrl": "https://apps.apple.com/us/app/prommuni/id6747644654",
+    "playStoreUrl": "https://play.google.com/store/apps/details?id=com.prommuni.app",
     "image": "/projects/prommuni.png",
-    "featured": true
+    "featured": true,
+    "published": true
   },
   {
     "name": "WooCommerce Flutter App",
