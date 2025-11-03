@@ -73,7 +73,7 @@
       "Team Lead role with presentation to stakeholders"
     ],
     "stack": ["Python", "XGBoost", "Pandas", "NumPy", "Scikit-learn"],
-    "url": "https://github.com/prithvisaran3?tab=repositories&q=Amazon",
+    "url": "https://github.com/prithvisaran3/Amazon-Sales-Forecasting",
     "image": "/projects/amazon-forecasting.png",
     "featured": true
   },
@@ -87,27 +87,9 @@
       "Google Maps API for local connections"
     ],
     "stack": ["Swift", "SwiftUI", "Firebase", "Supabase", "Google Maps"],
-    "url": "https://github.com/prithvisaran3/Pawfect",
+    "url": "https://github.com/prithvisaran3/CSCI_6221-PAWFECT",
     "image": "/projects/pawfect.png",
     "featured": true
-  },
-  {
-    "name": "Prommuni - Roommate Finder",
-    "description": "Production roommate finder app available on App Store and Google Play. Built with Flutter for iOS and Android with real-time chat, geolocation, and smooth liquid UI.",
-    "highlights": [
-      "Live on App Store and Google Play Store",
-      "Flutter with MVC + GetX architecture",
-      "Supabase backend with cloud functions",
-      "Real-time chat and Mapbox geolocation features",
-      "Smart location selection for 8 major cities"
-    ],
-    "stack": ["Flutter", "GetX", "Supabase", "Mapbox", "MVC"],
-    "url": "https://github.com/prithvisaran3/Prommuni",
-    "appStoreUrl": "https://apps.apple.com/us/app/prommuni/id6747644654",
-    "playStoreUrl": "https://play.google.com/store/apps/details?id=com.prommuni.app",
-    "image": "/projects/prommuni.png",
-    "featured": true,
-    "published": true
   },
   {
     "name": "WooCommerce Flutter App",
@@ -119,8 +101,22 @@
       "Firebase for real-time features"
     ],
     "stack": ["Flutter", "MVVM", "WooCommerce", "WordPress", "Firebase"],
-    "url": "https://github.com/prithvisaran3?tab=repositories&q=WooCommerce",
+    "url": "https://github.com/prithvisaran3/WooCommerce_Flutter",
     "image": "/projects/woocommerce.png",
+    "featured": true
+  },
+  {
+    "name": "Oxford Psych LMS Mobile App",
+    "description": "Dive into seamless learning with our Flutter-powered GitHub LMS app. Utilizing GetX for efficient state management and Rest API for secure access to a private database, this app ensures a personalized and visually engaging learning experience.",
+    "highlights": [
+      "Flutter-powered Learning Management System",
+      "GetX for efficient state management",
+      "REST API integration with private database",
+      "Personalized and visually engaging learning experience"
+    ],
+    "stack": ["Flutter", "GetX", "REST API", "Firebase"],
+    "url": "https://github.com/prithvisaran3/oxfordpsych_lms",
+    "image": "/projects/oxford-psych.png",
     "featured": true
   }
 ]
