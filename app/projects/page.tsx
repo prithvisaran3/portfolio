@@ -13,6 +13,25 @@ export const metadata = createMetadata("Projects", "Explore my mobile and web de
 async function ProjectsContent() {
   const repos = await getGitHubRepos();
 
+  // Sort projects: In Progress projects first, then published, then others
+  const sortedProjects = [...featuredProjects].sort((a, b) => {
+    const aInProgress = "inProgress" in a && a.inProgress ? 1 : 0;
+    const bInProgress = "inProgress" in b && b.inProgress ? 1 : 0;
+    const aPublished = "published" in a && a.published ? 1 : 0;
+    const bPublished = "published" in b && b.published ? 1 : 0;
+    
+    // In Progress projects first
+    if (aInProgress !== bInProgress) {
+      return bInProgress - aInProgress;
+    }
+    // Then published projects
+    if (aPublished !== bPublished) {
+      return bPublished - aPublished;
+    }
+    // Keep original order for others
+    return 0;
+  });
+
   return (
     <div className="container mx-auto px-4 py-20">
       {/* Featured Projects */}
@@ -22,7 +41,7 @@ async function ProjectsContent() {
         </SectionTitle>
 
         <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-          {featuredProjects.map((project, index) => {
+          {sortedProjects.map((project, index) => {
             const hasStoreLinks = "appStoreUrl" in project || "playStoreUrl" in project;
             const isPublished = "published" in project && project.published;
             
