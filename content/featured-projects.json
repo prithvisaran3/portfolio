@@ -1,5 +1,21 @@
 [
   {
+    "name": "iOS Liquid Glass Portfolio",
+    "description": "Premium portfolio website with iOS-inspired liquid glass design, featuring dynamic animations, dark/light mode, and fully responsive layout.",
+    "highlights": [
+      "Built with Next.js 14 App Router for optimal performance",
+      "iOS-inspired liquid glass morphism with backdrop blur effects",
+      "Framer Motion animations with spring physics and parallax",
+      "Fully responsive design optimized for all devices",
+      "SEO optimized with sitemap and Open Graph support",
+      "Accessible by default with WCAG compliance"
+    ],
+    "stack": ["Next.js", "TypeScript", "React", "Tailwind CSS", "Framer Motion", "Radix UI", "shadcn/ui"],
+    "url": "https://github.com/prithvisaran3/portfolio",
+    "image": "/projects/portfolio.png",
+    "featured": true
+  },
+  {
     "name": "AuraTranslate",
     "description": "iOS native app with ML packages for live translation through images with fluid UI. Current project.",
     "highlights": [

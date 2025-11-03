@@ -21,6 +21,8 @@
     { "name": "Node.js", "level": "advanced" },
     { "name": "React", "level": "advanced" },
     { "name": "Next.js", "level": "advanced" },
+    { "name": "Tailwind CSS", "level": "advanced" },
+    { "name": "Framer Motion", "level": "advanced" },
     { "name": "GetX", "level": "expert" },
     { "name": "Riverpod", "level": "advanced" },
     { "name": "PyTorch", "level": "advanced" },
@@ -47,7 +49,9 @@
     { "name": "WooCommerce", "level": "advanced" },
     { "name": "RIVE", "level": "intermediate" },
     { "name": "HuggingFace", "level": "advanced" },
-    { "name": "LoRA", "level": "intermediate" }
+    { "name": "LoRA", "level": "intermediate" },
+    { "name": "Radix UI", "level": "advanced" },
+    { "name": "shadcn/ui", "level": "advanced" }
   ]
 }
 
