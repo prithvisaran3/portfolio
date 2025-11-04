@@ -15,6 +15,7 @@ interface ProjectCardProps {
     published?: boolean;
     appStoreUrl?: string;
     playStoreUrl?: string;
+    hideGitHubLink?: boolean;
   };
   index: number;
 }
@@ -110,16 +111,18 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
                 )}
               </div>
             )}
-            <a
-              href={project.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 px-3 py-2 text-xs font-medium rounded-lg bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 transition-colors border border-border/50 text-muted-foreground hover:text-foreground"
-            >
-              <Github className="w-3.5 h-3.5" />
-              <span>View on GitHub</span>
-              <ExternalLink className="w-3 h-3" />
-            </a>
+            {!project.hideGitHubLink && (
+              <a
+                href={project.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-2 px-3 py-2 text-xs font-medium rounded-lg bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 transition-colors border border-border/50 text-muted-foreground hover:text-foreground"
+              >
+                <Github className="w-3.5 h-3.5" />
+                <span>View on GitHub</span>
+                <ExternalLink className="w-3 h-3" />
+              </a>
+            )}
           </div>
         </div>
       </GlassCard>

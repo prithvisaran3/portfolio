@@ -12,25 +12,45 @@ export const metadata = createMetadata("Projects", "Explore my mobile and web de
 async function ProjectsContent() {
   const repos = await getGitHubRepos();
 
-  // Sort projects: In Progress first, then latest (newest), then older
+  // Define priority projects (most recent) that should appear after in-progress
+  const priorityProjectNames = new Set([
+    "Prommuni - Roommate Finder",
+    "iOS Liquid Glass Portfolio",
+    "Amazon Retail Sales Forecasting",
+    "Pawfect - Pet Dating iOS App",
+  ]);
+
+  // Sort projects: In Progress first, then priority projects, then latest (newest), then older
   const sortedProjects = [...featuredProjects]
     .map((project, originalIndex) => ({ project, originalIndex }))
     .sort((a, b) => {
       const aInProgress = "inProgress" in a.project && a.project.inProgress ? 1 : 0;
       const bInProgress = "inProgress" in b.project && b.project.inProgress ? 1 : 0;
+      const aIsPriority = priorityProjectNames.has(a.project.name) ? 1 : 0;
+      const bIsPriority = priorityProjectNames.has(b.project.name) ? 1 : 0;
       
       // In Progress projects first
       if (aInProgress !== bInProgress) {
         return bInProgress - aInProgress;
       }
       
-      // For non-in-progress projects, sort by original index (newest first)
+      // If both are in-progress, keep original order
+      if (aInProgress === 1 && bInProgress === 1) {
+        return 0;
+      }
+      
+      // After in-progress, priority projects next
+      if (aIsPriority !== bIsPriority) {
+        return bIsPriority - aIsPriority;
+      }
+      
+      // For non-priority projects, sort by original index (newest first)
       // Higher index = newer project (since new projects are added at the end)
-      if (aInProgress === 0 && bInProgress === 0) {
+      if (aIsPriority === 0 && bIsPriority === 0) {
         return b.originalIndex - a.originalIndex;
       }
       
-      // For in-progress projects, keep original order
+      // For priority projects, keep original order
       return 0;
     })
     .map(({ project }) => project);
@@ -91,6 +111,7 @@ async function ProjectsContent() {
                 published: "published" in project && project.published ? true : undefined,
                 appStoreUrl: "appStoreUrl" in project ? project.appStoreUrl : undefined,
                 playStoreUrl: "playStoreUrl" in project ? project.playStoreUrl : undefined,
+                hideGitHubLink: project.name === "Prommuni - Roommate Finder",
               }}
               index={index}
             />
