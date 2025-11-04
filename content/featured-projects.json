@@ -118,6 +118,60 @@
     "url": "https://github.com/prithvisaran3/oxfordpsych_lms",
     "image": "/projects/oxford-psych.png",
     "featured": true
+  },
+  {
+    "name": "Drillhub",
+    "description": "A soccer academy app for coaches and players to schedule events, add drills with videos, handle payments, and check-in paid attendees. Built with Flutter and Riverpod with Firebase backend, supporting multi-organization and group structures.",
+    "highlights": [
+      "Event scheduling and drill management",
+      "Payments and attendance check-in",
+      "Role-based access for coaches and players",
+      "Multi-organization, group support"
+    ],
+    "stack": ["Flutter", "Riverpod", "Firebase", "Stripe"],
+    "url": "https://github.com/prithvisaran3?tab=repositories&q=Drillhub",
+    "image": "/projects/drillhub.png",
+    "featured": true,
+    "inProgress": true
+  },
+  {
+    "name": "Tune 360",
+    "description": "A Flutter music streaming app using JioSaavn and YouTube APIs to play songs online.",
+    "highlights": [
+      "JioSaavn API integration",
+      "YouTube audio streaming",
+      "Clean Flutter architecture"
+    ],
+    "stack": ["Flutter", "JioSaavn API", "YouTube API"],
+    "url": "https://github.com/prithvisaran3/tune_360",
+    "image": "/projects/tune360.png",
+    "featured": true
+  },
+  {
+    "name": "Bookstore",
+    "description": "Book discovery mobile app using the Google Books API.",
+    "highlights": [
+      "Search and browse books",
+      "Google Books API integration",
+      "Responsive Flutter UI"
+    ],
+    "stack": ["Flutter", "Google Books API"],
+    "url": "https://github.com/prithvisaran3/Bookstore",
+    "image": "/projects/bookstore.png",
+    "featured": true
+  },
+  {
+    "name": "Employee Management",
+    "description": "Flutter + Supabase employee management with geofencing. Automatically clocks in employees when entering a radius and clocks out when leaving.",
+    "highlights": [
+      "Supabase backend",
+      "Geofencing auto clock-in/out",
+      "Location and geocoding"
+    ],
+    "stack": ["Flutter", "Supabase", "Geocoding", "Geofencing"],
+    "url": "https://github.com/prithvisaran3/employee_management",
+    "image": "/projects/employee-mgmt.png",
+    "featured": true
   }
 ]
 

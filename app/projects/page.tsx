@@ -12,23 +12,46 @@ export const metadata = createMetadata("Projects", "Explore my mobile and web de
 async function ProjectsContent() {
   const repos = await getGitHubRepos();
 
-  // Sort projects: In Progress projects first, then published, then others
-  const sortedProjects = [...featuredProjects].sort((a, b) => {
-    const aInProgress = "inProgress" in a && a.inProgress ? 1 : 0;
-    const bInProgress = "inProgress" in b && b.inProgress ? 1 : 0;
-    const aPublished = "published" in a && a.published ? 1 : 0;
-    const bPublished = "published" in b && b.published ? 1 : 0;
-    
-    // In Progress projects first
-    if (aInProgress !== bInProgress) {
-      return bInProgress - aInProgress;
-    }
-    // Then published projects
-    if (aPublished !== bPublished) {
-      return bPublished - aPublished;
-    }
-    // Keep original order for others
-    return 0;
+  // Sort projects: In Progress first, then latest (newest), then older
+  const sortedProjects = [...featuredProjects]
+    .map((project, originalIndex) => ({ project, originalIndex }))
+    .sort((a, b) => {
+      const aInProgress = "inProgress" in a.project && a.project.inProgress ? 1 : 0;
+      const bInProgress = "inProgress" in b.project && b.project.inProgress ? 1 : 0;
+      
+      // In Progress projects first
+      if (aInProgress !== bInProgress) {
+        return bInProgress - aInProgress;
+      }
+      
+      // For non-in-progress projects, sort by original index (newest first)
+      // Higher index = newer project (since new projects are added at the end)
+      if (aInProgress === 0 && bInProgress === 0) {
+        return b.originalIndex - a.originalIndex;
+      }
+      
+      // For in-progress projects, keep original order
+      return 0;
+    })
+    .map(({ project }) => project);
+
+  // Extract repository names from featured projects URLs
+  const featuredRepoNames = new Set(
+    featuredProjects
+      .map((project) => {
+        const url = project.url;
+        if (!url || !url.includes("github.com")) return null;
+        // Extract repo name from URL like "https://github.com/prithvisaran3/repo-name"
+        const match = url.match(/github\.com\/[^/]+\/([^/?]+)/);
+        return match ? match[1].toLowerCase() : null;
+      })
+      .filter((name): name is string => name !== null)
+  );
+
+  // Filter out repositories that are already in featured projects
+  const filteredRepos = repos.filter((repo) => {
+    const repoName = repo.name.toLowerCase();
+    return !featuredRepoNames.has(repoName);
   });
 
   return (
@@ -67,9 +90,9 @@ async function ProjectsContent() {
         </SectionTitle>
 
         <div className="max-w-6xl mx-auto">
-          {repos.length > 0 ? (
+          {filteredRepos.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {repos.map((repo, index) => (
+              {filteredRepos.map((repo, index) => (
                 <RepoCard key={repo.id} repo={repo} index={index} />
               ))}
             </div>
