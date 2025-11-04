@@ -48,10 +48,25 @@ async function ProjectsContent() {
       .filter((name): name is string => name !== null)
   );
 
-  // Filter out repositories that are already in featured projects
+  // Additional repos to exclude: LMS, ExSpends, AuraTranslate
+  const excludedRepoNames = new Set([
+    "oxfordpsych_lms",
+    "exspends",
+    "auratranslate",
+    ...Array.from(featuredRepoNames),
+  ]);
+
+  // Only include these specific repos
+  const allowedRepoNames = new Set([
+    "basic_template",
+    "gsoc2025_pocket_paint",
+  ]);
+
+  // Filter repositories: only show allowed repos that are not excluded
   const filteredRepos = repos.filter((repo) => {
     const repoName = repo.name.toLowerCase();
-    return !featuredRepoNames.has(repoName);
+    // Must be in allowed list AND not in excluded list
+    return allowedRepoNames.has(repoName) && !excludedRepoNames.has(repoName);
   });
 
   return (

@@ -172,6 +172,21 @@
     "url": "https://github.com/prithvisaran3/employee_management",
     "image": "/projects/employee-mgmt.png",
     "featured": true
+  },
+  {
+    "name": "ExSpends AI",
+    "description": "Expense tracker with AI insights and expense splitting between people. QR scanner to scan bills. Built using Flutter, Provider, and ML models.",
+    "highlights": [
+      "AI-powered expense insights",
+      "QR code bill scanning",
+      "Expense splitting between multiple people",
+      "ML models for expense categorization"
+    ],
+    "stack": ["Flutter", "Provider", "ML Models", "QR Scanner"],
+    "url": "https://github.com/prithvisaran3/exspends-ai",
+    "image": "/projects/exspends-ai.png",
+    "featured": true,
+    "inProgress": true
   }
 ]
 
