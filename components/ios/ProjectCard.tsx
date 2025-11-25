@@ -47,12 +47,12 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
               </h3>
               <div className="flex flex-wrap gap-2 mt-2">
                 {project.award && (
-                  <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-full border ${
+                  <span className={`inline-flex items-center gap-1.5 px-3 py-1 text-xs font-semibold rounded-full border ${
                     project.isAwardWinner 
-                      ? "bg-green-500/30 text-green-400 border-green-500/50 shadow-lg shadow-green-500/20" 
+                      ? "bg-green-500/20 text-green-500 border-green-500/30" 
                       : "bg-yellow-500/20 text-yellow-500 border-yellow-500/30"
                   }`}>
-                    <Award className="w-3.5 h-3.5" />
+                    <Award className="w-3 h-3" />
                     <span>{project.award}</span>
                   </span>
                 )}
