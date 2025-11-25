@@ -109,6 +109,20 @@ export const resumeData: Resume = {
   ],
   projects: [
     {
+      name: "BarterBrAIn — AI-Powered Bartering App for Students",
+      timeframe: "Jan 2025",
+      description: "Cross-platform mobile app helping students exchange goods through an intelligent, AI-powered bartering ecosystem. Built in 24 hours for Technica 2025 hackathon, winning Best Hack for Social Good.",
+      highlights: [
+        "AI-powered price prediction using Google Gemini via Firebase Cloud Functions, analyzing product images, description, brand, quality, and age to generate fair value estimates with confidence scores",
+        "AI negotiation assistant integrated in in-app chat, analyzing both users' products and chat history to suggest optimal negotiation messages in real-time",
+        "Secure payment handling with Capital One Hackathon API for peer-to-peer settlement when item values are unequal, with full transaction history logging",
+        "Sustainability impact tracking calculating CO₂ emissions saved after each successful swap, promoting eco-friendly behavior",
+        "Built complete Flutter app with Firebase Authentication, real-time database, product listing, search, and smart recommendations in under 24 hours",
+      ],
+      stack: ["Flutter", "Firebase", "Gemini API", "Capital One API", "Dart", "GCP"],
+      url: "https://github.com/prithvisaran3?tab=repositories&q=BarterBrAIn",
+    },
+    {
       name: "AuraTranslate",
       timeframe: "Oct 2025 – Present",
       description: "iOS native app with ML packages for live translation through images with fluid UI",

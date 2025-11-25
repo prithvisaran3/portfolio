@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { GlassCard } from "./GlassCard";
-import { ExternalLink, Smartphone, Github } from "lucide-react";
+import { ExternalLink, Smartphone, Github, Award } from "lucide-react";
 
 interface ProjectCardProps {
   project: {
@@ -16,6 +16,7 @@ interface ProjectCardProps {
     appStoreUrl?: string;
     playStoreUrl?: string;
     hideGitHubLink?: boolean;
+    award?: string;
   };
   index: number;
 }
@@ -41,6 +42,12 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
                 {project.name}
               </h3>
               <div className="flex flex-wrap gap-2 mt-2">
+                {project.award && (
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-semibold rounded-full bg-yellow-500/20 text-yellow-500 border border-yellow-500/30">
+                    <Award className="w-3 h-3" />
+                    <span>{project.award}</span>
+                  </span>
+                )}
                 {project.inProgress && (
                   <span className="inline-block px-3 py-1 text-xs font-semibold rounded-full bg-primary/20 text-primary border border-primary/30">
                     In Progress

@@ -14,6 +14,7 @@ async function ProjectsContent() {
 
   // Define priority projects (most recent) that should appear after in-progress
   const priorityProjectNames = new Set([
+    "BarterBrAIn — AI-Powered Bartering App",
     "Prommuni - Roommate Finder",
     "iOS Liquid Glass Portfolio",
     "Amazon Retail Sales Forecasting",
@@ -112,6 +113,7 @@ async function ProjectsContent() {
                 appStoreUrl: "appStoreUrl" in project ? project.appStoreUrl : undefined,
                 playStoreUrl: "playStoreUrl" in project ? project.playStoreUrl : undefined,
                 hideGitHubLink: project.name === "Prommuni - Roommate Finder",
+                award: "award" in project ? project.award : undefined,
               }}
               index={index}
             />

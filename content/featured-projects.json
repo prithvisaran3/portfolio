@@ -187,6 +187,21 @@
     "image": "/projects/exspends-ai.png",
     "featured": true,
     "inProgress": true
+  },
+  {
+    "name": "BarterBrAIn — AI-Powered Bartering App",
+    "description": "Cross-platform mobile app helping students exchange goods through an intelligent, AI-powered bartering ecosystem. Addresses sustainability, affordability, and waste reduction.",
+    "highlights": [
+      "AI-powered price prediction using Google Gemini via Firebase Cloud Functions",
+      "AI negotiation assistant integrated in chat for optimal bargaining suggestions",
+      "Secure payment handling with Capital One Hackathon API for peer-to-peer settlement",
+      "Sustainability impact tracking with CO₂ emissions saved calculations"
+    ],
+    "stack": ["Flutter", "Firebase", "Gemini API", "Capital One API", "Dart", "GCP"],
+    "url": "https://github.com/prithvisaran3?tab=repositories&q=BarterBrAIn",
+    "image": "/projects/barterbrain.png",
+    "featured": true,
+    "award": "Best Hack for Social Good – Technica 2025"
   }
 ]
 
