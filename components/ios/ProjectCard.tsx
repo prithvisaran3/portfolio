@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { GlassCard } from "./GlassCard";
-import { ExternalLink, Smartphone, Github, Award } from "lucide-react";
+import { ExternalLink, Smartphone, Github, Award, Trophy } from "lucide-react";
 
 interface ProjectCardProps {
   project: {
@@ -46,12 +46,29 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
                 {project.name}
               </h3>
               <div className="flex flex-wrap gap-2 mt-2">
-                {project.award && (
-                  <span className={`inline-flex items-center gap-1.5 px-3 py-1 text-xs font-semibold rounded-full border ${
-                    project.isAwardWinner 
-                      ? "bg-green-500/20 text-green-500 border-green-500/30" 
-                      : "bg-yellow-500/20 text-yellow-500 border-yellow-500/30"
-                  }`}>
+                {project.isAwardWinner && project.award && (() => {
+                  // Extract award name (everything before "– Technica 2025" or "Technica 2025")
+                  const awardText = project.award;
+                  const technicaIndex = awardText.indexOf("– Technica");
+                  const awardName = technicaIndex > 0 
+                    ? awardText.substring(0, technicaIndex).trim()
+                    : awardText.replace(/Technica 2025.*/i, "").trim();
+                  
+                  return (
+                    <>
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-semibold rounded-full border bg-amber-500/20 text-amber-500 border-amber-500/30">
+                        <Trophy className="w-3 h-3" />
+                        <span>Technica 2025 Winner</span>
+                      </span>
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-semibold rounded-full border bg-green-500/20 text-green-500 border-green-500/30">
+                        <Award className="w-3 h-3" />
+                        <span>{awardName}</span>
+                      </span>
+                    </>
+                  );
+                })()}
+                {project.award && !project.isAwardWinner && (
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-semibold rounded-full border bg-yellow-500/20 text-yellow-500 border-yellow-500/30">
                     <Award className="w-3 h-3" />
                     <span>{project.award}</span>
                   </span>
