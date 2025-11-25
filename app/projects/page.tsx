@@ -12,25 +12,34 @@ export const metadata = createMetadata("Projects", "Explore my mobile and web de
 async function ProjectsContent() {
   const repos = await getGitHubRepos();
 
+  // Define award winner project (should appear at the very top)
+  const awardWinnerName = "BarterBrAIn — AI-Powered Bartering App";
+  
   // Define priority projects (most recent) that should appear after in-progress
   const priorityProjectNames = new Set([
-    "BarterBrAIn — AI-Powered Bartering App",
     "Prommuni - Roommate Finder",
     "iOS Liquid Glass Portfolio",
     "Amazon Retail Sales Forecasting",
     "Pawfect - Pet Dating iOS App",
   ]);
 
-  // Sort projects: In Progress first, then priority projects, then latest (newest), then older
+  // Sort projects: Award winner first, then In Progress, then priority projects, then latest (newest), then older
   const sortedProjects = [...featuredProjects]
     .map((project, originalIndex) => ({ project, originalIndex }))
     .sort((a, b) => {
+      const aIsAwardWinner = a.project.name === awardWinnerName ? 1 : 0;
+      const bIsAwardWinner = b.project.name === awardWinnerName ? 1 : 0;
       const aInProgress = "inProgress" in a.project && a.project.inProgress ? 1 : 0;
       const bInProgress = "inProgress" in b.project && b.project.inProgress ? 1 : 0;
       const aIsPriority = priorityProjectNames.has(a.project.name) ? 1 : 0;
       const bIsPriority = priorityProjectNames.has(b.project.name) ? 1 : 0;
       
-      // In Progress projects first
+      // Award winner at the very top
+      if (aIsAwardWinner !== bIsAwardWinner) {
+        return bIsAwardWinner - aIsAwardWinner;
+      }
+      
+      // In Progress projects next
       if (aInProgress !== bInProgress) {
         return bInProgress - aInProgress;
       }
@@ -114,6 +123,10 @@ async function ProjectsContent() {
                 playStoreUrl: "playStoreUrl" in project ? project.playStoreUrl : undefined,
                 hideGitHubLink: project.name === "Prommuni - Roommate Finder",
                 award: "award" in project ? project.award : undefined,
+                isAwardWinner: "isAwardWinner" in project && project.isAwardWinner ? true : undefined,
+                devpostUrl: "devpostUrl" in project ? project.devpostUrl : undefined,
+                githubMobileUrl: "githubMobileUrl" in project ? project.githubMobileUrl : undefined,
+                githubAIUrl: "githubAIUrl" in project ? project.githubAIUrl : undefined,
               }}
               index={index}
             />
