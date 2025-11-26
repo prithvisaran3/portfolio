@@ -109,9 +109,24 @@ async function ProjectsContent() {
     return allowedRepoNames.has(repoName) && !excludedRepoNames.has(repoName);
   });
 
+  // Projects that should appear in both ML and Mobile categories
+  const hybridProjects = new Set([
+    "ExSpends AI",
+    "BarterBrAIn — AI-Powered Bartering App",
+    "AuraTranslate",
+  ]);
+
   // Categorize projects
-  const mlProjects = sortedProjects.filter((p) => (p as ProjectWithCategory).category === "ml");
-  const mobileProjects = sortedProjects.filter((p) => (p as ProjectWithCategory).category === "mobile");
+  const mlProjects = sortedProjects.filter((p) => {
+    const category = (p as ProjectWithCategory).category;
+    return category === "ml" || hybridProjects.has(p.name);
+  });
+  
+  const mobileProjects = sortedProjects.filter((p) => {
+    const category = (p as ProjectWithCategory).category;
+    return category === "mobile" || hybridProjects.has(p.name);
+  });
+  
   const webProjects = sortedProjects.filter((p) => (p as ProjectWithCategory).category === "web");
   const allProjects = sortedProjects;
 
