@@ -2,10 +2,20 @@ import { Suspense } from "react";
 import { SectionTitle } from "@/components/ios/SectionTitle";
 import { RepoCard } from "@/components/ios/RepoCard";
 import { GlassCard } from "@/components/ios/GlassCard";
-import { ProjectCard } from "@/components/ios/ProjectCard";
 import { getGitHubRepos } from "@/lib/github";
 import { createMetadata } from "@/lib/seo";
 import featuredProjects from "@/content/featured-projects.json";
+import { ProjectsTabs } from "@/components/ios/ProjectsTabs";
+
+interface ProjectWithCategory {
+  name: string;
+  description: string;
+  highlights: string[];
+  stack: string[];
+  url: string;
+  category?: string;
+  [key: string]: unknown;
+}
 
 export const metadata = createMetadata("Projects", "Explore my mobile and web development projects", "/projects");
 
@@ -99,39 +109,48 @@ async function ProjectsContent() {
     return allowedRepoNames.has(repoName) && !excludedRepoNames.has(repoName);
   });
 
+  // Categorize projects
+  const mlProjects = sortedProjects.filter((p) => (p as ProjectWithCategory).category === "ml");
+  const mobileProjects = sortedProjects.filter((p) => (p as ProjectWithCategory).category === "mobile");
+  const webProjects = sortedProjects.filter((p) => (p as ProjectWithCategory).category === "web");
+  const allProjects = sortedProjects;
+
   return (
     <div className="container mx-auto px-4 py-20">
-      {/* Featured Projects */}
+      {/* Stats Section */}
+      <section className="mb-12">
+        <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4">
+          <GlassCard elevation={1} className="p-6 text-center">
+            <div className="text-3xl font-bold text-primary mb-1">{allProjects.length}</div>
+            <div className="text-sm text-muted-foreground">Total Projects</div>
+          </GlassCard>
+          <GlassCard elevation={1} className="p-6 text-center">
+            <div className="text-3xl font-bold text-primary mb-1">{mlProjects.length}</div>
+            <div className="text-sm text-muted-foreground">ML/AI Projects</div>
+          </GlassCard>
+          <GlassCard elevation={1} className="p-6 text-center">
+            <div className="text-3xl font-bold text-primary mb-1">{mobileProjects.length}</div>
+            <div className="text-sm text-muted-foreground">Mobile Apps</div>
+          </GlassCard>
+          <GlassCard elevation={1} className="p-6 text-center">
+            <div className="text-3xl font-bold text-primary mb-1">{webProjects.length}</div>
+            <div className="text-sm text-muted-foreground">Web Projects</div>
+          </GlassCard>
+        </div>
+      </section>
+
+      {/* Categorized Projects */}
       <section className="mb-20">
-        <SectionTitle subtitle="Hand-picked projects showcasing mobile development expertise">
+        <SectionTitle subtitle="Projects organized by technology and domain expertise">
           Featured Projects
         </SectionTitle>
 
-        <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-          {sortedProjects.map((project, index) => (
-            <ProjectCard
-              key={project.name}
-              project={{
-                name: project.name,
-                description: project.description,
-                highlights: project.highlights,
-                stack: project.stack,
-                url: project.url,
-                inProgress: "inProgress" in project && project.inProgress ? true : undefined,
-                published: "published" in project && project.published ? true : undefined,
-                appStoreUrl: "appStoreUrl" in project ? project.appStoreUrl : undefined,
-                playStoreUrl: "playStoreUrl" in project ? project.playStoreUrl : undefined,
-                hideGitHubLink: project.name === "Prommuni - Roommate Finder",
-                award: "award" in project ? project.award : undefined,
-                isAwardWinner: "isAwardWinner" in project && project.isAwardWinner ? true : undefined,
-                devpostUrl: "devpostUrl" in project ? project.devpostUrl : undefined,
-                githubMobileUrl: "githubMobileUrl" in project ? project.githubMobileUrl : undefined,
-                githubAIUrl: "githubAIUrl" in project ? project.githubAIUrl : undefined,
-              }}
-              index={index}
-            />
-          ))}
-        </div>
+        <ProjectsTabs
+          allProjects={allProjects}
+          mlProjects={mlProjects}
+          mobileProjects={mobileProjects}
+          webProjects={webProjects}
+        />
       </section>
 
       {/* GitHub Repositories */}
@@ -184,4 +203,3 @@ export default function ProjectsPage() {
     </Suspense>
   );
 }
-

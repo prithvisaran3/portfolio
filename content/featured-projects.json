@@ -13,7 +13,8 @@
     "stack": ["Next.js", "TypeScript", "React", "Tailwind CSS", "Framer Motion", "Radix UI", "shadcn/ui"],
     "url": "https://github.com/prithvisaran3/portfolio",
     "image": "/projects/portfolio.png",
-    "featured": true
+    "featured": true,
+    "category": "web"
   },
   {
     "name": "Prommuni - Roommate Finder",
@@ -31,7 +32,8 @@
     "playStoreUrl": "https://play.google.com/store/apps/details?id=com.prommuni.app",
     "image": "/projects/prommuni.png",
     "featured": true,
-    "published": true
+    "published": true,
+    "category": "mobile"
   },
   {
     "name": "AuraTranslate",
@@ -46,7 +48,8 @@
     "url": "https://github.com/prithvisaran3?tab=repositories&q=AuraTranslate",
     "image": "/projects/auratranslate.png",
     "featured": true,
-    "inProgress": true
+    "inProgress": true,
+    "category": "ml"
   },
   {
     "name": "LLM Fine-Tuning with LoRA",
@@ -61,7 +64,8 @@
     "url": "https://github.com/prithvisaran3?tab=repositories&q=LoRA",
     "image": "/projects/llm-lora.png",
     "featured": true,
-    "inProgress": true
+    "inProgress": true,
+    "category": "ml"
   },
   {
     "name": "Amazon Retail Sales Forecasting",
@@ -75,7 +79,8 @@
     "stack": ["Python", "XGBoost", "Pandas", "NumPy", "Scikit-learn"],
     "url": "https://github.com/prithvisaran3/Amazon-Sales-Forecasting",
     "image": "/projects/amazon-forecasting.png",
-    "featured": true
+    "featured": true,
+    "category": "ml"
   },
   {
     "name": "Pawfect - Pet Dating iOS App",
@@ -89,7 +94,8 @@
     "stack": ["Swift", "SwiftUI", "Firebase", "Supabase", "Google Maps"],
     "url": "https://github.com/prithvisaran3/CSCI_6221-PAWFECT",
     "image": "/projects/pawfect.png",
-    "featured": true
+    "featured": true,
+    "category": "mobile"
   },
   {
     "name": "WooCommerce Flutter App",
@@ -103,7 +109,8 @@
     "stack": ["Flutter", "MVVM", "WooCommerce", "WordPress", "Firebase"],
     "url": "https://github.com/prithvisaran3/WooCommerce_Flutter",
     "image": "/projects/woocommerce.png",
-    "featured": true
+    "featured": true,
+    "category": "mobile"
   },
   {
     "name": "Oxford Psych LMS Mobile App",
@@ -117,7 +124,8 @@
     "stack": ["Flutter", "GetX", "REST API", "Firebase"],
     "url": "https://github.com/prithvisaran3/oxfordpsych_lms",
     "image": "/projects/oxford-psych.png",
-    "featured": true
+    "featured": true,
+    "category": "mobile"
   },
   {
     "name": "Drillhub",
@@ -132,7 +140,8 @@
     "url": "https://github.com/prithvisaran3?tab=repositories&q=Drillhub",
     "image": "/projects/drillhub.png",
     "featured": true,
-    "inProgress": true
+    "inProgress": true,
+    "category": "mobile"
   },
   {
     "name": "Tune 360",
@@ -145,7 +154,8 @@
     "stack": ["Flutter", "JioSaavn API", "YouTube API"],
     "url": "https://github.com/prithvisaran3/tune_360",
     "image": "/projects/tune360.png",
-    "featured": true
+    "featured": true,
+    "category": "mobile"
   },
   {
     "name": "Bookstore",
@@ -158,7 +168,8 @@
     "stack": ["Flutter", "Google Books API"],
     "url": "https://github.com/prithvisaran3/Bookstore",
     "image": "/projects/bookstore.png",
-    "featured": true
+    "featured": true,
+    "category": "mobile"
   },
   {
     "name": "Employee Management",
@@ -171,7 +182,8 @@
     "stack": ["Flutter", "Supabase", "Geocoding", "Geofencing"],
     "url": "https://github.com/prithvisaran3/employee_management",
     "image": "/projects/employee-mgmt.png",
-    "featured": true
+    "featured": true,
+    "category": "mobile"
   },
   {
     "name": "ExSpends AI",
@@ -186,7 +198,8 @@
     "url": "https://github.com/prithvisaran3/exspends-ai",
     "image": "/projects/exspends-ai.png",
     "featured": true,
-    "inProgress": true
+    "inProgress": true,
+    "category": "ml"
   },
   {
     "name": "BarterBrAIn — AI-Powered Bartering App",
@@ -205,7 +218,8 @@
     "image": "/projects/barterbrain.png",
     "featured": true,
     "award": "Spirits of Change: Best Hack for Social Good – Technica 2025 Winner",
-    "isAwardWinner": true
+    "isAwardWinner": true,
+    "category": "ml"
   }
 ]
 
