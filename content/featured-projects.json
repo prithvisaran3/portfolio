@@ -10,7 +10,15 @@
       "SEO optimized with sitemap and Open Graph support",
       "Accessible by default with WCAG compliance"
     ],
-    "stack": ["Next.js", "TypeScript", "React", "Tailwind CSS", "Framer Motion", "Radix UI", "shadcn/ui"],
+    "stack": [
+      "Next.js",
+      "TypeScript",
+      "React",
+      "Tailwind CSS",
+      "Framer Motion",
+      "Radix UI",
+      "shadcn/ui"
+    ],
     "url": "https://github.com/prithvisaran3/portfolio",
     "image": "/projects/portfolio.png",
     "featured": true,
@@ -26,7 +34,13 @@
       "Real-time chat and Mapbox geolocation features",
       "Smart location selection for 8 major cities"
     ],
-    "stack": ["Flutter", "GetX", "Supabase", "Mapbox", "MVC"],
+    "stack": [
+      "Flutter",
+      "GetX",
+      "Supabase",
+      "Mapbox",
+      "MVC"
+    ],
     "url": "https://github.com/prithvisaran3/Prommuni",
     "appStoreUrl": "https://apps.apple.com/us/app/prommuni/id6747644654",
     "playStoreUrl": "https://play.google.com/store/apps/details?id=com.prommuni.app",
@@ -44,7 +58,13 @@
       "Fluid iOS-native UI following HIG",
       "Seamless camera and ML model integration"
     ],
-    "stack": ["Swift", "SwiftUI", "Core ML", "Vision", "NLP"],
+    "stack": [
+      "Swift",
+      "SwiftUI",
+      "Core ML",
+      "Vision",
+      "NLP"
+    ],
     "url": "https://github.com/prithvisaran3?tab=repositories&q=AuraTranslate",
     "image": "/projects/auratranslate.png",
     "featured": true,
@@ -60,11 +80,16 @@
       "Interactive 'what-if' alternative narratives",
       "Underrepresented perspectives in history"
     ],
-    "stack": ["Python", "PyTorch", "LoRA", "Mistral-7B", "HuggingFace"],
+    "stack": [
+      "Python",
+      "PyTorch",
+      "LoRA",
+      "Mistral-7B",
+      "HuggingFace"
+    ],
     "url": "https://github.com/prithvisaran3?tab=repositories&q=LoRA",
     "image": "/projects/llm-lora.png",
     "featured": true,
-    "inProgress": true,
     "category": "ml"
   },
   {
@@ -76,7 +101,13 @@
       "Provided insights for optimizing logistics and inventory",
       "Team Lead role with presentation to stakeholders"
     ],
-    "stack": ["Python", "XGBoost", "Pandas", "NumPy", "Scikit-learn"],
+    "stack": [
+      "Python",
+      "XGBoost",
+      "Pandas",
+      "NumPy",
+      "Scikit-learn"
+    ],
     "url": "https://github.com/prithvisaran3/Amazon-Sales-Forecasting",
     "image": "/projects/amazon-forecasting.png",
     "featured": true,
@@ -91,7 +122,13 @@
       "Reduced message delivery latency by 25%",
       "Google Maps API for local connections"
     ],
-    "stack": ["Swift", "SwiftUI", "Firebase", "Supabase", "Google Maps"],
+    "stack": [
+      "Swift",
+      "SwiftUI",
+      "Firebase",
+      "Supabase",
+      "Google Maps"
+    ],
     "url": "https://github.com/prithvisaran3/CSCI_6221-PAWFECT",
     "image": "/projects/pawfect.png",
     "featured": true,
@@ -106,7 +143,13 @@
       "MVVM architecture for clean code",
       "Firebase for real-time features"
     ],
-    "stack": ["Flutter", "MVVM", "WooCommerce", "WordPress", "Firebase"],
+    "stack": [
+      "Flutter",
+      "MVVM",
+      "WooCommerce",
+      "WordPress",
+      "Firebase"
+    ],
     "url": "https://github.com/prithvisaran3/WooCommerce_Flutter",
     "image": "/projects/woocommerce.png",
     "featured": true,
@@ -121,7 +164,12 @@
       "REST API integration with private database",
       "Personalized and visually engaging learning experience"
     ],
-    "stack": ["Flutter", "GetX", "REST API", "Firebase"],
+    "stack": [
+      "Flutter",
+      "GetX",
+      "REST API",
+      "Firebase"
+    ],
     "url": "https://github.com/prithvisaran3/oxfordpsych_lms",
     "image": "/projects/oxford-psych.png",
     "featured": true,
@@ -136,11 +184,16 @@
       "Role-based access for coaches and players",
       "Multi-organization, group support"
     ],
-    "stack": ["Flutter", "Riverpod", "Firebase", "Stripe"],
+    "stack": [
+      "Flutter",
+      "Riverpod",
+      "Firebase",
+      "Stripe"
+    ],
     "url": "https://github.com/prithvisaran3?tab=repositories&q=Drillhub",
+    "appStoreUrl": "https://apps.apple.com/us/app/drillhub/id6754586332",
     "image": "/projects/drillhub.png",
     "featured": true,
-    "inProgress": true,
     "category": "mobile"
   },
   {
@@ -151,7 +204,11 @@
       "YouTube audio streaming",
       "Clean Flutter architecture"
     ],
-    "stack": ["Flutter", "JioSaavn API", "YouTube API"],
+    "stack": [
+      "Flutter",
+      "JioSaavn API",
+      "YouTube API"
+    ],
     "url": "https://github.com/prithvisaran3/tune_360",
     "image": "/projects/tune360.png",
     "featured": true,
@@ -165,7 +222,10 @@
       "Google Books API integration",
       "Responsive Flutter UI"
     ],
-    "stack": ["Flutter", "Google Books API"],
+    "stack": [
+      "Flutter",
+      "Google Books API"
+    ],
     "url": "https://github.com/prithvisaran3/Bookstore",
     "image": "/projects/bookstore.png",
     "featured": true,
@@ -179,7 +239,12 @@
       "Geofencing auto clock-in/out",
       "Location and geocoding"
     ],
-    "stack": ["Flutter", "Supabase", "Geocoding", "Geofencing"],
+    "stack": [
+      "Flutter",
+      "Supabase",
+      "Geocoding",
+      "Geofencing"
+    ],
     "url": "https://github.com/prithvisaran3/employee_management",
     "image": "/projects/employee-mgmt.png",
     "featured": true,
@@ -194,7 +259,12 @@
       "Expense splitting between multiple people",
       "ML models for expense categorization"
     ],
-    "stack": ["Flutter", "Provider", "ML Models", "QR Scanner"],
+    "stack": [
+      "Flutter",
+      "Provider",
+      "ML Models",
+      "QR Scanner"
+    ],
     "url": "https://github.com/prithvisaran3/exspends-ai",
     "image": "/projects/exspends-ai.png",
     "featured": true,
@@ -210,7 +280,14 @@
       "Secure payment handling with Capital One Hackathon API for peer-to-peer settlement",
       "Sustainability impact tracking with CO₂ emissions saved calculations"
     ],
-    "stack": ["Flutter", "Firebase", "Gemini API", "Capital One API", "Dart", "GCP"],
+    "stack": [
+      "Flutter",
+      "Firebase",
+      "Gemini API",
+      "Capital One API",
+      "Dart",
+      "GCP"
+    ],
     "url": "https://lnkd.in/gq65JJFY",
     "devpostUrl": "https://lnkd.in/gq65JJFY",
     "githubMobileUrl": "https://lnkd.in/gxzssh6f",
@@ -222,4 +299,3 @@
     "category": "ml"
   }
 ]
-

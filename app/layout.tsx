@@ -3,6 +3,7 @@ import { ThemeProvider } from "next-themes";
 import { createMetadata } from "@/lib/seo";
 import { LiquidBackdrop } from "@/components/ios/LiquidBackdrop";
 import { IslandNav } from "@/components/ios/IslandNav";
+import { CopyProtection } from "@/components/CopyProtection";
 import "@/styles/globals.css";
 
 export const metadata: Metadata = createMetadata();
@@ -14,10 +15,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="min-h-screen antialiased">
-        <ThemeProvider 
-          attribute="class" 
-          defaultTheme="light" 
+      <body className="min-h-screen antialiased select-none">
+        <CopyProtection />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
           enableSystem
           disableTransitionOnChange={false}
         >
