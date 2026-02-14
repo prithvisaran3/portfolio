@@ -24,16 +24,17 @@ async function ProjectsContent() {
 
   // Define award winner project (should appear at the very top)
   const awardWinnerName = "BarterBrAIn — AI-Powered Bartering App";
-  
-  // Define priority projects (most recent) that should appear after in-progress
-  const priorityProjectNames = new Set([
+
+  // Define priority projects order (Top to Bottom after "In Progress")
+  const orderedPriorityProjects = [
+    "LLM Fine-Tuning with LoRA",
+    "Drillhub",
     "Prommuni - Roommate Finder",
-    "iOS Liquid Glass Portfolio",
     "Amazon Retail Sales Forecasting",
     "Pawfect - Pet Dating iOS App",
-  ]);
+  ];
 
-  // Sort projects: Award winner first, then In Progress, then priority projects, then latest (newest), then older
+  // Sort projects: Award winner first, then In Progress, then priority projects (in order), then latest (newest), then older
   const sortedProjects = [...featuredProjects]
     .map((project, originalIndex) => ({ project, originalIndex }))
     .sort((a, b) => {
@@ -41,37 +42,40 @@ async function ProjectsContent() {
       const bIsAwardWinner = b.project.name === awardWinnerName ? 1 : 0;
       const aInProgress = "inProgress" in a.project && a.project.inProgress ? 1 : 0;
       const bInProgress = "inProgress" in b.project && b.project.inProgress ? 1 : 0;
-      const aIsPriority = priorityProjectNames.has(a.project.name) ? 1 : 0;
-      const bIsPriority = priorityProjectNames.has(b.project.name) ? 1 : 0;
-      
+
+      const aPriorityIndex = orderedPriorityProjects.indexOf(a.project.name);
+      const bPriorityIndex = orderedPriorityProjects.indexOf(b.project.name);
+      const aIsPriority = aPriorityIndex !== -1 ? 1 : 0;
+      const bIsPriority = bPriorityIndex !== -1 ? 1 : 0;
+
       // Award winner at the very top
       if (aIsAwardWinner !== bIsAwardWinner) {
         return bIsAwardWinner - aIsAwardWinner;
       }
-      
+
       // In Progress projects next
       if (aInProgress !== bInProgress) {
         return bInProgress - aInProgress;
       }
-      
-      // If both are in-progress, keep original order
+
+      // If both are in-progress, keep original order (newest first based on file order usually, or we can enforce)
       if (aInProgress === 1 && bInProgress === 1) {
         return 0;
       }
-      
-      // After in-progress, priority projects next
+
+      // After in-progress, priority projects next (using explicit order)
+      if (aIsPriority && bIsPriority) {
+        return aPriorityIndex - bPriorityIndex;
+      }
+
       if (aIsPriority !== bIsPriority) {
         return bIsPriority - aIsPriority;
       }
-      
+
       // For non-priority projects, sort by original index (newest first)
       // Higher index = newer project (since new projects are added at the end)
-      if (aIsPriority === 0 && bIsPriority === 0) {
-        return b.originalIndex - a.originalIndex;
-      }
-      
-      // For priority projects, keep original order
-      return 0;
+      // "iOS Liquid Glass Portfolio" is index 0, so it will naturally be last here.
+      return b.originalIndex - a.originalIndex;
     })
     .map(({ project }) => project);
 
@@ -121,12 +125,12 @@ async function ProjectsContent() {
     const category = (p as ProjectWithCategory).category;
     return category === "ml" || hybridProjects.has(p.name);
   });
-  
+
   const mobileProjects = sortedProjects.filter((p) => {
     const category = (p as ProjectWithCategory).category;
     return category === "mobile" || hybridProjects.has(p.name);
   });
-  
+
   const webProjects = sortedProjects.filter((p) => (p as ProjectWithCategory).category === "web");
   const allProjects = sortedProjects;
 
