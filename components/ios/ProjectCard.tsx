@@ -47,22 +47,31 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
               </h3>
               <div className="flex flex-wrap gap-2 mt-2">
                 {project.isAwardWinner && project.award && (() => {
-                  // Extract award name (everything before "– Technica 2025" or "Technica 2025")
                   const awardText = project.award;
-                  const technicaIndex = awardText.indexOf("– Technica");
-                  const awardName = technicaIndex > 0 
-                    ? awardText.substring(0, technicaIndex).trim()
-                    : awardText.replace(/Technica 2025.*/i, "").trim();
+                  let hackathonName = "Award Winner";
+                  let categoryName = awardText;
+                  
+                  if (awardText.includes(" – ")) {
+                    const parts = awardText.split(" – ");
+                    categoryName = parts[0].trim();
+                    hackathonName = parts[1].trim();
+                  } else {
+                    const dashIndex = awardText.indexOf(" - ");
+                    if (dashIndex > 0) {
+                      categoryName = awardText.substring(0, dashIndex).trim();
+                      hackathonName = awardText.substring(dashIndex + 3).trim();
+                    }
+                  }
                   
                   return (
                     <>
                       <span className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-semibold rounded-full border bg-amber-500/20 text-amber-500 border-amber-500/30">
                         <Trophy className="w-3 h-3" />
-                        <span>Technica 2025 Winner</span>
+                        <span>{hackathonName}</span>
                       </span>
                       <span className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-semibold rounded-full border bg-green-500/20 text-green-500 border-green-500/30">
                         <Award className="w-3 h-3" />
-                        <span>{awardName}</span>
+                        <span>{categoryName}</span>
                       </span>
                     </>
                   );

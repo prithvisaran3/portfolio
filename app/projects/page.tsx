@@ -27,6 +27,7 @@ async function ProjectsContent() {
 
   // Define priority projects order (Top to Bottom after "In Progress")
   const orderedPriorityProjects = [
+    "PitchPulse",
     "LLM Fine-Tuning with LoRA",
     "Drillhub",
     "Prommuni - Roommate Finder",
