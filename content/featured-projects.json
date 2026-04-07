@@ -1,5 +1,27 @@
 [
   {
+    "name": "PitchPulse",
+    "description": "An end-to-end AI sports science assistant that uses smartphone computer vision to extract medical-grade vitals and proactively predict athlete injuries.",
+    "highlights": [
+      "Contactless vitals extraction via smartphone computer vision",
+      "Dynamic overtraining prediction using ACWR mathematical models",
+      "AI-powered tactical action plans driven by a Gemini RAG pipeline",
+      "Multimodal video analysis for biomechanics and movement correction"
+    ],
+    "stack": [
+      "Flutter",
+      "Swift",
+      "Python",
+      "FastAPI",
+      "Gemini API",
+      "Actian VectorDB"
+    ],
+    "url": "https://github.com/prithvisaran3/PitchPulse",
+    "image": "/projects/pitchpulse.png",
+    "featured": true,
+    "category": "ml"
+  },
+  {
     "name": "iOS Liquid Glass Portfolio",
     "description": "Premium portfolio website with iOS-inspired liquid glass design, featuring dynamic animations, dark/light mode, and fully responsive layout.",
     "highlights": [
