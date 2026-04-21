@@ -19,11 +19,8 @@
     "image": "/projects/snapback.png",
     "featured": true,
     "category": "mobile",
-    "badges": [
-      "George Hacks x United Nations \"Reboot the Earth\" Hackathon — Track 1 Grand Prize Winner",
-      "Open Source Prize Winner",
-      "Built in 24 hours"
-    ],
+    "isAwardWinner": true,
+    "award": "Open Source Prize Winner - George Hacks 2026 winner",
     "detailedSections": [
       {
         "title": "The problem.",

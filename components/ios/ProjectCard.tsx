@@ -205,7 +205,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
                   <span>View on Devpost</span>
                   <ExternalLink className="w-3 h-3" />
                 </a>
-                {(project.githubMobileUrl || project.githubAIUrl) && (
+                {(project.githubMobileUrl || project.githubAIUrl || (project.url && !project.hideGitHubLink)) && (
                   <div className="flex gap-2">
                     {project.githubMobileUrl && (
                       <a
@@ -231,11 +231,23 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
                         <ExternalLink className="w-3 h-3" />
                       </a>
                     )}
+                    {!project.githubMobileUrl && !project.githubAIUrl && project.url && !project.hideGitHubLink && (
+                      <a
+                        href={project.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-medium rounded-lg bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 transition-colors border border-border/50 text-muted-foreground hover:text-foreground"
+                      >
+                        <Github className="w-3.5 h-3.5" />
+                        <span>View on GitHub</span>
+                        <ExternalLink className="w-3 h-3" />
+                      </a>
+                    )}
                   </div>
                 )}
               </div>
             )}
-            {!project.hideGitHubLink && !project.devpostUrl && (
+            {!project.hideGitHubLink && !project.devpostUrl && project.url && (
               <a
                 href={project.url}
                 target="_blank"
