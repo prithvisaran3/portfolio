@@ -22,12 +22,14 @@ export const metadata = createMetadata("Projects", "Explore my mobile and web de
 async function ProjectsContent() {
   const repos = await getGitHubRepos();
 
-  // Define award winner project (should appear at the very top)
-  const awardWinnerName = "SNAPback";
+  // Define top featured projects (appear at the very top)
+  const topFeaturedProjects = [
+    "SNAPback",
+    "BarterBrAIn — AI-Powered Bartering App"
+  ];
 
   // Define priority projects order (Top to Bottom after "In Progress")
   const orderedPriorityProjects = [
-    "BarterBrAIn — AI-Powered Bartering App",
     "PitchPulse",
     "LLM Fine-Tuning with LoRA",
     "Drillhub",
@@ -36,12 +38,15 @@ async function ProjectsContent() {
     "Pawfect - Pet Dating iOS App",
   ];
 
-  // Sort projects: Award winner first, then In Progress, then priority projects (in order), then latest (newest), then older
+  // Sort projects: Top featured first, then In Progress, then priority projects (in order), then latest (newest), then older
   const sortedProjects = [...featuredProjects]
     .map((project, originalIndex) => ({ project, originalIndex }))
     .sort((a, b) => {
-      const aIsAwardWinner = a.project.name === awardWinnerName ? 1 : 0;
-      const bIsAwardWinner = b.project.name === awardWinnerName ? 1 : 0;
+      const aTopIndex = topFeaturedProjects.indexOf(a.project.name);
+      const bTopIndex = topFeaturedProjects.indexOf(b.project.name);
+      const aIsTop = aTopIndex !== -1 ? 1 : 0;
+      const bIsTop = bTopIndex !== -1 ? 1 : 0;
+
       const aInProgress = "inProgress" in a.project && a.project.inProgress ? 1 : 0;
       const bInProgress = "inProgress" in b.project && b.project.inProgress ? 1 : 0;
 
@@ -50,9 +55,12 @@ async function ProjectsContent() {
       const aIsPriority = aPriorityIndex !== -1 ? 1 : 0;
       const bIsPriority = bPriorityIndex !== -1 ? 1 : 0;
 
-      // Award winner at the very top
-      if (aIsAwardWinner !== bIsAwardWinner) {
-        return bIsAwardWinner - aIsAwardWinner;
+      // Top featured projects at the very top
+      if (aIsTop && bIsTop) {
+        return aTopIndex - bTopIndex;
+      }
+      if (aIsTop !== bIsTop) {
+        return bIsTop - aIsTop;
       }
 
       // In Progress projects next
@@ -60,7 +68,7 @@ async function ProjectsContent() {
         return bInProgress - aInProgress;
       }
 
-      // If both are in-progress, keep original order (newest first based on file order usually, or we can enforce)
+      // If both are in-progress, keep original order
       if (aInProgress === 1 && bInProgress === 1) {
         return 0;
       }
@@ -117,7 +125,6 @@ async function ProjectsContent() {
 
   // Projects that should appear in both ML and Mobile categories
   const hybridProjects = new Set([
-    "SNAPback",
     "ExSpends AI",
     "BarterBrAIn — AI-Powered Bartering App",
     "AuraTranslate",

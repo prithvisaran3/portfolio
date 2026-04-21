@@ -2,27 +2,14 @@
   {
     "name": "SNAPback",
     "description": "AI-powered cashback for 42 million SNAP/WIC families — rewarding sustained healthy grocery habits, not one-off purchases.",
-    "highlights": [
-      "The problem: 42 million Americans rely on SNAP/WIC, and cheap choices are often the unhealthiest.",
-      "The product: Flutter mobile app assigning culturally-aware nutrition guidance via receipts.",
-      "Google Gemini 2.5 Flash reads receipts multimodally and scores edible items.",
-      "Cashback is tiered and unlocks only when sustained behavior improves."
-    ],
-    "longDescription": [
-      { "heading": "The problem.", "text": "42 million Americans rely on SNAP/WIC every month. The cheapest, easiest item on the shelf is almost always the worst for them. Generic \"eat more vegetables\" guidance doesn't help a Caribbean grandmother shopping for callaloo or a South Asian household buying atta and dal on a $480 monthly budget. We built SNAPback in response to the United Nations FAO's problem statement on equitable, personalized nutrition." },
-      { "heading": "The product.", "text": "SNAPback is a Flutter mobile app that turns every grocery receipt into personalized, culturally-aware nutrition guidance — and pays families real cashback when they *sustain* healthier shopping habits." },
-      { "heading": "How it works.", "items": ["Users sign up with their monthly SNAP budget, family size, and the cuisines they actually cook (24 supported — Caribbean, South Asian, West African, Latin American, East Asian, Middle Eastern, and more).", "After every grocery trip, they scan a receipt. Google Gemini 2.5 Flash reads it multimodally — every item, quantity, and price — and scores each edible item 0–5 against a USDA-derived healthy-foods rubric in a single structured-JSON call.", "Cashback is tiered: 5% for 5★ items, 3% for 4★, 1% for 3★, plus a +1 percentage-point cultural-match bonus.", "Monthly cap: min(10% × SNAP amount, $25 × family size) — grounded in realistic public-benefits math."] },
-      { "heading": "The original idea: the Redemption Gate.", "text": "Most cashback apps pay for any purchase. SNAPback only *unlocks* the cashback if the user's monthly average health score stays at 4/5 or higher. We don't reward one good trip to the store — we reward sustained behavioral change. This is the policy lever that turns nutrition science into action." },
-      { "heading": "Architecture.", "items": ["**Mobile (Flutter/Dart):** MVVM with Provider; go_router + IndexedStack for persistent bottom-tab navigation; fl_chart for the monthly score ring; custom animated SnapbackLoader; full light/dark theming; accessibility labels on every key surface (screen readers announce the score ring, redemption badge, and trip rows).", "**Backend (Firebase Cloud Functions, Node 20, 2nd gen):** Two functions. processReceipt triggers on Storage upload, calls Gemini 2.5 Flash with a strict JSON schema and a USDA-grounded system prompt (plus an explicit non-edible blocklist), and writes structured items to Firestore. scoreTrip triggers on that write, applies tiered cashback, computes the item-weighted monthly health average, evaluates the redemption gate, and generates culturally-matched recipe suggestions via a second Gemini call.", "**Data:** Firebase Auth, Cloud Firestore with live streams powering real-time Dashboard/History/Trip Result (no pull-to-refresh anywhere), Firebase Storage for receipt images, Gemini API key in Firebase Secrets."] },
-      { "heading": "Open-source contribution.", "text": "Several Flutter widgets we relied on were broken or abandoned on pub.dev. Instead of working around them, we rewrote and open-sourced the fixes — which is why we specifically took home the Open Source track prize." },
-      { "heading": "Hard problems we solved.", "items": ["Replaced a failed traditional OCR + separate scoring pipeline with a single multimodal Gemini call that outputs structured JSON grounded in USDA criteria.", "Fixed a Firestore race condition by writing the trip document *before* uploading the image to Storage.", "Rewrote an over-generous cashback model into a per-item tiered system with a SNAP-proportional monthly cap and the redemption gate — sustainable enough to actually ship as a public-benefits program.", "Added server-side non-edible blocklists so toilet paper and detergent don't inflate health scores."] }
-    ],
+    "highlights": [],
     "stack": [
       "Flutter",
       "Dart",
       "Firebase",
       "Node.js",
-      "Gemini 2.5 Flash",
+      "Google Gemini 2.5 Flash",
+      "USDA nutrition data",
       "Provider (MVVM)",
       "go_router",
       "fl_chart"
@@ -32,12 +19,55 @@
     "image": "/projects/snapback.png",
     "featured": true,
     "category": "mobile",
-    "awards": [
-      "Track 1 Grand Prize Winner – George Hacks x UN Reboot the Earth",
-      "Open Source Prize Winner"
+    "badges": [
+      "George Hacks x United Nations \"Reboot the Earth\" Hackathon — Track 1 Grand Prize Winner",
+      "Open Source Prize Winner",
+      "Built in 24 hours"
     ],
-    "isAwardWinner": true,
-    "hackathonTime": "Built in 24 hours"
+    "detailedSections": [
+      {
+        "title": "The problem.",
+        "content": "42 million Americans rely on SNAP/WIC every month. The cheapest, easiest item on the shelf is almost always the worst for them. Generic \"eat more vegetables\" guidance doesn't help a Caribbean grandmother shopping for callaloo or a South Asian household buying atta and dal on a $480 monthly budget. We built SNAPback in response to the United Nations FAO's problem statement on equitable, personalized nutrition."
+      },
+      {
+        "title": "The product.",
+        "content": "SNAPback is a Flutter mobile app that turns every grocery receipt into personalized, culturally-aware nutrition guidance — and pays families real cashback when they sustain healthier shopping habits."
+      },
+      {
+        "title": "How it works.",
+        "content": [
+          "Users sign up with their monthly SNAP budget, family size, and the cuisines they actually cook (24 supported — Caribbean, South Asian, West African, Latin American, East Asian, Middle Eastern, and more).",
+          "After every grocery trip, they scan a receipt. Google Gemini 2.5 Flash reads it multimodally — every item, quantity, and price — and scores each edible item 0–5 against a USDA-derived healthy-foods rubric in a single structured-JSON call.",
+          "Cashback is tiered: 5% for 5★ items, 3% for 4★, 1% for 3★, plus a +1 percentage-point cultural-match bonus.",
+          "Monthly cap: min(10% × SNAP amount, $25 × family size) — grounded in realistic public-benefits math."
+        ]
+      },
+      {
+        "title": "The original idea: the Redemption Gate.",
+        "content": "Most cashback apps pay for any purchase. SNAPback only unlocks the cashback if the user's monthly average health score stays at 4/5 or higher. We don't reward one good trip to the store — we reward sustained behavioral change. This is the policy lever that turns nutrition science into action."
+      },
+      {
+        "title": "Architecture.",
+        "content": [
+          "Mobile (Flutter/Dart): MVVM with Provider; go_router + IndexedStack for persistent bottom-tab navigation; fl_chart for the monthly score ring; custom animated SnapbackLoader; full light/dark theming; accessibility labels on every key surface (screen readers announce the score ring, redemption badge, and trip rows).",
+          "Backend (Firebase Cloud Functions, Node 20, 2nd gen): Two functions. processReceipt triggers on Storage upload, calls Gemini 2.5 Flash with a strict JSON schema and a USDA-grounded system prompt (plus an explicit non-edible blocklist), and writes structured items to Firestore. scoreTrip triggers on that write, applies tiered cashback, computes the item-weighted monthly health average, evaluates the redemption gate, and generates culturally-matched recipe suggestions via a second Gemini call.",
+          "Data: Firebase Auth, Cloud Firestore with live streams powering real-time Dashboard/History/Trip Result (no pull-to-refresh anywhere), Firebase Storage for receipt images, Gemini API key in Firebase Secrets."
+        ]
+      },
+      {
+        "title": "Open-source contribution.",
+        "content": "Several Flutter widgets we relied on were broken or abandoned on pub.dev. Instead of working around them, we rewrote and open-sourced the fixes — which is why we specifically took home the Open Source track prize."
+      },
+      {
+        "title": "Hard problems we solved.",
+        "content": [
+          "Replaced a failed traditional OCR + separate scoring pipeline with a single multimodal Gemini call that outputs structured JSON grounded in USDA criteria.",
+          "Fixed a Firestore race condition by writing the trip document before uploading the image to Storage.",
+          "Rewrote an over-generous cashback model into a per-item tiered system with a SNAP-proportional monthly cap and the redemption gate — sustainable enough to actually ship as a public-benefits program.",
+          "Added server-side non-edible blocklists so toilet paper and detergent don't inflate health scores."
+        ]
+      }
+    ]
   },
   {
     "name": "iOS Liquid Glass Portfolio",

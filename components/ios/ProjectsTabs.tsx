@@ -21,6 +21,8 @@ interface Project {
   githubMobileUrl?: string;
   githubAIUrl?: string;
   category?: string;
+  badges?: string[];
+  detailedSections?: { title: string; content: string | string[] }[];
 }
 
 interface ProjectsTabsProps {
@@ -47,37 +49,29 @@ export function ProjectsTabs({
 
     return (
       <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-        {projects.map((project, index) => {
-          const isMainFeatured = project.name === "SNAPback";
-          
-          return (
-            <div key={project.name} className={isMainFeatured ? "sm:col-span-2 lg:col-span-3" : ""}>
-              <ProjectCard
-                project={{
-                  name: project.name,
-                  description: project.description,
-                  highlights: project.highlights,
-                  stack: project.stack,
-                  url: project.url,
-                  inProgress: project.inProgress,
-                  published: project.published,
-                  appStoreUrl: project.appStoreUrl,
-                  playStoreUrl: project.playStoreUrl,
-                  hideGitHubLink: project.name === "Prommuni - Roommate Finder",
-                  award: project.award,
-                  awards: (project as any).awards,
-                  isAwardWinner: project.isAwardWinner,
-                  hackathonTime: (project as any).hackathonTime,
-                  longDescription: (project as any).longDescription,
-                  devpostUrl: project.devpostUrl,
-                  githubMobileUrl: project.githubMobileUrl,
-                  githubAIUrl: project.githubAIUrl,
-                }}
-                index={index}
-              />
-            </div>
-          );
-        })}
+        {projects.map((project, index) => (
+          <ProjectCard
+            key={project.name}
+            project={{
+              name: project.name,
+              description: project.description,
+              highlights: project.highlights,
+              stack: project.stack,
+              url: project.url,
+              inProgress: project.inProgress,
+              published: project.published,
+              appStoreUrl: project.appStoreUrl,
+              playStoreUrl: project.playStoreUrl,
+              hideGitHubLink: project.name === "Prommuni - Roommate Finder",
+              award: project.award,
+              isAwardWinner: project.isAwardWinner,
+              devpostUrl: project.devpostUrl,
+              githubMobileUrl: project.githubMobileUrl,
+              githubAIUrl: project.githubAIUrl,
+            }}
+            index={index}
+          />
+        ))}
       </div>
     );
   };
