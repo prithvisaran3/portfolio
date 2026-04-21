@@ -23,10 +23,11 @@ async function ProjectsContent() {
   const repos = await getGitHubRepos();
 
   // Define award winner project (should appear at the very top)
-  const awardWinnerName = "BarterBrAIn — AI-Powered Bartering App";
+  const awardWinnerName = "SNAPback";
 
   // Define priority projects order (Top to Bottom after "In Progress")
   const orderedPriorityProjects = [
+    "BarterBrAIn — AI-Powered Bartering App",
     "PitchPulse",
     "LLM Fine-Tuning with LoRA",
     "Drillhub",
@@ -116,6 +117,7 @@ async function ProjectsContent() {
 
   // Projects that should appear in both ML and Mobile categories
   const hybridProjects = new Set([
+    "SNAPback",
     "ExSpends AI",
     "BarterBrAIn — AI-Powered Bartering App",
     "AuraTranslate",
