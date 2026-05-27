@@ -67,6 +67,7 @@ const config: Config = {
         "shimmer": "shimmer 2s linear infinite",
         "float": "float 3s ease-in-out infinite",
         "pulse-subtle": "pulse-subtle 3s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+        "ping-slow": "ping-slow 2s cubic-bezier(0, 0, 0.2, 1) infinite",
       },
       keyframes: {
         shimmer: {
@@ -80,6 +81,9 @@ const config: Config = {
         "pulse-subtle": {
           "0%, 100%": { opacity: "1" },
           "50%": { opacity: "0.8" },
+        },
+        "ping-slow": {
+          "75%, 100%": { transform: "scale(1.5)", opacity: "0" },
         },
       },
     },
