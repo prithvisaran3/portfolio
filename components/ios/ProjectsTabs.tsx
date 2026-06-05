@@ -23,6 +23,8 @@ interface Project {
   category?: string;
   badges?: string[];
   detailedSections?: { title: string; content: string | string[] }[];
+  screenshots?: string[];
+  liveUrl?: string;
 }
 
 interface ProjectsTabsProps {
@@ -68,6 +70,10 @@ export function ProjectsTabs({
               devpostUrl: project.devpostUrl,
               githubMobileUrl: project.githubMobileUrl,
               githubAIUrl: project.githubAIUrl,
+              badges: project.badges,
+              detailedSections: project.detailedSections,
+              screenshots: project.screenshots,
+              liveUrl: project.liveUrl,
             }}
             index={index}
           />

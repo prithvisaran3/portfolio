@@ -109,6 +109,20 @@ export const resumeData: Resume = {
   ],
   projects: [
     {
+      name: "Blueprint AI — Multi-Agent Engineering Platform",
+      timeframe: "Feb 2026 – Apr 2026",
+      description: "A multi-agent platform that turns a product idea into a full engineering blueprint (architecture, delivery plan, code design, QA, docs, and CTO review) in ~90 seconds.",
+      highlights: [
+        "Built a multi-agent AI platform that converts product ideas into engineering blueprints using a 7-agent LangGraph pipeline",
+        "Designed and implemented real-time SSE streaming for live agent execution visibility in a React Flow graph",
+        "Architected a full-stack monorepo (React + FastAPI) with Supabase Auth, PostgreSQL, and JWT-secured APIs",
+        "Shipped to production on Vercel, Render, and Supabase (all free tier) with CI/CD via GitHub Actions",
+        "Implemented GitHub OAuth and email auth, dashboard analytics, and export to Jira/GitHub Issues"
+      ],
+      stack: ["React 19", "FastAPI", "LangGraph", "Google Gemini 2.5 Flash", "Supabase", "TypeScript", "Python", "Server-Sent Events (SSE)", "React Flow", "Tailwind CSS v4"],
+      url: "https://github.com/prithvisaran3/blueprint-ai",
+    },
+    {
       name: "BarterBrAIn — AI-Powered Bartering App for Students",
       timeframe: "Jan 2025",
       description: "Cross-platform mobile app helping students exchange goods through an intelligent, AI-powered bartering ecosystem. Built in 24 hours for Technica 2025 hackathon, winning Best Hack for Social Good.",
@@ -287,9 +301,11 @@ export const resumeData: Resume = {
       "Flutter",
       "SwiftUI",
       "Django",
+      "FastAPI",
       "Laravel",
       "Node.js",
       "React",
+      "Tailwind CSS",
       "Next.js",
       "Scikit-learn",
       "NumPy",
@@ -323,6 +339,7 @@ export const resumeData: Resume = {
       "CI/CD",
       "RIVE",
       "HuggingFace",
+      "LangGraph",
       "LoRA",
       "Vision Framework",
     ],

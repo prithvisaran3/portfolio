@@ -24,6 +24,7 @@ async function ProjectsContent() {
 
   // Define top featured projects (appear at the very top)
   const topFeaturedProjects = [
+    "Blueprint AI",
     "SNAPback",
     "BarterBrAIn — AI-Powered Bartering App"
   ];
@@ -130,10 +131,15 @@ async function ProjectsContent() {
     "AuraTranslate",
   ]);
 
+  // Projects that should appear in both ML and Web categories
+  const webMlHybridProjects = new Set([
+    "Blueprint AI",
+  ]);
+
   // Categorize projects
   const mlProjects = sortedProjects.filter((p) => {
     const category = (p as ProjectWithCategory).category;
-    return category === "ml" || hybridProjects.has(p.name);
+    return category === "ml" || hybridProjects.has(p.name) || webMlHybridProjects.has(p.name);
   });
 
   const mobileProjects = sortedProjects.filter((p) => {
@@ -141,7 +147,10 @@ async function ProjectsContent() {
     return category === "mobile" || hybridProjects.has(p.name);
   });
 
-  const webProjects = sortedProjects.filter((p) => (p as ProjectWithCategory).category === "web");
+  const webProjects = sortedProjects.filter((p) => {
+    const category = (p as ProjectWithCategory).category;
+    return category === "web" || webMlHybridProjects.has(p.name);
+  });
   const allProjects = sortedProjects;
 
   return (

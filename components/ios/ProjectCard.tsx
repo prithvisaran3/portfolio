@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { GlassCard } from "./GlassCard";
-import { ExternalLink, Smartphone, Github, Award, Trophy, ChevronDown, ChevronUp } from "lucide-react";
+import { ExternalLink, Smartphone, Github, Award, Trophy, ChevronDown, ChevronUp, Globe } from "lucide-react";
 
 interface ProjectCardProps {
   project: {
@@ -24,12 +24,15 @@ interface ProjectCardProps {
     githubAIUrl?: string;
     badges?: string[];
     detailedSections?: { title: string; content: string | string[] }[];
+    liveUrl?: string;
+    screenshots?: string[];
   };
   index: number;
 }
 
 export function ProjectCard({ project, index }: ProjectCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const hasStoreLinks = project.appStoreUrl || project.playStoreUrl;
   const isPublished = project.published;
 
@@ -148,6 +151,27 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
                       </div>
                     </div>
                   ))}
+
+                  {project.screenshots && project.screenshots.length > 0 && (
+                    <div className="mt-6 border-t border-border/50 pt-6">
+                      <strong className="text-foreground block mb-3 font-semibold text-base">Screenshots</strong>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        {project.screenshots.map((src, idx) => (
+                          <div
+                            key={idx}
+                            onClick={() => setSelectedImage(src)}
+                            className="relative aspect-[16/9] rounded-lg border border-border/30 overflow-hidden cursor-zoom-in group/img shadow-md hover:shadow-lg transition-all duration-300 bg-black/10"
+                          >
+                            <img
+                              src={src}
+                              alt={`${project.name} screenshot ${idx + 1}`}
+                              className="object-cover w-full h-full group-hover/img:scale-[1.02] transition-transform duration-300"
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
               )}
             </div>
@@ -248,20 +272,49 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
               </div>
             )}
             {!project.hideGitHubLink && !project.devpostUrl && project.url && (
-              <a
-                href={project.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 px-3 py-2 text-xs font-medium rounded-lg bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 transition-colors border border-border/50 text-muted-foreground hover:text-foreground"
-              >
-                <Github className="w-3.5 h-3.5" />
-                <span>View on GitHub</span>
-                <ExternalLink className="w-3 h-3" />
-              </a>
+              <div className="flex flex-wrap gap-2">
+                {project.liveUrl && (
+                  <a
+                    href={project.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 min-w-[120px] flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg bg-primary/20 hover:bg-primary/30 transition-colors border border-primary/30 text-primary hover:text-primary/80"
+                  >
+                    <Globe className="w-3.5 h-3.5" />
+                    <span>Live Site</span>
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
+                )}
+                <a
+                  href={project.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 min-w-[120px] flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 transition-colors border border-border/50 text-muted-foreground hover:text-foreground"
+                >
+                  <Github className="w-3.5 h-3.5" />
+                  <span>View on GitHub</span>
+                  <ExternalLink className="w-3 h-3" />
+                </a>
+              </div>
             )}
           </div>
         </div>
       </GlassCard>
+
+      {selectedImage && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md cursor-zoom-out"
+          onClick={() => setSelectedImage(null)}
+        >
+          <div className="relative max-w-5xl max-h-[90vh] w-full h-full flex items-center justify-center pointer-events-none">
+            <img
+              src={selectedImage}
+              alt="Screenshot zoom"
+              className="max-w-full max-h-full object-contain rounded-lg border border-white/10 shadow-2xl pointer-events-auto"
+            />
+          </div>
+        </div>
+      )}
     </motion.div>
   );
 }

@@ -387,5 +387,72 @@
     "featured": true,
     "category": "ml",
     "award": "Georgia Tech Hackathon - Hacklytics 2026"
+  },
+  {
+    "name": "Blueprint AI",
+    "description": "Blueprint AI is a full-stack AI product built to bridge the gap between “I have an idea” and “I know how to build it.”",
+    "highlights": [
+      "Designed a typed shared state model across 7 sequential AI agents",
+      "Built real-time SSE streaming for live agent progress in the UI",
+      "Implemented a mock/real data toggle so the frontend works without a backend during development",
+      "Deployed a production-ready monorepo on 100% free-tier hosting",
+      "Debugged and fixed production issues (OAuth/PKCE, CORS, cold-start retries, email auth)"
+    ],
+    "stack": [
+      "React 19",
+      "TypeScript",
+      "FastAPI",
+      "LangGraph",
+      "Google Gemini 2.5 Flash",
+      "Supabase",
+      "Server-Sent Events (SSE)",
+      "React Flow",
+      "Tailwind CSS v4"
+    ],
+    "url": "https://github.com/prithvisaran3/blueprint-ai",
+    "liveUrl": "https://blueprint-ai-rust.vercel.app",
+    "image": "/projects/blueprint-ai.png",
+    "featured": true,
+    "category": "web",
+    "screenshots": [
+      "/projects/blueprint-landing.png",
+      "/projects/blueprint-dashboard.png",
+      "/projects/blueprint-executions.png",
+      "/projects/blueprint-workspace.png",
+      "/projects/blueprint-techstack.png"
+    ],
+    "detailedSections": [
+      {
+        "title": "The problem.",
+        "content": "Turning a product idea into an actionable engineering plan usually takes days of meetings, docs, and back-and-forth. Founders and builders need a faster way to go from concept to architecture, delivery plan, and implementation guidance."
+      },
+      {
+        "title": "The solution.",
+        "content": [
+          "Blueprint AI is a multi-agent engineering intelligence platform. You submit an idea (e.g. \"a marketplace for renting camera gear\"), and a LangGraph orchestrator runs seven agents in sequence: Architect → Planner → Backend → Frontend → QA → Documentation → CTO Review.",
+          "Each agent builds on the previous one’s output. Progress streams to the browser over Server-Sent Events (SSE), and results are stored in Postgres for a tabbed workspace where users can review architecture diagrams, generated docs, agent metrics, and export to Jira or GitHub Issues."
+        ]
+      },
+      {
+        "title": "What I built.",
+        "content": [
+          "Frontend: React 19 SPA with dashboard, project management, live execution graph, and results workspace",
+          "Backend: FastAPI API with JWT auth, project/run persistence, and the LangGraph agent pipeline",
+          "AI layer: Seven-agent pipeline with structured outputs, streaming, and stub fallback when no LLM key is set",
+          "Auth: Supabase Auth (GitHub OAuth + email/password) with JWT verification on the backend",
+          "Infra: Vercel (frontend), Render (backend), Supabase (Postgres, Auth, Storage), GitHub Actions CI"
+        ]
+      },
+      {
+        "title": "Key highlights.",
+        "content": [
+          "Designed a typed shared state model across 7 sequential AI agents",
+          "Built real-time SSE streaming for live agent progress in the UI",
+          "Implemented a mock/real data toggle so the frontend works without a backend during development",
+          "Deployed a production-ready monorepo on 100% free-tier hosting",
+          "Debugged and fixed production issues (OAuth/PKCE, CORS, cold-start retries, email auth)"
+        ]
+      }
+    ]
   }
 ]
