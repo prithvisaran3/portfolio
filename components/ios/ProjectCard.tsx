@@ -270,7 +270,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 md:p-10 bg-black/60 backdrop-blur-xl cursor-zoom-out"
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 md:p-10 bg-black/60 backdrop-blur-xl cursor-zoom-out"
             onClick={() => setIsOpen(false)}
           >
             <motion.div
@@ -281,17 +281,35 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
               className="relative max-w-4xl w-full cursor-default"
               onClick={(e) => e.stopPropagation()}
             >
-              <GlassCard elevation={3} className="p-6 md:p-10 rounded-3xl border border-white/20 shadow-2xl relative">
+              {/* White/Glass Card container */}
+              <div className="relative overflow-hidden rounded-3xl bg-white/95 dark:bg-zinc-900/95 border border-white/20 dark:border-white/10 shadow-2xl p-6 md:p-10 backdrop-blur-2xl">
+                {/* Inner highlight */}
+                <div
+                  className="absolute inset-0 rounded-3xl pointer-events-none"
+                  style={{
+                    background: "linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 50%)",
+                  }}
+                />
+
+                {/* Noise texture */}
+                <div
+                  className="absolute inset-0 opacity-[0.03] mix-blend-overlay pointer-events-none"
+                  style={{
+                    backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
+                    backgroundRepeat: "repeat",
+                  }}
+                />
+
                 {/* Close Button */}
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="absolute top-4 right-4 p-2 rounded-full hover:bg-white/10 dark:hover:bg-white/5 transition-colors text-muted-foreground hover:text-foreground z-20"
+                  className="absolute top-4 right-4 p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/5 transition-colors text-muted-foreground hover:text-foreground z-20"
                 >
                   <X className="w-5 h-5" />
                 </button>
 
-                {/* scrollable modal content */}
-                <div className="max-h-[70vh] overflow-y-auto pr-2 space-y-6 scrollbar-thin scrollbar-thumb-border scrollbar-track-transparent">
+                {/* Scrollable Content */}
+                <div className="relative z-10 max-h-[70vh] overflow-y-auto pr-2 space-y-6 scrollbar-thin scrollbar-thumb-border scrollbar-track-transparent">
                   {/* Title & Badges */}
                   <div>
                     <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">
@@ -451,7 +469,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
                     )}
                   </div>
                 </div>
-              </GlassCard>
+              </div>
             </motion.div>
           </motion.div>
         )}
@@ -460,7 +478,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
       {/* Selected Image Lightbox Modal */}
       {selectedImage && (
         <div
-          className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/90 backdrop-blur-md cursor-zoom-out"
+          className="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-black/90 backdrop-blur-md cursor-zoom-out"
           onClick={() => setSelectedImage(null)}
         >
           <div className="relative max-w-5xl max-h-[90vh] w-full h-full flex items-center justify-center pointer-events-none">
