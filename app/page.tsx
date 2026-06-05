@@ -1,5 +1,6 @@
 "use client";
 
+// Trigger Vercel rebuild after layout revert
 import { motion } from "framer-motion";
 import { ArrowRight, Download, Mail, MapPin, Calendar } from "lucide-react";
 import Link from "next/link";
