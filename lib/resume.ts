@@ -40,11 +40,6 @@ export interface Resume {
   projects: Project[];
   education: Education[];
   certifications?: string[];
-  skills: {
-    languages: string[];
-    frameworks: string[];
-    tools: string[];
-  };
   links?: {
     linkedin: string;
     github: string;
@@ -342,71 +337,6 @@ export const resumeData: Resume = {
     "Decentralized Applications - Authorized by the University at Buffalo, Coursera (Mar 2022)",
     "Algorithmic Thinking (Part 2) - Authorized by Rice University, Coursera (Jun 2020) - Credential URL: https://coursera.org/verify/AEDBEYTVQFUC",
   ],
-  skills: {
-    languages: ["Python", "Dart", "Swift", "Java", "JavaScript", "TypeScript", "C/C++", "HTML/CSS", "SQL", "PHP", "Kotlin"],
-    frameworks: [
-      "Flutter",
-      "SwiftUI",
-      "Django",
-      "FastAPI",
-      "Laravel",
-      "Node.js",
-      "React",
-      "Tailwind CSS",
-      "Next.js",
-      "Scikit-learn",
-      "NumPy",
-      "Pandas",
-      "OpenCV",
-      "PyTorch",
-      "Core ML",
-      "GetX",
-      "Riverpod",
-      "MVVM",
-      "MVC",
-      "Vite",
-      "Ionic",
-      "LangGraph",
-      "SQLAlchemy",
-      "TanStack Query",
-      "Zustand",
-      "Pytest",
-    ],
-    tools: [
-      "Firebase",
-      "Supabase",
-      "MySQL",
-      "PostgreSQL",
-      "MongoDB",
-      "AWS",
-      "Git",
-      "GitHub Actions",
-      "Docker",
-      "Android Studio",
-      "Xcode",
-      "RESTful APIs",
-      "WooCommerce",
-      "WordPress",
-      "Mapbox",
-      "Google Maps API",
-      "Stripe",
-      "CI/CD",
-      "RIVE",
-      "HuggingFace",
-      "LangGraph",
-      "LoRA",
-      "Vision Framework",
-      "Google Gemini (Vertex AI)",
-      "PaddleOCR",
-      "AWS S3",
-      "AWS EC2",
-      "AWS Cognito",
-      "Docker Compose",
-      "Nginx",
-      "Linux",
-      "Cursor",
-    ],
-  },
   links: {
     linkedin: "https://www.linkedin.com/in/prithvisaransathyasaran/",
     github: "https://github.com/prithvisaran3",

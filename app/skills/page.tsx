@@ -1,9 +1,9 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { SectionTitle } from "@/components/ios/SectionTitle";
 import { SkillChip } from "@/components/ios/SkillChip";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import skillsData from "@/content/skills.json";
+import skillGroups from "@/content/skills.json";
 
 export default function SkillsPage() {
   return (
@@ -12,52 +12,40 @@ export default function SkillsPage() {
         Skills & Technologies
       </SectionTitle>
 
-      <div className="max-w-4xl mx-auto">
-        <Tabs defaultValue="languages" className="w-full">
-          <TabsList className="grid w-full grid-cols-3 mb-8 glass-effect">
-            <TabsTrigger value="languages">Languages</TabsTrigger>
-            <TabsTrigger value="frameworks">Frameworks</TabsTrigger>
-            <TabsTrigger value="tools">Tools</TabsTrigger>
-          </TabsList>
+      <div className="max-w-4xl mx-auto space-y-12">
+        <p className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
+          <span aria-hidden className="h-3 w-3 rounded-full ring-1 ring-inset ring-primary/60 bg-primary/10" />
+          Highlighted skills are part of my current production stack
+        </p>
 
-          <TabsContent value="languages" className="space-y-4">
+        {skillGroups.map((group) => {
+          const headingId = `skills-${group.title.toLowerCase().replace(/[^a-z]+/g, "-")}`;
+          return (
+          <motion.section
+            key={group.title}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4 }}
+            aria-labelledby={headingId}
+          >
+            <h2 id={headingId} className="text-xl sm:text-2xl font-bold mb-4">
+              {group.title}
+            </h2>
             <div className="flex flex-wrap gap-3">
-              {skillsData.languages.map((skill, index) => (
+              {group.skills.map((skill, index) => (
                 <SkillChip
                   key={skill.name}
                   name={skill.name}
                   index={index}
+                  current={"current" in skill && skill.current}
                 />
               ))}
             </div>
-          </TabsContent>
-
-          <TabsContent value="frameworks" className="space-y-4">
-            <div className="flex flex-wrap gap-3">
-              {skillsData.frameworks.map((skill, index) => (
-                <SkillChip
-                  key={skill.name}
-                  name={skill.name}
-                  index={index}
-                />
-              ))}
-            </div>
-          </TabsContent>
-
-          <TabsContent value="tools" className="space-y-4">
-            <div className="flex flex-wrap gap-3">
-              {skillsData.tools.map((skill, index) => (
-                <SkillChip
-                  key={skill.name}
-                  name={skill.name}
-                  index={index}
-                />
-              ))}
-            </div>
-          </TabsContent>
-        </Tabs>
+          </motion.section>
+          );
+        })}
       </div>
     </div>
   );
 }
-

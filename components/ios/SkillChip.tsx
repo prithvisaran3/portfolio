@@ -2,13 +2,16 @@
 
 import { motion } from "framer-motion";
 import { GlassCard } from "./GlassCard";
+import { cn } from "@/lib/utils";
 
 interface SkillChipProps {
   name: string;
   index: number;
+  // Part of the current production stack; gets a subtle accent
+  current?: boolean;
 }
 
-export function SkillChip({ name, index }: SkillChipProps) {
+export function SkillChip({ name, index, current = false }: SkillChipProps) {
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.8 }}
@@ -24,9 +27,9 @@ export function SkillChip({ name, index }: SkillChipProps) {
       <GlassCard
         interactive
         elevation={1}
-        className="px-4 py-2.5 inline-block"
+        className={cn("px-4 py-2.5 inline-block", current && "ring-1 ring-inset ring-primary/40")}
       >
-        <span className="font-medium text-sm">{name}</span>
+        <span className={cn("font-medium text-sm", current && "text-primary")}>{name}</span>
       </GlassCard>
     </motion.div>
   );

@@ -1,81 +1,278 @@
-{
-  "languages": [
-    { "name": "Python", "level": "expert" },
-    { "name": "Dart", "level": "expert" },
-    { "name": "Swift", "level": "expert" },
-    { "name": "Java", "level": "advanced" },
-    { "name": "JavaScript", "level": "advanced" },
-    { "name": "TypeScript", "level": "advanced" },
-    { "name": "Kotlin", "level": "advanced" },
-    { "name": "PHP", "level": "advanced" },
-    { "name": "C/C++", "level": "intermediate" },
-    { "name": "HTML/CSS", "level": "expert" },
-    { "name": "SQL", "level": "advanced" },
-    { "name": "Bash", "level": "intermediate" }
-  ],
-  "frameworks": [
-    { "name": "Flutter", "level": "expert" },
-    { "name": "SwiftUI", "level": "expert" },
-    { "name": "Core ML", "level": "advanced" },
-    { "name": "Django", "level": "advanced" },
-    { "name": "Laravel", "level": "advanced" },
-    { "name": "Node.js", "level": "advanced" },
-    { "name": "React", "level": "advanced" },
-    { "name": "Next.js", "level": "advanced" },
-    { "name": "Tailwind CSS", "level": "advanced" },
-    { "name": "Framer Motion", "level": "advanced" },
-    { "name": "GetX", "level": "expert" },
-    { "name": "Riverpod", "level": "advanced" },
-    { "name": "PyTorch", "level": "advanced" },
-    { "name": "Scikit-learn", "level": "advanced" },
-    { "name": "NumPy", "level": "expert" },
-    { "name": "Pandas", "level": "expert" },
-    { "name": "OpenCV", "level": "intermediate" },
-    { "name": "FastAPI", "level": "expert" },
-    { "name": "Vite", "level": "advanced" },
-    { "name": "Ionic", "level": "intermediate" },
-    { "name": "LangGraph", "level": "advanced" },
-    { "name": "SQLAlchemy", "level": "advanced" },
-    { "name": "Alembic", "level": "intermediate" },
-    { "name": "TanStack Query", "level": "advanced" },
-    { "name": "Zustand", "level": "advanced" },
-    { "name": "Pytest", "level": "advanced" }
-  ],
-  "tools": [
-    { "name": "Firebase", "level": "expert" },
-    { "name": "Supabase", "level": "expert" },
-    { "name": "AWS", "level": "advanced" },
-    { "name": "Git", "level": "expert" },
-    { "name": "GitHub Actions", "level": "advanced" },
-    { "name": "Docker", "level": "advanced" },
-    { "name": "MySQL", "level": "expert" },
-    { "name": "PostgreSQL", "level": "advanced" },
-    { "name": "MongoDB", "level": "advanced" },
-    { "name": "Android Studio", "level": "expert" },
-    { "name": "Xcode", "level": "expert" },
-    { "name": "RESTful APIs", "level": "expert" },
-    { "name": "Mapbox", "level": "advanced" },
-    { "name": "Stripe", "level": "advanced" },
-    { "name": "WooCommerce", "level": "advanced" },
-    { "name": "RIVE", "level": "intermediate" },
-    { "name": "HuggingFace", "level": "advanced" },
-    { "name": "LoRA", "level": "intermediate" },
-    { "name": "Radix UI", "level": "advanced" },
-    { "name": "shadcn/ui", "level": "advanced" },
-    { "name": "Google Gemini / Vertex AI", "level": "advanced" },
-    { "name": "PaddleOCR", "level": "advanced" },
-    { "name": "AWS S3", "level": "advanced" },
-    { "name": "AWS EC2", "level": "advanced" },
-    { "name": "AWS Cognito", "level": "intermediate" },
-    { "name": "AWS IAM", "level": "intermediate" },
-    { "name": "Docker Compose", "level": "advanced" },
-    { "name": "Nginx", "level": "intermediate" },
-    { "name": "Linux", "level": "advanced" },
-    { "name": "Cron", "level": "advanced" },
-    { "name": "DBeaver", "level": "advanced" },
-    { "name": "Cursor", "level": "expert" },
-    { "name": "Devin", "level": "advanced" },
-    { "name": "Jira", "level": "intermediate" }
-  ]
-}
-
+[
+  {
+    "title": "Languages",
+    "skills": [
+      {
+        "name": "Python",
+        "current": true
+      },
+      {
+        "name": "TypeScript",
+        "current": true
+      },
+      {
+        "name": "SQL",
+        "current": true
+      },
+      {
+        "name": "JavaScript"
+      },
+      {
+        "name": "Bash",
+        "current": true
+      },
+      {
+        "name": "Dart"
+      },
+      {
+        "name": "Swift"
+      },
+      {
+        "name": "Java"
+      }
+    ]
+  },
+  {
+    "title": "Frontend & Mobile",
+    "skills": [
+      {
+        "name": "React 19",
+        "current": true
+      },
+      {
+        "name": "Next.js"
+      },
+      {
+        "name": "Vite",
+        "current": true
+      },
+      {
+        "name": "Tailwind CSS"
+      },
+      {
+        "name": "TanStack Query"
+      },
+      {
+        "name": "Zustand"
+      },
+      {
+        "name": "Framer Motion"
+      },
+      {
+        "name": "Flutter"
+      },
+      {
+        "name": "SwiftUI"
+      },
+      {
+        "name": "Ionic",
+        "current": true
+      },
+      {
+        "name": "Riverpod"
+      },
+      {
+        "name": "GetX"
+      }
+    ]
+  },
+  {
+    "title": "Backend & Data",
+    "skills": [
+      {
+        "name": "FastAPI",
+        "current": true
+      },
+      {
+        "name": "SQLAlchemy",
+        "current": true
+      },
+      {
+        "name": "Alembic",
+        "current": true
+      },
+      {
+        "name": "Django"
+      },
+      {
+        "name": "Node.js"
+      },
+      {
+        "name": "REST APIs"
+      },
+      {
+        "name": "MySQL",
+        "current": true
+      },
+      {
+        "name": "PostgreSQL",
+        "current": true
+      },
+      {
+        "name": "Firebase"
+      },
+      {
+        "name": "Supabase"
+      },
+      {
+        "name": "MongoDB"
+      }
+    ]
+  },
+  {
+    "title": "AI / ML",
+    "skills": [
+      {
+        "name": "Google Gemini (Vertex AI)",
+        "current": true
+      },
+      {
+        "name": "LLM structured extraction",
+        "current": true
+      },
+      {
+        "name": "PaddleOCR",
+        "current": true
+      },
+      {
+        "name": "LangGraph"
+      },
+      {
+        "name": "PyTorch"
+      },
+      {
+        "name": "Hugging Face"
+      },
+      {
+        "name": "LoRA fine-tuning"
+      },
+      {
+        "name": "scikit-learn"
+      },
+      {
+        "name": "Pandas"
+      },
+      {
+        "name": "NumPy"
+      },
+      {
+        "name": "Core ML"
+      },
+      {
+        "name": "OpenCV"
+      }
+    ]
+  },
+  {
+    "title": "Cloud & DevOps",
+    "skills": [
+      {
+        "name": "AWS (EC2, S3, IAM, Cognito)",
+        "current": true
+      },
+      {
+        "name": "Microsoft Entra ID",
+        "current": true
+      },
+      {
+        "name": "Docker",
+        "current": true
+      },
+      {
+        "name": "Docker Compose",
+        "current": true
+      },
+      {
+        "name": "nginx",
+        "current": true
+      },
+      {
+        "name": "Linux",
+        "current": true
+      },
+      {
+        "name": "cron",
+        "current": true
+      },
+      {
+        "name": "GitHub Actions",
+        "current": true
+      },
+      {
+        "name": "CI regression testing",
+        "current": true
+      }
+    ]
+  },
+  {
+    "title": "Tools & Practices",
+    "skills": [
+      {
+        "name": "Git"
+      },
+      {
+        "name": "Pytest",
+        "current": true
+      },
+      {
+        "name": "DBeaver",
+        "current": true
+      },
+      {
+        "name": "draw.io",
+        "current": true
+      },
+      {
+        "name": "Cursor",
+        "current": true
+      },
+      {
+        "name": "Claude Code",
+        "current": true
+      },
+      {
+        "name": "Devin",
+        "current": true
+      },
+      {
+        "name": "Jira"
+      },
+      {
+        "name": "Xcode"
+      },
+      {
+        "name": "Android Studio"
+      },
+      {
+        "name": "Stripe"
+      },
+      {
+        "name": "Mapbox"
+      },
+      {
+        "name": "MVVM"
+      }
+    ]
+  },
+  {
+    "title": "Healthcare Domain",
+    "skills": [
+      {
+        "name": "Revenue cycle management (RCM)",
+        "current": true
+      },
+      {
+        "name": "Medical coding (CPT/ICD-10)",
+        "current": true
+      },
+      {
+        "name": "EHR integrations",
+        "current": true
+      },
+      {
+        "name": "HIPAA-compliant engineering",
+        "current": true
+      }
+    ]
+  }
+]
