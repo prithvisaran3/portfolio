@@ -190,7 +190,7 @@ export default function ExperiencePage() {
                                 transition={{ delay: index * 0.15 + 0.2 }}
                                 className="text-xl sm:text-2xl font-bold mb-2"
                               >
-                                {exp.role}
+                                {exp.roles ? exp.company : exp.role}
                               </motion.h3>
                               <motion.div
                                 initial={{ opacity: 0, x: -10 }}
@@ -200,7 +200,11 @@ export default function ExperiencePage() {
                                 className="flex items-center gap-2 text-primary font-semibold text-lg mb-3"
                               >
                                 <Briefcase className="w-5 h-5" />
-                                <span>{exp.company}</span>
+                                <span>
+                                  {exp.roles
+                                    ? `Promoted · ${exp.roles.length} roles`
+                                    : exp.company}
+                                </span>
                               </motion.div>
                               <motion.div
                                 initial={{ opacity: 0 }}
@@ -225,35 +229,30 @@ export default function ExperiencePage() {
                             </div>
                           </div>
 
-                          {/* Responsibilities with Staggered Animation */}
-                          <div className="space-y-3 mb-6">
-                            {exp.bullets.map((bullet, i) => (
-                              <motion.div
-                                key={i}
-                                initial={{ opacity: 0, x: -20 }}
-                                whileInView={{ opacity: 1, x: 0 }}
-                                viewport={{ once: true }}
-                                transition={{
-                                  duration: 0.4,
-                                  delay: index * 0.15 + 0.5 + i * 0.1,
-                                }}
-                                className="flex items-start gap-3"
-                              >
-                                <motion.div
-                                  initial={{ scale: 0 }}
-                                  whileInView={{ scale: 1 }}
-                                  viewport={{ once: true }}
-                                  transition={{
-                                    duration: 0.3,
-                                    delay: index * 0.15 + 0.5 + i * 0.1,
-                                    type: "spring",
-                                  }}
-                                  className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0"
-                                />
-                                <p className="text-muted-foreground leading-relaxed">{bullet}</p>
-                              </motion.div>
-                            ))}
-                          </div>
+                          {/* Role progression within one company, newest first */}
+                          {exp.roles ? (
+                            <div className="relative mb-6 space-y-8 border-l border-primary/25 pl-6">
+                              {exp.roles.map((role, r) => (
+                                <div key={role.title} className="relative">
+                                  <span
+                                    aria-hidden
+                                    className={`absolute -left-[31px] top-1.5 h-3 w-3 rounded-full border-2 border-background ${
+                                      r === 0 ? "bg-primary" : "bg-primary/40"
+                                    }`}
+                                  />
+                                  <h4 className="text-lg font-semibold">{role.title}</h4>
+                                  <p className="mb-3 text-sm text-muted-foreground">
+                                    {role.start} – {role.end}
+                                  </p>
+                                  <BulletList bullets={role.bullets} baseDelay={index * 0.15 + 0.5 + r * 0.2} />
+                                </div>
+                              ))}
+                            </div>
+                          ) : (
+                            <div className="mb-6">
+                              <BulletList bullets={exp.bullets} baseDelay={index * 0.15 + 0.5} />
+                            </div>
+                          )}
 
                           {/* Tech Stack with Fade In */}
                           {exp.stack && exp.stack.length > 0 && (
@@ -345,59 +344,33 @@ export default function ExperiencePage() {
             ))}
           </div>
         </motion.div>
-
-        {/* Extracurricular Activities */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          className="mt-16"
-        >
-          <h2 className="text-3xl font-bold mb-8">Extracurricular Activities</h2>
-          <div className="space-y-6">
-            {[
-              {
-                title: "Finance Head, Tamil Literary Association (TLA)",
-                period: "January 2022 – January 2023",
-                description:
-                  "Oversaw the financial operations of the club, focusing on prudent financial management while actively seeking sponsorships to support the club's endeavours",
-              },
-              {
-                title: "Professional Gamer and Streamer, Valorant India",
-                period: "January 2020 – March 2022",
-                description:
-                  "Established a notable presence within the gaming community as a professional gamer and content creator",
-              },
-              {
-                title: "App Development Enthusiast",
-                period: "Ongoing",
-                description:
-                  "Creating innovative mobile applications using Swift and Flutter in spare time, exploring cutting-edge technologies and design patterns",
-              },
-            ].map((activity, index) => (
-              <motion.div
-                key={activity.title}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.5 + index * 0.1 }}
-              >
-                <GlassCard elevation={2} className="p-6">
-                  <h3 className="text-xl font-semibold mb-2">{activity.title}</h3>
-                  <p className="text-sm text-muted-foreground mb-3">{activity.period}</p>
-                  <ul className="space-y-2">
-                    <li className="flex items-start gap-3 text-muted-foreground">
-                      <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0" />
-                      <span>{activity.description}</span>
-                    </li>
-                  </ul>
-                </GlassCard>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
       </div>
+    </div>
+  );
+}
+
+function BulletList({ bullets, baseDelay }: { bullets: string[]; baseDelay: number }) {
+  return (
+    <div className="space-y-3">
+      {bullets.map((bullet, i) => (
+        <motion.div
+          key={i}
+          initial={{ opacity: 0, x: -20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4, delay: baseDelay + i * 0.1 }}
+          className="flex items-start gap-3"
+        >
+          <motion.div
+            initial={{ scale: 0 }}
+            whileInView={{ scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.3, delay: baseDelay + i * 0.1, type: "spring" }}
+            className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0"
+          />
+          <p className="text-muted-foreground leading-relaxed">{bullet}</p>
+        </motion.div>
+      ))}
     </div>
   );
 }

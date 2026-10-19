@@ -93,8 +93,10 @@ export default function ResumePage() {
                   <GlassCard elevation={2} className="p-6">
                     <div className="flex items-start justify-between mb-3">
                       <div>
-                        <h3 className="text-xl font-semibold">{exp.role}</h3>
-                        <p className="text-primary font-medium">{exp.company}</p>
+                        <h3 className="text-xl font-semibold">{exp.roles ? exp.company : exp.role}</h3>
+                        <p className="text-primary font-medium">
+                          {exp.roles ? `Promoted · ${exp.roles.length} roles` : exp.company}
+                        </p>
                       </div>
                       <div className="text-right text-sm text-muted-foreground">
                         <p>
@@ -103,14 +105,23 @@ export default function ResumePage() {
                         {exp.location && <p>{exp.location}</p>}
                       </div>
                     </div>
-                    <ul className="space-y-2 mb-4">
-                      {exp.bullets.map((bullet, i) => (
-                        <li key={i} className="text-sm text-muted-foreground flex items-start gap-2">
-                          <span className="text-primary mt-1">•</span>
-                          <span>{bullet}</span>
-                        </li>
-                      ))}
-                    </ul>
+                    {exp.roles ? (
+                      <div className="mb-4 space-y-5 border-l border-primary/25 pl-4">
+                        {exp.roles.map((role) => (
+                          <div key={role.title}>
+                            <div className="flex flex-wrap items-baseline justify-between gap-x-4">
+                              <h4 className="font-semibold">{role.title}</h4>
+                              <p className="text-sm text-muted-foreground">
+                                {role.start} – {role.end}
+                              </p>
+                            </div>
+                            <BulletList bullets={role.bullets} />
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <BulletList bullets={exp.bullets} />
+                    )}
                     {exp.stack && (
                       <div className="flex flex-wrap gap-2">
                         {exp.stack.map((tech) => (
@@ -215,5 +226,18 @@ export default function ResumePage() {
         </div>
       </div>
     </div>
+  );
+}
+
+function BulletList({ bullets }: { bullets: string[] }) {
+  return (
+    <ul className="space-y-2 mt-2 mb-4">
+      {bullets.map((bullet, i) => (
+        <li key={i} className="text-sm text-muted-foreground flex items-start gap-2">
+          <span className="text-primary mt-1">•</span>
+          <span>{bullet}</span>
+        </li>
+      ))}
+    </ul>
   );
 }

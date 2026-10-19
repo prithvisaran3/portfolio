@@ -1,3 +1,10 @@
+export interface Role {
+  title: string;
+  start: string;
+  end: string;
+  bullets: string[];
+}
+
 export interface Experience {
   company: string;
   role: string;
@@ -5,6 +12,8 @@ export interface Experience {
   start: string;
   end: string;
   bullets: string[];
+  // Role progression within one company, newest first; when set, bullets live on each role
+  roles?: Role[];
   stack?: string[];
 }
 
@@ -52,21 +61,41 @@ export const resumeData: Resume = {
       location: "Bethesda, MD (Remote)",
       start: "Aug 2026",
       end: "Present",
-      bullets: [
-        "Promoted from Clinical Software Engineer I to II within one month; lead developer for revenue cycle management (RCM) software",
-        "Built an AI-assisted charge capture platform that drafts billing codes from signed clinical notes using a rules engine and Google Gemini",
-        "Designed a physician-in-the-loop review UI that shows the reasoning behind every proposed charge and flags conflicts for human review",
-        "Engineered radiopharmaceutical dose accounting that reconciles inventory, batch-release, and clinical note data, built to fail closed",
-        "Shipped an OCR + LLM pipeline that classifies insurance remittance documents and loads them through an idempotent ETL into MySQL",
-        "Own the production radiopharmaceutical inventory system used across treatment centers: monitoring, fixes, and site rollout documentation",
-        "Deploy services with Docker Compose, nginx, and AWS (EC2, S3, Cognito SSO), with scheduled jobs and CI regression gates",
-        "Coordinate and review the work of two newer engineers on the team",
+      bullets: [],
+      roles: [
+        {
+          title: "Clinical Software Engineer II",
+          start: "Sep 2026",
+          end: "Present",
+          bullets: [
+            "Lead developer for revenue cycle management (RCM) software",
+            "Built an AI-assisted charge capture platform that drafts CPT/ICD-10 billing codes from signed clinical notes using a rules engine and Google Gemini",
+            "Designed a physician-in-the-loop review UI that explains the reasoning behind every proposed charge and flags conflicts for human review",
+            "Engineered radiopharmaceutical dose accounting that reconciles inventory, batch-release, and clinical note data, designed to fail closed",
+            "Added a CI regression gate that replays the full historical corpus before every deploy and blocks accuracy regressions",
+            "Own the production radiopharmaceutical inventory system across treatment centers: monitoring, fixes, and site rollout",
+            "Secured document viewing with short-lived S3 presigned URLs, access audit logging, and Cognito SSO",
+            "Coordinate and review the work of two newer engineers",
+          ],
+        },
+        {
+          title: "Clinical Software Engineer I",
+          start: "Aug 2026",
+          end: "Sep 2026",
+          bullets: [
+            "Built an OCR + LLM pipeline that classifies insurance remittance (ERA) documents and extracts payment data, with a human review UI",
+            "Built an idempotent ETL that consolidates remittance data from multiple sources into a single MySQL table",
+            "Deployed the review app with Docker Compose and nginx on AWS EC2, with nightly scheduled processing",
+            "Started a fax ingestion pipeline that pulls documents daily into S3 and classifies referrals and medical notes",
+            "Completed knowledge transfer on the production radiopharmaceutical inventory system and wrote its deployment documentation",
+          ],
+        },
       ],
-      stack: ["Python", "React", "TypeScript", "MySQL", "Google Gemini", "PaddleOCR", "AWS", "Docker", "Nginx"],
+      stack: ["Python", "FastAPI", "React", "TypeScript", "MySQL", "Google Gemini", "PaddleOCR", "AWS", "Docker", "nginx", "GitHub Actions"],
     },
     {
       company: "Cloud Jovy",
-      role: "Mobile App Development Intern - Fall",
+      role: "Mobile App Development Intern",
       location: "San Diego, CA (Remote)",
       start: "Oct 2025",
       end: "Aug 2026",
@@ -82,7 +111,7 @@ export const resumeData: Resume = {
     },
     {
       company: "Prommuni",
-      role: "Mobile App Development Intern - Summer",
+      role: "Mobile App Development Intern",
       location: "Germantown, MD",
       start: "May 2025",
       end: "Aug 2025",
