@@ -332,15 +332,13 @@ export const resumeData: Resume = {
     },
   ],
   certifications: [
-    "AWS Certified Cloud Practitioner, AWS (2024) - Credential ID: aadfbdeb8502401093e75642731e8ac3",
-    "Project Management Virtual Experience, Accenture (Feb 2023) - Completed Accenture Virtual Experience program, gaining practical insights into project management methodologies, proposal preparation, and leadership skills - Credential ID: 38RQbeARDZz7CGPaP",
-    "Decentralized Applications - Authorized by the University at Buffalo, Coursera (Mar 2022)",
-    "Algorithmic Thinking (Part 2) - Authorized by Rice University, Coursera (Jun 2020) - Credential URL: https://coursera.org/verify/AEDBEYTVQFUC",
+    "AWS Certified Cloud Practitioner, Amazon Web Services (2024) · Credential ID aadfbdeb8502401093e75642731e8ac3",
+    "Project Management Virtual Experience Program, Accenture (2023)",
   ],
   links: {
     linkedin: "https://www.linkedin.com/in/prithvisaransathyasaran/",
     github: "https://github.com/prithvisaran3",
-    email: "prithvisarans@gwu.edu",
+    email: "prithvisaran.s@gmail.com",
   },
 };
 

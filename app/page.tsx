@@ -1,8 +1,7 @@
 "use client";
 
-// Trigger Vercel rebuild after layout revert
 import { motion } from "framer-motion";
-import { ArrowRight, Download, Mail, MapPin, Calendar } from "lucide-react";
+import { ArrowRight, Download, Mail, MapPin, GraduationCap } from "lucide-react";
 import Link from "next/link";
 import { GlassCard } from "@/components/ios/GlassCard";
 import { Button } from "@/components/ui/button";
@@ -34,7 +33,7 @@ export default function HomePage() {
             </p>
 
             <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-6">
-              Full-Stack · AI · Mobile
+              Full-Stack · AI · Healthcare · Mobile
             </p>
 
             <div className="flex items-center justify-center gap-4 text-sm text-muted-foreground mb-12">
@@ -43,8 +42,8 @@ export default function HomePage() {
                 <span>Washington, DC</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <Calendar className="w-4 h-4" />
-                <span>M.S. in Computer Science @ GWU &apos;26</span>
+                <GraduationCap className="w-4 h-4" />
+                <span>M.S. CS, GWU</span>
               </div>
             </div>
 
@@ -133,19 +132,18 @@ export default function HomePage() {
             <h2 className="text-3xl font-bold mb-8">Core Technologies</h2>
             <div className="flex flex-wrap justify-center gap-3">
               {[
-                "Flutter",
-                "Swift",
                 "Python",
-                "Django",
-                "Firebase",
-                "React",
-                "AWS",
-                "Machine Learning",
-                "FastAPI",
                 "TypeScript",
+                "React",
+                "FastAPI",
                 "MySQL",
+                "PostgreSQL",
+                "Google Gemini",
+                "AWS",
                 "Docker",
-                "Gemini AI",
+                "GitHub Actions",
+                "Flutter",
+                "SwiftUI",
               ].map((tech, index) => (
                 <motion.span
                   key={tech}

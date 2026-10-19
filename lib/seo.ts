@@ -9,7 +9,7 @@ const siteConfig = {
   links: {
     github: "https://github.com/prithvisaran3",
     linkedin: "https://www.linkedin.com/in/prithvisaransathyasaran/",
-    email: "prithvisarans@gwu.edu",
+    email: "prithvisaran.s@gmail.com",
   },
 };
 

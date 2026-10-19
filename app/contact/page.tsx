@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 export default function ContactPage() {
   return (
     <div className="container mx-auto px-4 py-20">
-      <SectionTitle subtitle="Let&apos;s work together on your next project">
+      <SectionTitle subtitle="Questions, collaborations, or just saying hello">
         Get In Touch
       </SectionTitle>
 
@@ -25,10 +25,10 @@ export default function ContactPage() {
             <p className="text-muted-foreground mb-6">
               Always happy to connect about healthcare software, AI, and mobile development.
             </p>
-            <a href="mailto:prithvisarans@gwu.edu">
+            <a href="mailto:prithvisaran.s@gmail.com">
               <Button size="lg" className="gap-2 rounded-full" variant="glass">
                 <Mail className="w-4 h-4" />
-                prithvisarans@gwu.edu
+                prithvisaran.s@gmail.com
               </Button>
             </a>
           </GlassCard>
