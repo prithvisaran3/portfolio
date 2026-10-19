@@ -1,10 +1,11 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
+import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
+import { spring, springSnappy } from "@/lib/motion";
 import { ThemeToggle } from "./ThemeToggle";
 
 const navItems = [
@@ -21,19 +22,54 @@ export function IslandNav() {
   const pathname = usePathname();
   const { scrollY } = useScroll();
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const toggleRef = useRef<HTMLButtonElement>(null);
 
-  // Subtle scale effect on scroll
-  const scale = useTransform(scrollY, [0, 100], [1, 0.95]);
-  const paddingY = useTransform(scrollY, [0, 100], [16, 12]);
+  // Flip a boolean only when crossing the threshold, not on every scroll frame
+  useMotionValueEvent(scrollY, "change", (y) => {
+    const next = y > 8;
+    if (next !== scrolled) setScrolled(next);
+  });
+
+  useEffect(() => setIsOpen(false), [pathname]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setIsOpen(false);
+        toggleRef.current?.focus();
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [isOpen]);
 
   return (
     <>
+      {/* Scroll edge effect: content softens as it slides under the floating nav,
+          instead of a hard line. Only shown once something is underneath. */}
+      <div
+        aria-hidden
+        className={cn(
+          "pointer-events-none fixed inset-x-0 top-0 z-40 h-24 transition-opacity duration-300",
+          "bg-gradient-to-b from-background/80 to-transparent backdrop-blur-[2px]",
+          "[mask-image:linear-gradient(to_bottom,black_40%,transparent)]",
+          scrolled ? "opacity-100" : "opacity-0"
+        )}
+      />
+
       {/* Desktop Navigation */}
-      <motion.nav
-        style={{ scale, paddingTop: paddingY, paddingBottom: paddingY }}
-        className="sticky top-4 z-50 mx-auto max-w-fit px-4 hidden lg:block"
+      <nav
+        aria-label="Primary"
+        className="fixed inset-x-0 top-4 z-50 mx-auto hidden w-fit px-4 lg:block"
       >
-        <div className="glass-effect rounded-full px-6 py-3 shadow-2xl">
+        <div
+          className={cn(
+            "glass-chrome rounded-full px-3 py-2 transition-shadow duration-300",
+            scrolled ? "shadow-2xl" : "shadow-xl"
+          )}
+        >
           <div className="flex items-center gap-1">
             {navItems.map((item) => {
               const isActive = pathname === item.path;
@@ -41,111 +77,120 @@ export function IslandNav() {
                 <Link
                   key={item.path}
                   href={item.path}
+                  aria-current={isActive ? "page" : undefined}
                   className={cn(
-                    "relative px-4 py-2 text-sm font-medium transition-colors rounded-full",
+                    "press relative rounded-full px-4 py-2 text-sm font-medium transition-colors",
                     isActive
                       ? "text-foreground"
-                      : "text-muted-foreground hover:text-foreground"
+                      : "text-foreground/65 hover:text-foreground"
                   )}
                 >
                   {isActive && (
                     <motion.div
                       layoutId="nav-pill"
-                      className="absolute inset-0 rounded-full bg-foreground/10 dark:bg-foreground/5"
-                      transition={{
-                        type: "spring",
-                        stiffness: 380,
-                        damping: 30,
-                      }}
+                      className="absolute inset-0 rounded-full bg-foreground/10"
+                      transition={spring}
                     />
                   )}
                   <span className="relative z-10">{item.name}</span>
                 </Link>
               );
             })}
-            <div className="ml-2 pl-2 border-l border-border">
+            <div className="ml-1 border-l border-foreground/10 pl-2">
               <ThemeToggle />
             </div>
           </div>
         </div>
-      </motion.nav>
+      </nav>
 
       {/* Mobile Navigation */}
-      <motion.nav
-        style={{ paddingTop: paddingY, paddingBottom: paddingY }}
-        className="sticky top-4 z-50 mx-auto px-4 lg:hidden"
-      >
-        <div className="glass-effect rounded-2xl px-4 py-3 shadow-2xl">
+      <nav aria-label="Primary" className="fixed inset-x-0 top-4 z-50 px-4 lg:hidden">
+        <div
+          className={cn(
+            "glass-chrome rounded-2xl px-4 py-3 transition-shadow duration-300",
+            scrolled ? "shadow-2xl" : "shadow-xl"
+          )}
+        >
           <div className="flex items-center justify-between">
-            <Link href="/" className="text-lg font-bold">
+            <Link href="/" className="press flex items-center text-lg font-bold" aria-label="Home">
               PS
             </Link>
             <div className="flex items-center gap-2">
               <ThemeToggle />
               <button
-                onClick={() => setIsOpen(!isOpen)}
-                className="p-2 rounded-lg hover:bg-foreground/5 transition-colors"
-                aria-label="Toggle menu"
+                ref={toggleRef}
+                onClick={() => setIsOpen((open) => !open)}
+                className="press flex items-center justify-center rounded-xl p-2 hover:bg-foreground/5"
+                aria-label={isOpen ? "Close menu" : "Open menu"}
+                aria-expanded={isOpen}
+                aria-controls="mobile-menu"
               >
-                <svg
-                  className="w-6 h-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
+                <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
                   {isOpen ? (
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M6 18L18 6M6 6l12 12"
-                    />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                   ) : (
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M4 6h16M4 12h16M4 18h16"
-                    />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                   )}
                 </svg>
               </button>
             </div>
           </div>
+        </div>
 
-          {/* Mobile Menu */}
+        {/* Menu panel overlays the page (no layout shift) and grows out of the toggle */}
+        <AnimatePresence>
           {isOpen && (
             <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              className="mt-4 pt-4 border-t border-border"
+              id="mobile-menu"
+              initial={{ opacity: 0, scale: 0.96, y: -6 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.96, y: -6 }}
+              transition={springSnappy}
+              style={{ transformOrigin: "top right" }}
+              className="glass-chrome mt-2 rounded-2xl p-2 shadow-2xl"
             >
-              <div className="flex flex-col gap-2">
+              <ul className="flex flex-col">
                 {navItems.map((item) => {
                   const isActive = pathname === item.path;
                   return (
-                    <Link
-                      key={item.path}
-                      href={item.path}
-                      onClick={() => setIsOpen(false)}
-                      className={cn(
-                        "px-4 py-3 rounded-lg text-sm font-medium transition-colors",
-                        isActive
-                          ? "bg-foreground/10 text-foreground"
-                          : "text-muted-foreground hover:bg-foreground/5 hover:text-foreground"
-                      )}
-                    >
-                      {item.name}
-                    </Link>
+                    <li key={item.path}>
+                      <Link
+                        href={item.path}
+                        onClick={() => setIsOpen(false)}
+                        aria-current={isActive ? "page" : undefined}
+                        className={cn(
+                          "flex items-center rounded-xl px-4 py-3 text-base font-medium transition-colors",
+                          isActive
+                            ? "bg-foreground/10 text-foreground"
+                            : "text-foreground/75 hover:bg-foreground/5 hover:text-foreground"
+                        )}
+                      >
+                        {item.name}
+                      </Link>
+                    </li>
                   );
                 })}
-              </div>
+              </ul>
             </motion.div>
           )}
-        </div>
-      </motion.nav>
+        </AnimatePresence>
+      </nav>
+
+      {/* Tap-outside scrim: dims to focus while the menu is open */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.button
+            aria-label="Close menu"
+            tabIndex={-1}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            onClick={() => setIsOpen(false)}
+            className="fixed inset-0 z-40 bg-black/20 lg:hidden"
+          />
+        )}
+      </AnimatePresence>
     </>
   );
 }
-
