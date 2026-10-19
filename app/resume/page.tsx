@@ -1,12 +1,11 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { Reveal } from "@/components/ios/Reveal";
 import { Download, ExternalLink, Briefcase, GraduationCap, Award, BookOpen } from "lucide-react";
 import { SectionTitle } from "@/components/ios/SectionTitle";
 import { GlassCard } from "@/components/ios/GlassCard";
 import { Button } from "@/components/ui/button";
 import { resumeData } from "@/lib/resume";
-import { reveal } from "@/lib/motion";
 
 export default function ResumePage() {
   return (
@@ -31,9 +30,8 @@ export default function ResumePage() {
             </div>
             <div className="space-y-6">
               {resumeData.education.map((edu, index) => (
-                <motion.div
+                <Reveal
                   key={index}
-                  {...reveal}
                 >
                   <GlassCard elevation={2} className="p-6">
                     <div className="flex items-start justify-between mb-4">
@@ -68,7 +66,7 @@ export default function ResumePage() {
                       </div>
                     )}
                   </GlassCard>
-                </motion.div>
+                </Reveal>
               ))}
             </div>
           </section>
@@ -81,9 +79,8 @@ export default function ResumePage() {
             </div>
             <div className="space-y-6">
               {resumeData.experience.map((exp, index) => (
-                <motion.div
+                <Reveal
                   key={index}
-                  {...reveal}
                 >
                   <GlassCard elevation={2} className="p-6">
                     <div className="flex items-start justify-between mb-3">
@@ -130,7 +127,7 @@ export default function ResumePage() {
                       </div>
                     )}
                   </GlassCard>
-                </motion.div>
+                </Reveal>
               ))}
             </div>
           </section>
@@ -143,9 +140,8 @@ export default function ResumePage() {
             </div>
             <div className="space-y-6">
               {resumeData.projects.map((project, index) => (
-                <motion.div
+                <Reveal
                   key={index}
-                  {...reveal}
                 >
                   <GlassCard elevation={2} className="p-6">
                     <div className="flex items-start justify-between mb-3">
@@ -181,7 +177,7 @@ export default function ResumePage() {
                       </div>
                     )}
                   </GlassCard>
-                </motion.div>
+                </Reveal>
               ))}
             </div>
           </section>
@@ -193,8 +189,7 @@ export default function ResumePage() {
                 <Award className="w-6 h-6 text-primary" />
                 <h2 className="text-3xl font-bold">Certifications</h2>
               </div>
-              <motion.div
-                {...reveal}
+              <Reveal
               >
                 <GlassCard elevation={2} className="p-6">
                   <ul className="space-y-2">
@@ -209,7 +204,7 @@ export default function ResumePage() {
                     ))}
                   </ul>
                 </GlassCard>
-              </motion.div>
+              </Reveal>
             </section>
           )}
         </div>

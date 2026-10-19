@@ -1,9 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { Reveal } from "@/components/ios/Reveal";
 import { Star, GitFork, ExternalLink } from "lucide-react";
 import { GlassCard } from "./GlassCard";
-import { reveal } from "@/lib/motion";
 import { GitHubRepo, getLanguageColor } from "@/lib/github";
 
 interface RepoCardProps {
@@ -13,11 +12,10 @@ interface RepoCardProps {
 
 export function RepoCard({ repo }: RepoCardProps) {
   return (
-    <motion.a
+    <Reveal as="a"
       href={repo.html_url}
       target="_blank"
       rel="noopener noreferrer"
-      {...reveal}
     >
       <GlassCard interactive elevation={2} className="p-6 h-full group">
         <div className="flex flex-col h-full">
@@ -70,7 +68,7 @@ export function RepoCard({ repo }: RepoCardProps) {
           )}
         </div>
       </GlassCard>
-    </motion.a>
+    </Reveal>
   );
 }
 

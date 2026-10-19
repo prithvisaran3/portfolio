@@ -1,11 +1,12 @@
 "use client";
 
+import { Reveal } from "@/components/ios/Reveal";
 import { motion } from "framer-motion";
 import { Mail, Github, Linkedin, ExternalLink } from "lucide-react";
 import { SectionTitle } from "@/components/ios/SectionTitle";
 import { GlassCard } from "@/components/ios/GlassCard";
 import { Button } from "@/components/ui/button";
-import { reveal, spring } from "@/lib/motion";
+import { spring } from "@/lib/motion";
 export default function ContactPage() {
   return (
     <div className="container mx-auto px-4 py-20">
@@ -36,8 +37,7 @@ export default function ContactPage() {
         </motion.div>
 
         {/* Social Links */}
-        <motion.div
-          {...reveal}
+        <Reveal
         >
           <h3 className="text-xl font-bold text-center mb-6">Connect With Me</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -79,11 +79,10 @@ export default function ContactPage() {
               </GlassCard>
             </a>
           </div>
-        </motion.div>
+        </Reveal>
 
         {/* Availability */}
-        <motion.div
-          {...reveal}
+        <Reveal
         >
           <GlassCard elevation={1} className="p-6">
             <h3 className="font-semibold mb-2">Current Status</h3>
@@ -97,7 +96,7 @@ export default function ContactPage() {
               Currently building clinical and revenue cycle software. Open to conversations, collaborations, and interesting problems.
             </p>
           </GlassCard>
-        </motion.div>
+        </Reveal>
       </div>
     </div>
   );

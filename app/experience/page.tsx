@@ -1,11 +1,11 @@
 "use client";
 
+import { Reveal } from "@/components/ios/Reveal";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Briefcase, Calendar, MapPin } from "lucide-react";
 import { SectionTitle } from "@/components/ios/SectionTitle";
 import { GlassCard } from "@/components/ios/GlassCard";
 import { resumeData } from "@/lib/resume";
-import { reveal } from "@/lib/motion";
 import { useRef, useEffect, useState } from "react";
 
 const careerHighlights = [
@@ -16,7 +16,7 @@ const careerHighlights = [
 
 export default function ExperiencePage() {
   const timelineRef = useRef<HTMLDivElement>(null);
-  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const cardRefs = useRef<(HTMLElement | null)[]>([]);
   const [cardPositions, setCardPositions] = useState<number[]>([]);
   // Page-space bounds of the timeline, read on layout changes only (not per scroll)
   const bounds = useRef({ start: 0, end: 1 });
@@ -72,29 +72,24 @@ export default function ExperiencePage() {
               style={{ scaleY: fill }}
             />
             {cardPositions.map((position, index) => (
-              <motion.div
+              <div
                 key={index}
                 className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 z-10"
                 style={{ top: `${position * 100}%` }}
-                initial={{ scale: 0, opacity: 0 }}
-                whileInView={{ scale: 1, opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ type: "spring", bounce: 0, duration: 0.35 }}
               >
                 <div className="w-5 h-5 rounded-full bg-primary border-4 border-background shadow-lg shadow-primary/30" />
-              </motion.div>
+              </div>
             ))}
           </div>
 
           {/* Content Cards */}
           <div className="space-y-12 md:ml-20">
             {resumeData.experience.map((exp, index) => (
-              <motion.div
+              <Reveal
                 key={exp.company}
                 ref={(el) => {
                   cardRefs.current[index] = el;
                 }}
-                {...reveal}
                 className="relative"
               >
                 {/* Connecting line from timeline, level with the dot */}
@@ -165,13 +160,13 @@ export default function ExperiencePage() {
                     </ul>
                   )}
                 </GlassCard>
-              </motion.div>
+              </Reveal>
             ))}
           </div>
         </div>
 
         {/* Career Highlights */}
-        <motion.section {...reveal} className="mt-16">
+        <Reveal as="section" className="mt-16">
           <h2 className="text-3xl font-bold mb-8 text-center">Career Highlights</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {careerHighlights.map((stat) => (
@@ -181,7 +176,7 @@ export default function ExperiencePage() {
               </GlassCard>
             ))}
           </div>
-        </motion.section>
+        </Reveal>
       </div>
     </div>
   );

@@ -47,18 +47,6 @@ export function IslandNav() {
 
   return (
     <>
-      {/* Scroll edge effect: content softens as it slides under the floating nav,
-          instead of a hard line. Only shown once something is underneath. */}
-      <div
-        aria-hidden
-        className={cn(
-          "pointer-events-none fixed inset-x-0 top-0 z-40 h-24 transition-opacity duration-300",
-          "bg-gradient-to-b from-background/80 to-transparent backdrop-blur-[2px]",
-          "[mask-image:linear-gradient(to_bottom,black_40%,transparent)]",
-          scrolled ? "opacity-100" : "opacity-0"
-        )}
-      />
-
       {/* Desktop Navigation */}
       <nav
         aria-label="Primary"

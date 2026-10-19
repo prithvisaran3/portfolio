@@ -1,10 +1,11 @@
 "use client";
 
+import { Reveal } from "@/components/ios/Reveal";
 import { motion } from "framer-motion";
 import { SectionTitle } from "@/components/ios/SectionTitle";
 import { GlassCard } from "@/components/ios/GlassCard";
 import { MapPin, GraduationCap, Briefcase, Smartphone } from "lucide-react";
-import { reveal, spring } from "@/lib/motion";
+import { spring } from "@/lib/motion";
 
 const quickFacts = [
   {
@@ -78,7 +79,7 @@ export default function AboutPage() {
         {/* Quick Facts */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {quickFacts.map((fact) => (
-            <motion.div key={fact.label} {...reveal}>
+            <Reveal key={fact.label}>
               <GlassCard elevation={2} className="p-6 h-full">
                 <div className="flex items-start gap-4">
                   <div className="p-3 rounded-full bg-primary/10 shrink-0">
@@ -96,12 +97,12 @@ export default function AboutPage() {
                   </div>
                 </div>
               </GlassCard>
-            </motion.div>
+            </Reveal>
           ))}
         </div>
 
         {/* Focus Areas */}
-        <motion.div {...reveal}>
+        <Reveal>
           <GlassCard elevation={2} className="p-6 sm:p-8">
             <h2 className="text-2xl font-bold mb-4">Focus Areas</h2>
             <div className="flex flex-wrap gap-3">
@@ -115,7 +116,7 @@ export default function AboutPage() {
               ))}
             </div>
           </GlassCard>
-        </motion.div>
+        </Reveal>
       </div>
     </div>
   );

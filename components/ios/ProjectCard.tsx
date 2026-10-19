@@ -1,9 +1,10 @@
 "use client";
 
+import { Reveal } from "@/components/ios/Reveal";
 import { useEffect, useId, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { reveal, spring } from "@/lib/motion";
+import { spring } from "@/lib/motion";
 import { GlassCard } from "./GlassCard";
 import { ExternalLink, Smartphone, Github, Award, Trophy, Globe, X } from "lucide-react";
 
@@ -166,7 +167,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
 
   return (
     <>
-      <motion.div key={project.name} {...reveal} className="h-full">
+      <Reveal key={project.name} className="h-full">
         <GlassCard
           ref={cardRef}
           interactive
@@ -336,7 +337,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
             </div>
           </div>
         </GlassCard>
-      </motion.div>
+      </Reveal>
 
       {/* Modal Popup Overlay */}
       {mounted && createPortal(

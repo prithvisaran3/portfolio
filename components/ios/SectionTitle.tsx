@@ -1,8 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { Reveal } from "@/components/ios/Reveal";
 import { ReactNode } from "react";
-import { reveal } from "@/lib/motion";
 
 interface SectionTitleProps {
   children: ReactNode;
@@ -13,7 +12,7 @@ interface SectionTitleProps {
 
 export function SectionTitle({ children, subtitle, as: Heading = "h1" }: SectionTitleProps) {
   return (
-    <motion.div {...reveal} className="mb-12 text-center">
+    <Reveal className="mb-12 text-center">
       <Heading className="text-4xl md:text-5xl font-bold tracking-[-0.025em] leading-[1.05] mb-3">
         {children}
       </Heading>
@@ -22,6 +21,6 @@ export function SectionTitle({ children, subtitle, as: Heading = "h1" }: Section
           {subtitle}
         </p>
       )}
-    </motion.div>
+    </Reveal>
   );
 }

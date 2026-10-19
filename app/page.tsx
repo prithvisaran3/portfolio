@@ -1,12 +1,13 @@
 "use client";
 
+import { Reveal } from "@/components/ios/Reveal";
 import { motion } from "framer-motion";
 import { ArrowRight, Download, Mail, MapPin, GraduationCap } from "lucide-react";
 import Link from "next/link";
 import { GlassCard } from "@/components/ios/GlassCard";
 import { SkillChip } from "@/components/ios/SkillChip";
 import { Button } from "@/components/ui/button";
-import { reveal, spring } from "@/lib/motion";
+import { spring } from "@/lib/motion";
 
 const highlights = [
   { value: "10K+", label: "Active users across mobile apps" },
@@ -99,26 +100,26 @@ export default function HomePage() {
       <section className="py-20" aria-label="Highlights">
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
           {highlights.map((item) => (
-            <motion.div key={item.label} {...reveal}>
+            <Reveal key={item.label}>
               <GlassCard elevation={2} className="p-8 h-full">
                 <p className="text-4xl font-bold tracking-[-0.03em] mb-2">{item.value}</p>
                 <p className="text-muted-foreground">{item.label}</p>
               </GlassCard>
-            </motion.div>
+            </Reveal>
           ))}
         </div>
       </section>
 
       {/* Featured Tech Stack */}
       <section className="py-20">
-        <motion.div {...reveal} className="max-w-4xl mx-auto text-center">
+        <Reveal className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl font-bold mb-8">Core Technologies</h2>
           <div className="flex flex-wrap justify-center gap-3">
-            {coreTech.map((tech) => (
-              <SkillChip key={tech} name={tech} />
+            {coreTech.map((tech, index) => (
+              <SkillChip key={tech} name={tech} index={index} />
             ))}
           </div>
-        </motion.div>
+        </Reveal>
       </section>
     </div>
   );
