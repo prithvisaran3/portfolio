@@ -3,7 +3,46 @@
 import { motion } from "framer-motion";
 import { SectionTitle } from "@/components/ios/SectionTitle";
 import { GlassCard } from "@/components/ios/GlassCard";
-import { Calendar, MapPin, GraduationCap, Briefcase } from "lucide-react";
+import { MapPin, GraduationCap, Briefcase, Smartphone } from "lucide-react";
+
+const quickFacts = [
+  {
+    icon: Briefcase,
+    label: "Current Role",
+    value: "Clinical Software Engineer II",
+    detail: "United Theranostics · Remote",
+  },
+  {
+    icon: MapPin,
+    label: "Location",
+    value: "Washington, DC area",
+    detail: "Working remotely",
+  },
+  {
+    icon: GraduationCap,
+    label: "Education",
+    value: "M.S. Computer Science, GWU",
+    detail: "GPA 3.74 · May 2026 · B.Tech, VIT '23",
+  },
+  {
+    icon: Smartphone,
+    label: "Track Record",
+    value: "12+ production apps",
+    detail: "10K+ users · 5 companies",
+  },
+];
+
+const focusAreas = [
+  "Healthcare software (RCM)",
+  "LLM document extraction",
+  "Human-in-the-loop AI",
+  "Full-stack web (React + FastAPI)",
+  "Data pipelines & ETL",
+  "Cloud infrastructure on AWS",
+  "Mobile apps (Flutter, SwiftUI)",
+  "Correctness & regression testing",
+];
+
 export default function AboutPage() {
   return (
     <div className="container mx-auto px-4 py-20">
@@ -19,16 +58,16 @@ export default function AboutPage() {
           transition={{ duration: 0.5 }}
         >
           <GlassCard elevation={2} className="p-4 sm:p-6 md:p-8">
-            <h2 className="text-xl sm:text-2xl font-bold mb-4">Hi, I&apos;m Prithvi Saran Sathyasaran 👋</h2>
+            <h2 className="text-xl sm:text-2xl font-bold mb-4">Hi, I&apos;m Prithvi Saran Sathyasaran</h2>
             <div className="space-y-4 text-muted-foreground">
             <p>
-              I&apos;m a software engineer at United Theranostics, where I build clinical and revenue cycle software for a radiopharmaceutical cancer care network. I hold an M.S. in Computer Science from The George Washington University and a B.Tech from Vellore Institute of Technology.
+              I&apos;m a Clinical Software Engineer II at United Theranostics, a radiopharmaceutical cancer care network, where I lead development of our revenue cycle management software. I was promoted from Engineer I within my first month. My work spans AI-assisted charge capture, document pipelines that turn insurance remittances and faxes into structured data, and the production inventory system our treatment centers rely on.
             </p>
             <p>
-              I started in mobile: across 5 companies I&apos;ve shipped 12+ production apps reaching over 10,000 users, including Drillhub and Prommuni on the App Store. Today I work across the stack, from Python services and AI pipelines to React dashboards and AWS infrastructure, and was promoted to Clinical Software Engineer II within my first month.
+              I build systems where a wrong number has real consequences, so I design for correctness first: rules engines alongside LLMs, physician-in-the-loop review, dose accounting that fails closed, and a CI gate that replays our full historical corpus before every deploy. Day to day that means Python, FastAPI, React, MySQL, Google Gemini, and AWS.
             </p>
             <p>
-              I care about software that has to be right: systems where a wrong number has real consequences. I enjoy turning messy real-world documents and workflows into reliable, reviewable automation, and I still build mobile and AI side projects in my spare time.
+              Before healthcare I was a mobile engineer. I shipped 12+ production apps reaching over 10,000 users, including Drillhub and Prommuni on the App Store. I hold an M.S. in Computer Science from The George Washington University and a B.Tech from VIT, and I&apos;m an AWS Certified Cloud Practitioner.
             </p>
             </div>
           </GlassCard>
@@ -36,112 +75,46 @@ export default function AboutPage() {
 
         {/* Quick Facts */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-          >
-            <GlassCard interactive elevation={2} className="p-6 h-full">
-              <div className="flex items-start gap-4">
-                <div className="p-3 rounded-full bg-primary/10">
-                  <MapPin className="w-6 h-6 text-primary" />
+          {quickFacts.map((fact, index) => (
+            <motion.div
+              key={fact.label}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 * (index + 1) }}
+            >
+              <GlassCard interactive elevation={2} className="p-6 h-full">
+                <div className="flex items-start gap-4">
+                  <div className="p-3 rounded-full bg-primary/10 shrink-0">
+                    <fact.icon className="w-6 h-6 text-primary" />
+                  </div>
+                  <div className="min-w-0">
+                    <h3 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-1">
+                      {fact.label}
+                    </h3>
+                    <p className="font-semibold leading-snug">{fact.value}</p>
+                    <p className="text-sm text-muted-foreground mt-0.5">{fact.detail}</p>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="font-semibold mb-1">Location</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Washington, DC Area • Remote
-                  </p>
-                </div>
-              </div>
-            </GlassCard>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
-            <GlassCard interactive elevation={2} className="p-6 h-full">
-              <div className="flex items-start gap-4">
-                <div className="p-3 rounded-full bg-primary/10">
-                  <Calendar className="w-6 h-6 text-primary" />
-                </div>
-                <div>
-                  <h3 className="font-semibold mb-1">Current Role</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Clinical Software Engineer II • United Theranostics
-                  </p>
-                </div>
-              </div>
-            </GlassCard>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-          >
-            <GlassCard interactive elevation={2} className="p-6 h-full">
-              <div className="flex items-start gap-4">
-                <div className="p-3 rounded-full bg-primary/10">
-                  <GraduationCap className="w-6 h-6 text-primary" />
-                </div>
-                <div>
-                  <h3 className="font-semibold mb-1">Education</h3>
-                  <p className="text-sm text-muted-foreground">
-                    M.S. CS @ GWU &apos;26 • B.Tech @ VIT &apos;23
-                  </p>
-                </div>
-              </div>
-            </GlassCard>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-          >
-            <GlassCard interactive elevation={2} className="p-6 h-full">
-              <div className="flex items-start gap-4">
-                <div className="p-3 rounded-full bg-primary/10">
-                  <Briefcase className="w-6 h-6 text-primary" />
-                </div>
-                <div>
-                  <h3 className="font-semibold mb-1">Experience</h3>
-                  <p className="text-sm text-muted-foreground">
-                    5 companies • 12+ apps • 10K+ users
-                  </p>
-                </div>
-              </div>
-            </GlassCard>
-          </motion.div>
+              </GlassCard>
+            </motion.div>
+          ))}
         </div>
 
-        {/* Interests */}
+        {/* Focus Areas */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.5 }}
         >
-          <GlassCard elevation={2} className="p-8">
-            <h2 className="text-2xl font-bold mb-4">Interests & Hobbies</h2>
+          <GlassCard elevation={2} className="p-6 sm:p-8">
+            <h2 className="text-2xl font-bold mb-4">Focus Areas</h2>
             <div className="flex flex-wrap gap-3">
-              {[
-                "Mobile UI/UX Design",
-                "Machine Learning",
-                "Cloud Architecture",
-                "Open Source",
-                "Agile Development",
-                "API Design",
-                "Healthcare Software",
-                "LLM Applications",
-                "Revenue Cycle Automation",
-              ].map((interest) => (
+              {focusAreas.map((area) => (
                 <span
-                  key={interest}
+                  key={area}
                   className="px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium"
                 >
-                  {interest}
+                  {area}
                 </span>
               ))}
             </div>
@@ -151,4 +124,3 @@ export default function AboutPage() {
     </div>
   );
 }
-
