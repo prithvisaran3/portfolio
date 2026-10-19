@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
-export const alt = "Prithvi Saran Sathyasaran - Mobile App Developer";
+export const alt = "Prithvi Saran Sathyasaran - Software Engineer";
 export const size = {
   width: 1200,
   height: 630,
@@ -50,7 +50,7 @@ export default async function Image() {
               marginBottom: "10px",
             }}
           >
-            Mobile App Developer
+            Software Engineer @ United Theranostics
           </p>
           <p
             style={{
@@ -58,7 +58,7 @@ export default async function Image() {
               color: "rgba(255, 255, 255, 0.6)",
             }}
           >
-            Flutter · iOS · Android
+            Full-Stack · AI · Mobile
           </p>
         </div>
       </div>

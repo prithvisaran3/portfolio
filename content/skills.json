@@ -10,7 +10,8 @@
     { "name": "PHP", "level": "advanced" },
     { "name": "C/C++", "level": "intermediate" },
     { "name": "HTML/CSS", "level": "expert" },
-    { "name": "SQL", "level": "advanced" }
+    { "name": "SQL", "level": "advanced" },
+    { "name": "Bash", "level": "intermediate" }
   ],
   "frameworks": [
     { "name": "Flutter", "level": "expert" },
@@ -29,7 +30,16 @@
     { "name": "Scikit-learn", "level": "advanced" },
     { "name": "NumPy", "level": "expert" },
     { "name": "Pandas", "level": "expert" },
-    { "name": "OpenCV", "level": "intermediate" }
+    { "name": "OpenCV", "level": "intermediate" },
+    { "name": "FastAPI", "level": "expert" },
+    { "name": "Vite", "level": "advanced" },
+    { "name": "Ionic", "level": "intermediate" },
+    { "name": "LangGraph", "level": "advanced" },
+    { "name": "SQLAlchemy", "level": "advanced" },
+    { "name": "Alembic", "level": "intermediate" },
+    { "name": "TanStack Query", "level": "advanced" },
+    { "name": "Zustand", "level": "advanced" },
+    { "name": "Pytest", "level": "advanced" }
   ],
   "tools": [
     { "name": "Firebase", "level": "expert" },
@@ -51,7 +61,21 @@
     { "name": "HuggingFace", "level": "advanced" },
     { "name": "LoRA", "level": "intermediate" },
     { "name": "Radix UI", "level": "advanced" },
-    { "name": "shadcn/ui", "level": "advanced" }
+    { "name": "shadcn/ui", "level": "advanced" },
+    { "name": "Google Gemini / Vertex AI", "level": "advanced" },
+    { "name": "PaddleOCR", "level": "advanced" },
+    { "name": "AWS S3", "level": "advanced" },
+    { "name": "AWS EC2", "level": "advanced" },
+    { "name": "AWS Cognito", "level": "intermediate" },
+    { "name": "AWS IAM", "level": "intermediate" },
+    { "name": "Docker Compose", "level": "advanced" },
+    { "name": "Nginx", "level": "intermediate" },
+    { "name": "Linux", "level": "advanced" },
+    { "name": "Cron", "level": "advanced" },
+    { "name": "DBeaver", "level": "advanced" },
+    { "name": "Cursor", "level": "expert" },
+    { "name": "Devin", "level": "advanced" },
+    { "name": "Jira", "level": "intermediate" }
   ]
 }
 

@@ -3,7 +3,7 @@ import { Metadata } from "next";
 const siteConfig = {
   name: "Prithvi Saran Sathyasaran",
   description:
-    "Mobile App Developer specializing in Flutter, iOS, and Android. Graduate student at The George Washington University building beautiful, performant cross-platform applications.",
+    "Software Engineer at United Theranostics building clinical, AI, and full-stack software. M.S. Computer Science from The George Washington University, with 12+ production mobile apps shipped.",
   url: "https://prithvisaran.com",
   ogImage: "/og/og.png",
   links: {
@@ -27,6 +27,12 @@ export function createMetadata(
     title: metaTitle,
     description: metaDescription,
     keywords: [
+      "Software Engineer",
+      "Full Stack Developer",
+      "Healthcare Software",
+      "AI Engineer",
+      "Python",
+      "FastAPI",
       "Mobile Developer",
       "Flutter Developer",
       "iOS Developer",
@@ -35,7 +41,6 @@ export function createMetadata(
       "SwiftUI",
       "Dart",
       "TypeScript",
-      "Full Stack Developer",
       "Prithvi Saran",
     ],
     authors: [{ name: "Prithvi Saran" }],

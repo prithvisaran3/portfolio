@@ -23,7 +23,7 @@ export default function ContactPage() {
             <Mail className="w-12 h-12 mx-auto mb-4 text-primary" />
             <h2 className="text-2xl font-bold mb-2">Email Me</h2>
             <p className="text-muted-foreground mb-6">
-              I&apos;m currently open to new opportunities and always happy to connect!
+              Always happy to connect about healthcare software, AI, and mobile development.
             </p>
             <a href="mailto:prithvisarans@gwu.edu">
               <Button size="lg" className="gap-2 rounded-full" variant="glass">
@@ -93,12 +93,11 @@ export default function ContactPage() {
             <div className="flex items-center gap-2">
               <span className="w-3 h-3 rounded-full bg-green-500 animate-pulse" />
               <p className="text-sm text-muted-foreground">
-                Available for opportunities starting May 2026
+                Software Engineer at United Theranostics
               </p>
             </div>
             <p className="text-sm text-muted-foreground mt-4">
-              I&apos;m actively seeking full-time roles and internships in mobile app development.
-              Open to remote, hybrid, and on-site positions.
+              Currently building clinical and revenue cycle software. Open to conversations, collaborations, and interesting problems.
             </p>
           </GlassCard>
         </motion.div>

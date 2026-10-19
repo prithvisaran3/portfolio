@@ -310,7 +310,7 @@ export default function ExperiencePage() {
           <h2 className="text-3xl font-bold mb-8 text-center">Career Highlights</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
-              { value: "4", label: "Companies" },
+              { value: "5", label: "Companies" },
               { value: "3+ Years", label: "Experience" },
               { value: "12+", label: "Apps Delivered" },
             ].map((stat, index) => (

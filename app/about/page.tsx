@@ -22,20 +22,13 @@ export default function AboutPage() {
             <h2 className="text-xl sm:text-2xl font-bold mb-4">Hi, I&apos;m Prithvi Saran Sathyasaran 👋</h2>
             <div className="space-y-4 text-muted-foreground">
             <p>
-              I&apos;m a passionate mobile app developer and graduate student at The George Washington University
-              pursuing my M.S. in Computer Science. With a strong foundation from my B.Tech at Vellore Institute
-              of Technology, I specialize in building scalable, performant cross-platform applications using
-              Flutter, Swift, and modern backend technologies.
+              I&apos;m a software engineer at United Theranostics, where I build clinical and revenue cycle software for a radiopharmaceutical cancer care network. I hold an M.S. in Computer Science from The George Washington University and a B.Tech from Vellore Institute of Technology.
             </p>
             <p>
-              My professional journey spans 4 companies and 12+ production applications reaching over 10,000 active users.
-              From Cloud Jovy to Prommuni to Limitless 360, I&apos;ve consistently delivered impactful solutions by combining
-              clean architecture, agile methodologies, and cutting-edge technologies like Firebase, AWS, and Machine Learning.
+              I started in mobile: across 5 companies I&apos;ve shipped 12+ production apps reaching over 10,000 users, including Drillhub and Prommuni on the App Store. Today I work across the stack, from Python services and AI pipelines to React dashboards and AWS infrastructure, and was promoted to Clinical Software Engineer II within my first month.
             </p>
             <p>
-              Beyond mobile development, I&apos;m deeply interested in machine learning and cloud computing. Whether it&apos;s
-              building predictive models for Amazon retail sales forecasting or architecting scalable backends with Django and Node.js,
-              I thrive on solving complex technical challenges and creating exceptional user experiences.
+              I care about software that has to be right: systems where a wrong number has real consequences. I enjoy turning messy real-world documents and workflows into reliable, reviewable automation, and I still build mobile and AI side projects in my spare time.
             </p>
             </div>
           </GlassCard>
@@ -56,7 +49,7 @@ export default function AboutPage() {
                 <div>
                   <h3 className="font-semibold mb-1">Location</h3>
                   <p className="text-sm text-muted-foreground">
-                    Washington, DC • Open to Remote
+                    Washington, DC Area • Remote
                   </p>
                 </div>
               </div>
@@ -74,9 +67,9 @@ export default function AboutPage() {
                   <Calendar className="w-6 h-6 text-primary" />
                 </div>
                 <div>
-                  <h3 className="font-semibold mb-1">Availability</h3>
+                  <h3 className="font-semibold mb-1">Current Role</h3>
                   <p className="text-sm text-muted-foreground">
-                    May 2026 • Full-time &amp; Internships
+                    Clinical Software Engineer II • United Theranostics
                   </p>
                 </div>
               </div>
@@ -116,7 +109,7 @@ export default function AboutPage() {
                 <div>
                   <h3 className="font-semibold mb-1">Experience</h3>
                   <p className="text-sm text-muted-foreground">
-                    4 internships • 12+ apps • 10K+ users
+                    5 companies • 12+ apps • 10K+ users
                   </p>
                 </div>
               </div>
@@ -140,6 +133,9 @@ export default function AboutPage() {
                 "Open Source",
                 "Agile Development",
                 "API Design",
+                "Healthcare Software",
+                "LLM Applications",
+                "Revenue Cycle Automation",
               ].map((interest) => (
                 <span
                   key={interest}
