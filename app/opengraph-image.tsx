@@ -58,7 +58,7 @@ export default async function Image() {
               color: "rgba(255, 255, 255, 0.6)",
             }}
           >
-            Full-Stack · AI · Mobile
+            Full-Stack · AI · Healthcare · Mobile
           </p>
         </div>
       </div>

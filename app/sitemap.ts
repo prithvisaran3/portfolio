@@ -1,7 +1,8 @@
 import { MetadataRoute } from "next";
+import { siteConfig } from "@/lib/seo";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://prithvisaran.com";
+  const baseUrl = siteConfig.url;
 
   const routes = ["", "/experience", "/projects", "/skills", "/about", "/resume", "/contact"].map((route) => ({
     url: `${baseUrl}${route}`,
