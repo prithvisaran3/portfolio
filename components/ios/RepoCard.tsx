@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Star, GitFork, ExternalLink } from "lucide-react";
 import { GlassCard } from "./GlassCard";
+import { reveal } from "@/lib/motion";
 import { GitHubRepo, getLanguageColor } from "@/lib/github";
 
 interface RepoCardProps {
@@ -10,16 +11,13 @@ interface RepoCardProps {
   index: number;
 }
 
-export function RepoCard({ repo, index }: RepoCardProps) {
+export function RepoCard({ repo }: RepoCardProps) {
   return (
     <motion.a
       href={repo.html_url}
       target="_blank"
       rel="noopener noreferrer"
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.4, delay: index * 0.05 }}
+      {...reveal}
     >
       <GlassCard interactive elevation={2} className="p-6 h-full group">
         <div className="flex flex-col h-full">

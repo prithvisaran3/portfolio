@@ -6,6 +6,7 @@ import { SectionTitle } from "@/components/ios/SectionTitle";
 import { GlassCard } from "@/components/ios/GlassCard";
 import { Button } from "@/components/ui/button";
 import { resumeData } from "@/lib/resume";
+import { reveal } from "@/lib/motion";
 
 export default function ResumePage() {
   return (
@@ -13,12 +14,12 @@ export default function ResumePage() {
       <div className="max-w-4xl mx-auto">
         <div className="flex items-center justify-between mb-12">
           <SectionTitle>Resume</SectionTitle>
-          <a href="/assets/PrithviSaranSathyasaran_Resume.pdf" download>
-            <Button size="lg" className="gap-2 rounded-full" variant="glass">
+          <Button asChild size="lg" className="gap-2 rounded-full" variant="tint">
+            <a href="/assets/PrithviSaranSathyasaran_Resume.pdf" download>
               <Download className="w-4 h-4" />
               Download PDF
-            </Button>
-          </a>
+            </a>
+          </Button>
         </div>
 
         <div className="space-y-12">
@@ -32,10 +33,7 @@ export default function ResumePage() {
               {resumeData.education.map((edu, index) => (
                 <motion.div
                   key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: index * 0.1 }}
+                  {...reveal}
                 >
                   <GlassCard elevation={2} className="p-6">
                     <div className="flex items-start justify-between mb-4">
@@ -85,10 +83,7 @@ export default function ResumePage() {
               {resumeData.experience.map((exp, index) => (
                 <motion.div
                   key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: index * 0.1 }}
+                  {...reveal}
                 >
                   <GlassCard elevation={2} className="p-6">
                     <div className="flex items-start justify-between mb-3">
@@ -150,10 +145,7 @@ export default function ResumePage() {
               {resumeData.projects.map((project, index) => (
                 <motion.div
                   key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: index * 0.1 }}
+                  {...reveal}
                 >
                   <GlassCard elevation={2} className="p-6">
                     <div className="flex items-start justify-between mb-3">
@@ -202,10 +194,7 @@ export default function ResumePage() {
                 <h2 className="text-3xl font-bold">Certifications</h2>
               </div>
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4 }}
+                {...reveal}
               >
                 <GlassCard elevation={2} className="p-6">
                   <ul className="space-y-2">

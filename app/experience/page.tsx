@@ -1,62 +1,58 @@
 "use client";
 
-import { motion, useScroll, useSpring } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Briefcase, Calendar, MapPin } from "lucide-react";
 import { SectionTitle } from "@/components/ios/SectionTitle";
 import { GlassCard } from "@/components/ios/GlassCard";
 import { resumeData } from "@/lib/resume";
+import { reveal } from "@/lib/motion";
 import { useRef, useEffect, useState } from "react";
 
+const careerHighlights = [
+  { value: "5", label: "Companies" },
+  { value: "3+ Years", label: "Experience" },
+  { value: "12+", label: "Apps Delivered" },
+];
+
 export default function ExperiencePage() {
-  const containerRef = useRef<HTMLDivElement>(null);
   const timelineRef = useRef<HTMLDivElement>(null);
-  const [cardPositions, setCardPositions] = useState<number[]>([]);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [cardPositions, setCardPositions] = useState<number[]>([]);
+  // Page-space bounds of the timeline, read on layout changes only (not per scroll)
+  const bounds = useRef({ start: 0, end: 1 });
 
-  // Track scroll progress more accurately
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start 60%", "end 40%"],
+  const { scrollY } = useScroll();
+  // Scroll-linked fill driven by a motion value: no React re-render while scrolling
+  const fill = useTransform(scrollY, (y) => {
+    const { start, end } = bounds.current;
+    return Math.min(1, Math.max(0, (y - start) / (end - start || 1)));
   });
 
-  // Enhanced spring animation for progress bar
-  const scaleY = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001,
-  });
-
-  // Calculate dot positions based on actual card positions
   useEffect(() => {
-    const updatePositions = () => {
-      if (!timelineRef.current || cardRefs.current.length === 0) return;
+    const timeline = timelineRef.current;
+    if (!timeline) return;
 
-      const timelineTop = timelineRef.current.offsetTop;
-      const timelineHeight = timelineRef.current.offsetHeight;
+    const measure = () => {
+      const rect = timeline.getBoundingClientRect();
+      const top = rect.top + window.scrollY;
+      const vh = window.innerHeight;
+      bounds.current = { start: top - vh * 0.6, end: top + rect.height - vh * 0.4 };
 
-      const positions = cardRefs.current
-        .filter((ref) => ref !== null)
-        .map((ref) => {
-          if (!ref) return 0;
-          const cardTop = ref.offsetTop;
-          // Position dot at top of card (where connecting line is) - accounting for top-8 (32px)
-          const dotPosition = (cardTop - timelineTop + 32) / timelineHeight;
-          return Math.max(0, Math.min(1, dotPosition));
-        });
-
-      setCardPositions(positions.length > 0 ? positions : []);
+      // Dot sits level with each card's connector line (top-8 = 32px)
+      setCardPositions(
+        cardRefs.current.map((card) =>
+          card ? Math.min(1, Math.max(0, (card.offsetTop + 32) / timeline.offsetHeight)) : 0
+        )
+      );
     };
 
-    updatePositions();
-    window.addEventListener("resize", updatePositions);
-    window.addEventListener("scroll", updatePositions);
-
-    // Update after a short delay to ensure layout is complete
-    setTimeout(updatePositions, 100);
-
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(timeline);
+    window.addEventListener("resize", measure);
     return () => {
-      window.removeEventListener("resize", updatePositions);
-      window.removeEventListener("scroll", updatePositions);
+      observer.disconnect();
+      window.removeEventListener("resize", measure);
     };
   }, []);
 
@@ -67,310 +63,139 @@ export default function ExperiencePage() {
       </SectionTitle>
 
       <div className="max-w-6xl mx-auto">
-        {/* Timeline Container */}
-        <div ref={containerRef} className="relative">
-          <div className="relative">
-            {/* Left Side Timeline */}
-            <div
-              ref={timelineRef}
-              className="absolute left-8 top-0 bottom-0 w-0.5 hidden md:block"
-            >
-              {/* Background Line */}
-              <div className="absolute inset-0 bg-gradient-to-b from-primary/20 via-primary/40 to-transparent" />
-
-              {/* Animated Progress Fill */}
+        <div ref={timelineRef} className="relative">
+          {/* Left Side Timeline */}
+          <div className="absolute left-8 top-0 bottom-0 w-0.5 hidden md:block" aria-hidden>
+            <div className="absolute inset-0 bg-gradient-to-b from-primary/20 via-primary/40 to-transparent" />
+            <motion.div
+              className="absolute top-0 left-0 h-full w-full origin-top bg-gradient-to-b from-primary via-primary/80 to-primary/40"
+              style={{ scaleY: fill }}
+            />
+            {cardPositions.map((position, index) => (
               <motion.div
-                className="absolute top-0 left-0 w-full origin-top bg-gradient-to-b from-primary via-primary/80 to-primary/40 shadow-lg shadow-primary/20"
-                style={{ scaleY }}
-              />
-
-              {/* Timeline Dots - Positioned at actual card intersections */}
-              {resumeData.experience.map((_, index) => {
-                // Use calculated positions if available, otherwise fallback to even distribution
-                const position =
-                  cardPositions[index] !== undefined
-                    ? cardPositions[index]
-                    : index / (resumeData.experience.length - 1 || 1);
-
-                return (
-                  <motion.div
-                    key={index}
-                    className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 z-10"
-                    style={{
-                      top: `${position * 100}%`,
-                    }}
-                    initial={{ scale: 0, opacity: 0 }}
-                    whileInView={{
-                      scale: [0, 1.2, 1],
-                      opacity: [0, 1, 1],
-                    }}
-                    viewport={{ once: true, margin: "-50px" }}
-                    transition={{
-                      duration: 0.5,
-                      delay: index * 0.1,
-                      type: "spring",
-                      stiffness: 200,
-                      damping: 15,
-                    }}
-                  >
-                    {/* Pulsing Glow Effect */}
-                    <motion.div
-                      className="absolute inset-0 rounded-full bg-primary/30 blur-md"
-                      animate={{
-                        scale: [1, 1.5, 1],
-                        opacity: [0.5, 0, 0.5],
-                      }}
-                      transition={{
-                        duration: 2,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                      }}
-                    />
-                    {/* Main Dot - perfectly aligned */}
-                    <div className="relative w-5 h-5 rounded-full bg-primary border-4 border-background shadow-xl shadow-primary/30" />
-                  </motion.div>
-                );
-              })}
-            </div>
-
-            {/* Content Cards */}
-            <div className="space-y-12 md:ml-20">
-              {resumeData.experience.map((exp, index) => {
-                const isEven = index % 2 === 0;
-                return (
-                  <motion.div
-                    key={index}
-                    ref={(el) => {
-                      cardRefs.current[index] = el;
-                    }}
-                    initial={{ opacity: 0, x: isEven ? -50 : 50 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true, margin: "-100px" }}
-                    transition={{
-                      duration: 0.7,
-                      delay: index * 0.15,
-                      type: "spring",
-                      stiffness: 100,
-                      damping: 20,
-                    }}
-                    className="relative"
-                  >
-                    {/* Connecting Line from Timeline - aligned with dot */}
-                    <div className="absolute -left-12 top-8 w-12 h-0.5 bg-gradient-to-r from-primary/40 to-transparent hidden md:block" />
-
-                    <motion.div
-                      whileHover={{
-                        scale: 1.02,
-                        y: -4,
-                        transition: {
-                          type: "spring",
-                          stiffness: 300,
-                          damping: 20,
-                        },
-                      }}
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      <GlassCard elevation={2} className="p-4 sm:p-6 md:p-8 relative overflow-hidden">
-                        {/* Shimmer Effect on Hover */}
-                        <motion.div
-                          className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/5 to-transparent -translate-x-full"
-                          whileHover={{
-                            translateX: "200%",
-                            transition: { duration: 0.6 },
-                          }}
-                        />
-
-                        <div className="relative z-10">
-                          <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6">
-                            <div className="flex-1">
-                              <motion.h3
-                                initial={{ opacity: 0 }}
-                                whileInView={{ opacity: 1 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: index * 0.15 + 0.2 }}
-                                className="text-xl sm:text-2xl font-bold mb-2"
-                              >
-                                {exp.roles ? exp.company : exp.role}
-                              </motion.h3>
-                              <motion.div
-                                initial={{ opacity: 0, x: -10 }}
-                                whileInView={{ opacity: 1, x: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: index * 0.15 + 0.3 }}
-                                className="flex items-center gap-2 text-primary font-semibold text-lg mb-3"
-                              >
-                                <Briefcase className="w-5 h-5" />
-                                <span>
-                                  {exp.roles
-                                    ? `Promoted · ${exp.roles.length} roles`
-                                    : exp.company}
-                                </span>
-                              </motion.div>
-                              <motion.div
-                                initial={{ opacity: 0 }}
-                                whileInView={{ opacity: 1 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: index * 0.15 + 0.4 }}
-                                className="flex flex-wrap gap-4 text-sm text-muted-foreground"
-                              >
-                                {exp.location && (
-                                  <div className="flex items-center gap-1.5">
-                                    <MapPin className="w-4 h-4" />
-                                    <span>{exp.location}</span>
-                                  </div>
-                                )}
-                                <div className="flex items-center gap-1.5">
-                                  <Calendar className="w-4 h-4" />
-                                  <span>
-                                    {exp.start} – {exp.end}
-                                  </span>
-                                </div>
-                              </motion.div>
-                            </div>
-                          </div>
-
-                          {/* Role progression within one company, newest first */}
-                          {exp.roles ? (
-                            <div className="relative mb-6 space-y-8 border-l border-primary/25 pl-6">
-                              {exp.roles.map((role, r) => (
-                                <div key={role.title} className="relative">
-                                  <span
-                                    aria-hidden
-                                    className={`absolute -left-[31px] top-1.5 h-3 w-3 rounded-full border-2 border-background ${
-                                      r === 0 ? "bg-primary" : "bg-primary/40"
-                                    }`}
-                                  />
-                                  <h4 className="text-lg font-semibold">{role.title}</h4>
-                                  <p className="mb-3 text-sm text-muted-foreground">
-                                    {role.start} – {role.end}
-                                  </p>
-                                  <BulletList bullets={role.bullets} baseDelay={index * 0.15 + 0.5 + r * 0.2} />
-                                </div>
-                              ))}
-                            </div>
-                          ) : (
-                            <div className="mb-6">
-                              <BulletList bullets={exp.bullets} baseDelay={index * 0.15 + 0.5} />
-                            </div>
-                          )}
-
-                          {/* Tech Stack with Fade In */}
-                          {exp.stack && exp.stack.length > 0 && (
-                            <motion.div
-                              initial={{ opacity: 0, y: 10 }}
-                              whileInView={{ opacity: 1, y: 0 }}
-                              viewport={{ once: true }}
-                              transition={{
-                                duration: 0.5,
-                                delay: index * 0.15 + 0.8,
-                              }}
-                              className="flex flex-wrap gap-2"
-                            >
-                              {exp.stack.map((tech, techIndex) => (
-                                <motion.span
-                                  key={tech}
-                                  initial={{ opacity: 0, scale: 0.8 }}
-                                  whileInView={{ opacity: 1, scale: 1 }}
-                                  viewport={{ once: true }}
-                                  transition={{
-                                    duration: 0.3,
-                                    delay: index * 0.15 + 0.8 + techIndex * 0.05,
-                                    type: "spring",
-                                  }}
-                                  whileHover={{
-                                    scale: 1.1,
-                                    transition: { duration: 0.2 },
-                                  }}
-                                  className="px-3 py-1.5 text-xs font-medium rounded-full bg-primary/10 text-primary border border-primary/20"
-                                >
-                                  {tech}
-                                </motion.span>
-                              ))}
-                            </motion.div>
-                          )}
-                        </div>
-                      </GlassCard>
-                    </motion.div>
-                  </motion.div>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-
-        {/* Career Highlights */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="mt-16"
-        >
-          <h2 className="text-3xl font-bold mb-8 text-center">Career Highlights</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              { value: "5", label: "Companies" },
-              { value: "3+ Years", label: "Experience" },
-              { value: "12+", label: "Apps Delivered" },
-            ].map((stat, index) => (
-              <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                key={index}
+                className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 z-10"
+                style={{ top: `${position * 100}%` }}
+                initial={{ scale: 0, opacity: 0 }}
+                whileInView={{ scale: 1, opacity: 1 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: 0.4 + index * 0.1 }}
+                transition={{ type: "spring", bounce: 0, duration: 0.35 }}
               >
-                <GlassCard
-                  interactive
-                  elevation={2}
-                  className="p-6 text-center"
-                >
-                  <motion.div
-                    initial={{ scale: 0 }}
-                    whileInView={{ scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{
-                      duration: 0.5,
-                      delay: 0.5 + index * 0.1,
-                      type: "spring",
-                    }}
-                    className="text-4xl font-bold text-primary mb-2"
-                  >
-                    {stat.value}
-                  </motion.div>
-                  <p className="text-muted-foreground">{stat.label}</p>
+                <div className="w-5 h-5 rounded-full bg-primary border-4 border-background shadow-lg shadow-primary/30" />
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Content Cards */}
+          <div className="space-y-12 md:ml-20">
+            {resumeData.experience.map((exp, index) => (
+              <motion.div
+                key={exp.company}
+                ref={(el) => {
+                  cardRefs.current[index] = el;
+                }}
+                {...reveal}
+                className="relative"
+              >
+                {/* Connecting line from timeline, level with the dot */}
+                <div className="absolute -left-12 top-8 w-12 h-0.5 bg-gradient-to-r from-primary/40 to-transparent hidden md:block" />
+
+                <GlassCard elevation={2} className="p-5 sm:p-6 md:p-8">
+                  <div className="mb-6">
+                    <h2 className="text-xl sm:text-2xl font-bold tracking-[-0.015em] mb-2">
+                      {exp.roles ? exp.company : exp.role}
+                    </h2>
+                    <div className="flex items-center gap-2 text-primary font-semibold text-lg mb-3">
+                      <Briefcase className="w-5 h-5" />
+                      <span>
+                        {exp.roles ? `Promoted · ${exp.roles.length} roles` : exp.company}
+                      </span>
+                    </div>
+                    <div className="flex flex-wrap gap-x-4 gap-y-1 text-sm text-muted-foreground">
+                      {exp.location && (
+                        <div className="flex items-center gap-1.5">
+                          <MapPin className="w-4 h-4" />
+                          <span>{exp.location}</span>
+                        </div>
+                      )}
+                      <div className="flex items-center gap-1.5">
+                        <Calendar className="w-4 h-4" />
+                        <span>
+                          {exp.start} – {exp.end}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Role progression within one company, newest first */}
+                  {exp.roles ? (
+                    <div className="relative mb-6 space-y-8 border-l border-primary/25 pl-6">
+                      {exp.roles.map((role, r) => (
+                        <div key={role.title} className="relative">
+                          <span
+                            aria-hidden
+                            className={`absolute -left-[31px] top-1.5 h-3 w-3 rounded-full border-2 border-background ${
+                              r === 0 ? "bg-primary" : "bg-primary/40"
+                            }`}
+                          />
+                          <h3 className="text-lg font-semibold">{role.title}</h3>
+                          <p className="mb-3 text-sm text-muted-foreground">
+                            {role.start} – {role.end}
+                          </p>
+                          <BulletList bullets={role.bullets} />
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="mb-6">
+                      <BulletList bullets={exp.bullets} />
+                    </div>
+                  )}
+
+                  {exp.stack && exp.stack.length > 0 && (
+                    <ul className="flex flex-wrap gap-2" aria-label="Tech stack">
+                      {exp.stack.map((tech) => (
+                        <li
+                          key={tech}
+                          className="px-3 py-1.5 text-xs font-medium rounded-full bg-primary/10 text-primary border border-primary/20"
+                        >
+                          {tech}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </GlassCard>
               </motion.div>
             ))}
           </div>
-        </motion.div>
+        </div>
+
+        {/* Career Highlights */}
+        <motion.section {...reveal} className="mt-16">
+          <h2 className="text-3xl font-bold mb-8 text-center">Career Highlights</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {careerHighlights.map((stat) => (
+              <GlassCard key={stat.label} elevation={2} className="p-6 text-center">
+                <p className="text-4xl font-bold tracking-[-0.03em] text-primary mb-2">{stat.value}</p>
+                <p className="text-muted-foreground">{stat.label}</p>
+              </GlassCard>
+            ))}
+          </div>
+        </motion.section>
       </div>
     </div>
   );
 }
 
-function BulletList({ bullets, baseDelay }: { bullets: string[]; baseDelay: number }) {
+function BulletList({ bullets }: { bullets: string[] }) {
   return (
-    <div className="space-y-3">
+    <ul className="space-y-3">
       {bullets.map((bullet, i) => (
-        <motion.div
-          key={i}
-          initial={{ opacity: 0, x: -20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4, delay: baseDelay + i * 0.1 }}
-          className="flex items-start gap-3"
-        >
-          <motion.div
-            initial={{ scale: 0 }}
-            whileInView={{ scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.3, delay: baseDelay + i * 0.1, type: "spring" }}
-            className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0"
-          />
+        <li key={i} className="flex items-start gap-3">
+          <span aria-hidden className="w-1.5 h-1.5 rounded-full bg-primary mt-2.5 flex-shrink-0" />
           <p className="text-muted-foreground leading-relaxed">{bullet}</p>
-        </motion.div>
+        </li>
       ))}
-    </div>
+    </ul>
   );
 }

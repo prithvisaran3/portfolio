@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { SectionTitle } from "@/components/ios/SectionTitle";
 import { GlassCard } from "@/components/ios/GlassCard";
 import { MapPin, GraduationCap, Briefcase, Smartphone } from "lucide-react";
+import { reveal, spring } from "@/lib/motion";
 
 const quickFacts = [
   {
@@ -22,7 +23,8 @@ const quickFacts = [
     icon: GraduationCap,
     label: "Education",
     value: "M.S. Computer Science, GWU",
-    detail: "GPA 3.74 · May 2026 · B.Tech, VIT '23",
+    detail: "GPA 3.74 · May 2026",
+    extra: "B.Tech, VIT · 2023",
   },
   {
     icon: Smartphone,
@@ -53,11 +55,11 @@ export default function AboutPage() {
       <div className="max-w-4xl mx-auto space-y-8">
         {/* Bio */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          transition={spring}
         >
-          <GlassCard elevation={2} className="p-4 sm:p-6 md:p-8">
+          <GlassCard elevation={2} className="p-5 sm:p-6 md:p-8">
             <h2 className="text-xl sm:text-2xl font-bold mb-4">Hi, I&apos;m Prithvi Saran Sathyasaran</h2>
             <div className="space-y-4 text-muted-foreground">
             <p>
@@ -75,14 +77,9 @@ export default function AboutPage() {
 
         {/* Quick Facts */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {quickFacts.map((fact, index) => (
-            <motion.div
-              key={fact.label}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 * (index + 1) }}
-            >
-              <GlassCard interactive elevation={2} className="p-6 h-full">
+          {quickFacts.map((fact) => (
+            <motion.div key={fact.label} {...reveal}>
+              <GlassCard elevation={2} className="p-6 h-full">
                 <div className="flex items-start gap-4">
                   <div className="p-3 rounded-full bg-primary/10 shrink-0">
                     <fact.icon className="w-6 h-6 text-primary" />
@@ -93,6 +90,9 @@ export default function AboutPage() {
                     </h3>
                     <p className="font-semibold leading-snug">{fact.value}</p>
                     <p className="text-sm text-muted-foreground mt-0.5">{fact.detail}</p>
+                    {"extra" in fact && (
+                      <p className="text-sm text-muted-foreground">{fact.extra}</p>
+                    )}
                   </div>
                 </div>
               </GlassCard>
@@ -101,11 +101,7 @@ export default function AboutPage() {
         </div>
 
         {/* Focus Areas */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.5 }}
-        >
+        <motion.div {...reveal}>
           <GlassCard elevation={2} className="p-6 sm:p-8">
             <h2 className="text-2xl font-bold mb-4">Focus Areas</h2>
             <div className="flex flex-wrap gap-3">

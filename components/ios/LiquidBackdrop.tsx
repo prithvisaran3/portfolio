@@ -1,114 +1,42 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useEffect, useState } from "react";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 
-interface Twinkle {
-  id: number;
-  x: number;
-  y: number;
-  size: number;
-  delay: number;
-}
-
+// Three blurred color fields that drift slowly behind the glass. The drift is a CSS
+// transform animation on pre-blurred layers, so the compositor does the work and the
+// blur is never re-rasterized. Parallax is a scroll-linked motion value: no re-renders.
 export function LiquidBackdrop() {
+  const reduceMotion = useReducedMotion();
   const { scrollY } = useScroll();
-  const [twinkles, setTwinkles] = useState<Twinkle[]>([]);
 
-  // Parallax transforms
   const blob1Y = useTransform(scrollY, [0, 1000], [0, 200]);
   const blob2Y = useTransform(scrollY, [0, 1000], [0, -150]);
   const blob3Y = useTransform(scrollY, [0, 1000], [0, 100]);
 
-  useEffect(() => {
-    // Generate random twinkle positions
-    const newTwinkles: Twinkle[] = Array.from({ length: 30 }, (_, i) => ({
-      id: i,
-      x: Math.random() * 100,
-      y: Math.random() * 100,
-      size: Math.random() * 2 + 1,
-      delay: Math.random() * 3,
-    }));
-    setTwinkles(newTwinkles);
-  }, []);
-
   return (
     <div className="fixed inset-0 -z-10 overflow-hidden" aria-hidden="true">
-      {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-muted" />
 
-      {/* Animated gradient blobs with parallax */}
       <motion.div
-        style={{ y: blob1Y }}
-        className="absolute -top-40 -left-40 w-96 h-96 rounded-full blur-3xl opacity-30 dark:opacity-20"
-        animate={{
-          scale: [1, 1.2, 1],
-          x: [0, 50, 0],
-        }}
-        transition={{
-          duration: 20,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
+        style={{ y: reduceMotion ? 0 : blob1Y }}
+        className="absolute -top-40 -left-40 h-96 w-96"
       >
-        <div className="w-full h-full bg-gradient-to-br from-blue-500 to-cyan-500 dark:from-blue-600 dark:to-cyan-600" />
+        <div className="blob-drift-1 h-full w-full rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 opacity-30 blur-3xl dark:from-blue-600 dark:to-cyan-600 dark:opacity-20" />
       </motion.div>
 
       <motion.div
-        style={{ y: blob2Y }}
-        className="absolute top-1/3 -right-40 w-[500px] h-[500px] rounded-full blur-3xl opacity-25 dark:opacity-15"
-        animate={{
-          scale: [1, 1.3, 1],
-          x: [0, -30, 0],
-        }}
-        transition={{
-          duration: 25,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
+        style={{ y: reduceMotion ? 0 : blob2Y }}
+        className="absolute top-1/3 -right-40 h-[500px] w-[500px]"
       >
-        <div className="w-full h-full bg-gradient-to-br from-purple-500 to-pink-500 dark:from-purple-600 dark:to-pink-600" />
+        <div className="blob-drift-2 h-full w-full rounded-full bg-gradient-to-br from-purple-500 to-pink-500 opacity-25 blur-3xl dark:from-purple-600 dark:to-pink-600 dark:opacity-15" />
       </motion.div>
 
       <motion.div
-        style={{ y: blob3Y }}
-        className="absolute bottom-0 left-1/3 w-[400px] h-[400px] rounded-full blur-3xl opacity-20 dark:opacity-10"
-        animate={{
-          scale: [1, 1.1, 1],
-          y: [0, -40, 0],
-        }}
-        transition={{
-          duration: 18,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
+        style={{ y: reduceMotion ? 0 : blob3Y }}
+        className="absolute bottom-0 left-1/3 h-[400px] w-[400px]"
       >
-        <div className="w-full h-full bg-gradient-to-br from-orange-500 to-yellow-500 dark:from-orange-600 dark:to-yellow-600" />
+        <div className="blob-drift-3 h-full w-full rounded-full bg-gradient-to-br from-orange-500 to-yellow-500 opacity-20 blur-3xl dark:from-orange-600 dark:to-yellow-600 dark:opacity-10" />
       </motion.div>
-
-      {/* Twinkle stars/dots */}
-      {twinkles.map((twinkle) => (
-        <motion.div
-          key={twinkle.id}
-          className="absolute rounded-full bg-foreground/10 dark:bg-foreground/5"
-          style={{
-            left: `${twinkle.x}%`,
-            top: `${twinkle.y}%`,
-            width: `${twinkle.size}px`,
-            height: `${twinkle.size}px`,
-          }}
-          animate={{
-            opacity: [0.2, 0.8, 0.2],
-            scale: [1, 1.5, 1],
-          }}
-          transition={{
-            duration: 3,
-            repeat: Infinity,
-            delay: twinkle.delay,
-            ease: "easeInOut",
-          }}
-        />
-      ))}
 
       {/* Noise texture overlay */}
       <div
@@ -121,4 +49,3 @@ export function LiquidBackdrop() {
     </div>
   );
 }
-
