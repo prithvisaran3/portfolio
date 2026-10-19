@@ -1,14 +1,26 @@
 :root {
   /* Light mode glass tokens */
-  --glass-bg-start: rgba(255, 255, 255, 0.14);
-  --glass-bg-end: rgba(255, 255, 255, 0.06);
-  --glass-border: rgba(255, 255, 255, 0.18);
+  --glass-bg-start: rgba(255, 255, 255, 0.34);
+  --glass-bg-end: rgba(255, 255, 255, 0.16);
+  --glass-border: rgba(255, 255, 255, 0.45);
   --glass-border-focus: rgba(10, 132, 255, 0.6);
-  --glass-highlight: rgba(255, 255, 255, 0.25);
-  --glass-shadow: rgba(0, 0, 0, 0.1);
-  --glass-shadow-hover: rgba(0, 0, 0, 0.15);
+  --glass-highlight: rgba(255, 255, 255, 0.55);
+  --glass-shadow: rgba(15, 23, 42, 0.08);
+  --glass-shadow-hover: rgba(15, 23, 42, 0.14);
   --noise-opacity: 0.03;
-  
+
+  /* Chrome: heavier material for floating UI (nav, menus) that sits over content */
+  --chrome-bg: rgba(255, 255, 255, 0.72);
+  --chrome-border: rgba(255, 255, 255, 0.6);
+  --chrome-shadow: rgba(15, 23, 42, 0.12);
+
+  /* Tinted glass for the single primary action per view */
+  --tint-bg: rgba(10, 132, 255, 0.88);
+  --tint-bg-hover: rgba(10, 132, 255, 0.96);
+  --tint-fg: #fff;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+
   /* Gradient blobs */
   --blob-1-light: rgba(10, 132, 255, 0.15);
   --blob-2-light: rgba(175, 82, 222, 0.15);
@@ -25,7 +37,14 @@
   --glass-shadow: rgba(0, 0, 0, 0.3);
   --glass-shadow-hover: rgba(0, 0, 0, 0.4);
   --noise-opacity: 0.02;
-  
+
+  --chrome-bg: rgba(22, 22, 26, 0.72);
+  --chrome-border: rgba(255, 255, 255, 0.1);
+  --chrome-shadow: rgba(0, 0, 0, 0.45);
+
+  --tint-bg: rgba(10, 132, 255, 0.8);
+  --tint-bg-hover: rgba(10, 132, 255, 0.92);
+
   /* Gradient blobs */
   --blob-1-dark: rgba(10, 132, 255, 0.25);
   --blob-2-dark: rgba(175, 82, 222, 0.25);
@@ -42,20 +61,116 @@
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   border: 1px solid var(--glass-border);
-  box-shadow: 
+  box-shadow:
     0 8px 32px 0 var(--glass-shadow),
     inset 0 1px 0 0 var(--glass-highlight);
 }
 
-.glass-effect-hover {
-  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
-              box-shadow 0.3s ease;
-}
-
-.glass-effect-hover:hover {
-  transform: translateY(-2px) scale(1.02);
-  box-shadow: 
-    0 12px 40px 0 var(--glass-shadow-hover),
+/* Floating chrome: thicker, more opaque material so content scrolling underneath
+   never competes with the nav's own text */
+.glass-chrome {
+  background: var(--chrome-bg);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border: 1px solid var(--chrome-border);
+  box-shadow:
+    0 10px 40px -8px var(--chrome-shadow),
     inset 0 1px 0 0 var(--glass-highlight);
 }
 
+/* Tinted glass: solid enough for white text, still lets the backdrop glow through */
+.glass-tint {
+  background: var(--tint-bg);
+  color: var(--tint-fg);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow:
+    0 8px 24px -6px rgba(10, 132, 255, 0.45),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.35);
+}
+
+.glass-tint:hover {
+  background: var(--tint-bg-hover);
+}
+
+/* Press feedback lands on pointer-down; release eases back without overshoot */
+.glass-interactive,
+.glass-effect-hover,
+.press {
+  transition:
+    transform 0.35s var(--ease-out),
+    box-shadow 0.35s var(--ease-out),
+    background-color 0.2s ease;
+}
+
+@media (hover: hover) {
+  .glass-interactive:hover,
+  .glass-effect-hover:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      0 14px 40px 0 var(--glass-shadow-hover),
+      inset 0 1px 0 0 var(--glass-highlight);
+  }
+}
+
+.glass-interactive:active,
+.glass-effect-hover:active,
+.press:active {
+  transform: scale(0.97);
+  transition-duration: 0.1s;
+}
+
+/* Liquid backdrop drift: compositor-only transforms on pre-blurred layers */
+@keyframes drift-1 {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(50px, 0, 0) scale(1.2); }
+}
+@keyframes drift-2 {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(-30px, 0, 0) scale(1.3); }
+}
+@keyframes drift-3 {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(0, -40px, 0) scale(1.1); }
+}
+.blob-drift-1 { animation: drift-1 20s ease-in-out infinite; will-change: transform; }
+.blob-drift-2 { animation: drift-2 25s ease-in-out infinite; will-change: transform; }
+.blob-drift-3 { animation: drift-3 18s ease-in-out infinite; will-change: transform; }
+
+/* Accessibility: frostier, solid materials when transparency is reduced */
+@media (prefers-reduced-transparency: reduce) {
+  :root {
+    --glass-bg-start: rgba(255, 255, 255, 0.94);
+    --glass-bg-end: rgba(255, 255, 255, 0.94);
+    --chrome-bg: rgba(255, 255, 255, 0.98);
+  }
+  .dark {
+    --glass-bg-start: rgba(28, 28, 32, 0.96);
+    --glass-bg-end: rgba(28, 28, 32, 0.96);
+    --chrome-bg: rgba(22, 22, 26, 0.98);
+  }
+  .glass-effect,
+  .glass-chrome,
+  .glass-tint {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+/* Accessibility: defined edges when more contrast is requested */
+@media (prefers-contrast: more) {
+  :root {
+    --glass-bg-start: rgba(255, 255, 255, 0.92);
+    --glass-bg-end: rgba(255, 255, 255, 0.92);
+    --glass-border: rgba(15, 23, 42, 0.45);
+    --chrome-bg: rgba(255, 255, 255, 0.98);
+    --chrome-border: rgba(15, 23, 42, 0.45);
+  }
+  .dark {
+    --glass-bg-start: rgba(20, 20, 24, 0.96);
+    --glass-bg-end: rgba(20, 20, 24, 0.96);
+    --glass-border: rgba(255, 255, 255, 0.5);
+    --chrome-border: rgba(255, 255, 255, 0.5);
+  }
+}

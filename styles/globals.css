@@ -16,7 +16,7 @@
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
     --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted-foreground: 215.4 19% 38%;
     --accent: 210 40% 96.1%;
     --accent-foreground: 222.2 47.4% 11.2%;
     --destructive: 0 84.2% 60.2%;
@@ -60,6 +60,23 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
+  }
+
+  html {
+    /* Anchored scrolls land below the floating nav */
+    scroll-padding-top: 6rem;
+  }
+
+  /* Size-specific tracking and leading: tight for display, neutral for body */
+  h1, h2, h3 {
+    text-wrap: balance;
+  }
+  h1, h2 {
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+  p, li {
+    text-wrap: pretty;
   }
   
   /* Improve touch targets on mobile */
@@ -106,6 +123,15 @@
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  /* Keep the feedback, drop the movement */
+  .glass-interactive:hover,
+  .glass-interactive:active,
+  .glass-effect-hover:hover,
+  .glass-effect-hover:active,
+  .press:active {
+    transform: none;
   }
 }
 
