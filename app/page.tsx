@@ -1,13 +1,11 @@
 "use client";
 
 import { Reveal } from "@/components/ios/Reveal";
-import { motion } from "framer-motion";
 import { ArrowRight, Download, Mail, MapPin, GraduationCap } from "lucide-react";
 import Link from "next/link";
 import { GlassCard } from "@/components/ios/GlassCard";
 import { SkillChip } from "@/components/ios/SkillChip";
 import { Button } from "@/components/ui/button";
-import { spring } from "@/lib/motion";
 
 const highlights = [
   { value: "10K+", label: "Active users across mobile apps" },
@@ -36,31 +34,28 @@ export default function HomePage() {
       {/* Hero Section */}
       <section className="min-h-[72vh] flex items-center justify-center">
         <div className="max-w-4xl mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={spring}
-          >
-            <h1 className="text-[2.6rem] leading-[1.02] sm:text-6xl lg:text-7xl font-bold tracking-[-0.035em] mb-6 px-2">
+          <div>
+            {/* Signature moment: the name materializes from blur as its tracking tightens */}
+            <h1 className="hero-materialize text-[min(2.6rem,11vw)] leading-[1.02] sm:text-6xl lg:text-7xl font-bold tracking-[-0.035em] mb-6 px-2">
               Prithvi Saran Sathyasaran
             </h1>
 
-            <p className="text-xl sm:text-2xl md:text-3xl tracking-[-0.01em] text-muted-foreground mb-4 text-balance">
+            <p className="hero-rise text-xl sm:text-2xl md:text-3xl tracking-[-0.01em] text-muted-foreground mb-4 text-balance" style={{ "--d": "0.45s" } as React.CSSProperties}>
               <a
                 href="https://www.linkedin.com/company/united-theranostics/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-foreground transition-colors"
               >
-                Software Engineer @&nbsp;United&nbsp;Theranostics
+                Software Engineer @ United Theranostics
               </a>
             </p>
 
-            <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-6">
+            <p className="hero-rise text-base sm:text-lg md:text-xl text-muted-foreground mb-6" style={{ "--d": "0.55s" } as React.CSSProperties}>
               Full-Stack · AI · Healthcare · Mobile
             </p>
 
-            <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-sm text-muted-foreground mb-12">
+            <div className="hero-rise flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-sm text-muted-foreground mb-12" style={{ "--d": "0.65s" } as React.CSSProperties}>
               <div className="flex items-center gap-1.5">
                 <MapPin className="w-4 h-4" />
                 <span>Washington, DC</span>
@@ -72,7 +67,7 @@ export default function HomePage() {
             </div>
 
             {/* One primary action, two secondary */}
-            <div className="mx-auto grid w-full max-w-md grid-cols-2 gap-3 sm:flex sm:max-w-none sm:items-center sm:justify-center sm:gap-4">
+            <div className="hero-rise mx-auto grid w-full max-w-md grid-cols-2 gap-3 sm:flex sm:max-w-none sm:items-center sm:justify-center sm:gap-4" style={{ "--d": "0.78s" } as React.CSSProperties}>
               <Button asChild size="lg" variant="tint" className="col-span-2 gap-2 rounded-full">
                 <Link href="/projects">
                   See Projects
@@ -92,7 +87,7 @@ export default function HomePage() {
                 </a>
               </Button>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 

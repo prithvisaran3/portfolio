@@ -1,7 +1,7 @@
 "use client";
 
 import { Reveal, RevealItem } from "@/components/ios/Reveal";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useMotionValueEvent, useScroll, useTransform } from "framer-motion";
 import { Briefcase, Calendar, MapPin } from "lucide-react";
 import { SectionTitle } from "@/components/ios/SectionTitle";
 import { GlassCard } from "@/components/ios/GlassCard";
@@ -28,6 +28,13 @@ export default function ExperiencePage() {
     return Math.min(1, Math.max(0, (y - start) / (end - start || 1)));
   });
 
+  // Dots light up as the progress line reaches them; state changes only when the count does
+  const [lit, setLit] = useState(0);
+  useMotionValueEvent(fill, "change", (v) => {
+    const reached = cardPositions.filter((p) => v >= p - 0.005).length;
+    if (reached !== lit) setLit(reached);
+  });
+
   useEffect(() => {
     const timeline = timelineRef.current;
     if (!timeline) return;
@@ -39,11 +46,13 @@ export default function ExperiencePage() {
       bounds.current = { start: top - vh * 0.6, end: top + rect.height - vh * 0.4 };
 
       // Dot sits level with each card's connector line (top-8 = 32px)
-      setCardPositions(
-        cardRefs.current.map((card) =>
-          card ? Math.min(1, Math.max(0, (card.offsetTop + 32) / timeline.offsetHeight)) : 0
-        )
+      const positions = cardRefs.current.map((card) =>
+        card ? Math.min(1, Math.max(0, (card.offsetTop + 32) / timeline.offsetHeight)) : 0
       );
+      setCardPositions(positions);
+      const { start, end } = bounds.current;
+      const progress = Math.min(1, Math.max(0, (window.scrollY - start) / (end - start || 1)));
+      setLit(positions.filter((p) => progress >= p - 0.005).length);
     };
 
     measure();
@@ -78,8 +87,14 @@ export default function ExperiencePage() {
                 style={{ top: `${position * 100}%` }}
               >
                 <Reveal variant="pop" className="relative">
-                  <span className="pulse-ring absolute inset-0 rounded-full bg-primary/30" />
-                  <div className="relative w-5 h-5 rounded-full bg-primary border-4 border-background shadow-lg shadow-primary/30" />
+                  {index < lit && <span className="pulse-ring absolute inset-0 rounded-full bg-primary/30" />}
+                  <div
+                    className={`relative h-5 w-5 rounded-full border-4 border-background transition-[background-color,box-shadow,transform] duration-500 ${
+                      index < lit
+                        ? "scale-110 bg-primary shadow-lg shadow-primary/40"
+                        : "bg-muted-foreground/30 shadow-none"
+                    }`}
+                  />
                 </Reveal>
               </div>
             ))}

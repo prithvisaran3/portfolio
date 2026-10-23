@@ -3,7 +3,7 @@
 import { Reveal } from "@/components/ios/Reveal";
 import { useEffect, useId, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useDragControls, useMotionValue, useTransform, type PanInfo } from "framer-motion";
 import { spring } from "@/lib/motion";
 import { GlassCard } from "./GlassCard";
 import { ExternalLink, Smartphone, Github, Award, Trophy, Globe, X } from "lucide-react";
@@ -44,6 +44,12 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
   const dialogRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
   const titleId = useId();
+  // Swipe-to-dismiss: drag from the grabber; a flick is projected forward (Apple's
+  // decay projection) and the sheet leaves at the finger's velocity
+  const dragControls = useDragControls();
+  const sheetY = useMotionValue(0);
+  const scrimOpacity = useTransform(sheetY, [0, 420], [1, 0.25]);
+  const [dismiss, setDismiss] = useState<{ down: boolean; velocity: number }>({ down: false, velocity: 0 });
   // Portals only after mount, so server and first client render match
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
@@ -56,7 +62,17 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
         y: rect.top + rect.height / 2 - window.innerHeight / 2,
       });
     }
+    setDismiss({ down: false, velocity: 0 });
     setIsOpen(true);
+  };
+
+  const onSheetDragEnd = (_: unknown, info: PanInfo) => {
+    const decay = 0.998;
+    const projected = info.offset.y + ((info.velocity.y / 1000) * decay) / (1 - decay);
+    if (projected > 160) {
+      setDismiss({ down: true, velocity: info.velocity.y });
+      requestAnimationFrame(close);
+    }
   };
 
   const close = () => {
@@ -103,7 +119,20 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen, selectedImage]);
-  const hasStoreLinks = project.appStoreUrl || project.playStoreUrl;
+  // Outbound links in priority order; the first becomes the card's one primary action
+  const links: ProjectLink[] = [
+    project.liveUrl && { href: project.liveUrl, label: "Live Site", icon: Globe },
+    project.appStoreUrl && { href: project.appStoreUrl, label: "App Store", icon: Smartphone },
+    project.playStoreUrl && { href: project.playStoreUrl, label: "Play Store", icon: Smartphone },
+    project.devpostUrl && { href: project.devpostUrl, label: "Devpost", icon: Award },
+    project.githubMobileUrl && { href: project.githubMobileUrl, label: "Mobile App", icon: Github },
+    project.githubAIUrl && { href: project.githubAIUrl, label: "AI/Cloud", icon: Github },
+    project.url && !project.hideGitHubLink && !project.githubMobileUrl && !project.githubAIUrl && {
+      href: project.url,
+      label: "GitHub",
+      icon: Github,
+    },
+  ].filter(Boolean) as ProjectLink[];
   const isPublished = project.published;
 
   const renderAwards = () => {
@@ -225,115 +254,9 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
               ))}
             </div>
 
-            {/* Store Links, Devpost, and GitHub */}
-            <div className="relative z-20 mt-auto pt-4 border-t border-border/50 space-y-2" onClick={(e) => e.stopPropagation()}>
-              {hasStoreLinks && (
-                <div className="flex gap-2">
-                  {project.appStoreUrl && (
-                    <a
-                      href={project.appStoreUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-medium rounded-lg bg-black/10 dark:bg-white/10 hover:bg-black/20 dark:hover:bg-white/20 transition-colors border border-border/50"
-                    >
-                      <Smartphone className="w-3.5 h-3.5" />
-                      <span>App Store</span>
-                      <ExternalLink className="w-3 h-3" />
-                    </a>
-                  )}
-                  {project.playStoreUrl && (
-                    <a
-                      href={project.playStoreUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-medium rounded-lg bg-black/10 dark:bg-white/10 hover:bg-black/20 dark:hover:bg-white/20 transition-colors border border-border/50"
-                    >
-                      <Smartphone className="w-3.5 h-3.5" />
-                      <span>Play Store</span>
-                      <ExternalLink className="w-3 h-3" />
-                    </a>
-                  )}
-                </div>
-              )}
-              {project.devpostUrl && (
-                <div className="flex flex-col gap-2">
-                  <a
-                    href={project.devpostUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-2 px-3 py-2 text-xs font-medium rounded-lg bg-blue-500/10 hover:bg-blue-500/20 transition-colors border border-blue-500/30 text-blue-400 hover:text-blue-300"
-                  >
-                    <span>View on Devpost</span>
-                    <ExternalLink className="w-3 h-3" />
-                  </a>
-                  {(project.githubMobileUrl || project.githubAIUrl || (project.url && !project.hideGitHubLink)) && (
-                    <div className="flex gap-2">
-                      {project.githubMobileUrl && (
-                        <a
-                          href={project.githubMobileUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-medium rounded-lg bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 transition-colors border border-border/50 text-muted-foreground hover:text-foreground"
-                        >
-                          <Github className="w-3.5 h-3.5" />
-                          <span>Mobile App</span>
-                          <ExternalLink className="w-3 h-3" />
-                        </a>
-                      )}
-                      {project.githubAIUrl && (
-                        <a
-                          href={project.githubAIUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-medium rounded-lg bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 transition-colors border border-border/50 text-muted-foreground hover:text-foreground"
-                        >
-                          <Github className="w-3.5 h-3.5" />
-                          <span>AI/Cloud</span>
-                          <ExternalLink className="w-3 h-3" />
-                        </a>
-                      )}
-                      {!project.githubMobileUrl && !project.githubAIUrl && project.url && !project.hideGitHubLink && (
-                        <a
-                          href={project.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-medium rounded-lg bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 transition-colors border border-border/50 text-muted-foreground hover:text-foreground"
-                        >
-                          <Github className="w-3.5 h-3.5" />
-                          <span>View on GitHub</span>
-                          <ExternalLink className="w-3 h-3" />
-                        </a>
-                      )}
-                    </div>
-                  )}
-                </div>
-              )}
-              {!project.hideGitHubLink && !project.devpostUrl && project.url && (
-                <div className="flex flex-wrap gap-2">
-                  {project.liveUrl && (
-                    <a
-                      href={project.liveUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex-1 min-w-[120px] flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 transition-colors border border-emerald-500/30 text-emerald-600 dark:text-emerald-400"
-                    >
-                      <Globe className="w-3.5 h-3.5" />
-                      <span>Live Site</span>
-                      <ExternalLink className="w-3 h-3" />
-                    </a>
-                  )}
-                  <a
-                    href={project.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex-1 min-w-[120px] flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 transition-colors border border-border/50 text-muted-foreground hover:text-foreground"
-                  >
-                    <Github className="w-3.5 h-3.5" />
-                    <span>View on GitHub</span>
-                    <ExternalLink className="w-3 h-3" />
-                  </a>
-                </div>
-              )}
+            {/* Actions: one tinted primary, the rest neutral */}
+            <div className="relative z-20 mt-auto pt-4 border-t border-border/50" onClick={(e) => e.stopPropagation()}>
+              <ProjectLinks links={links} size="sm" />
             </div>
           </div>
         </GlassCard>
@@ -341,25 +264,43 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
 
       {/* Modal Popup Overlay */}
       {mounted && createPortal(
-      <AnimatePresence>
+      <AnimatePresence custom={dismiss}>
         {isOpen && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 md:p-10 bg-black/50 backdrop-blur-xl"
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 md:p-10 backdrop-blur-xl"
             onClick={close}
           >
+            {/* Dimming lightens as the sheet is dragged away */}
+            <motion.div aria-hidden className="absolute inset-0 bg-black/50" style={{ opacity: scrimOpacity }} />
             <motion.div
               ref={dialogRef}
               role="dialog"
               aria-modal="true"
               aria-labelledby={titleId}
-              initial={{ scale: 0.6, opacity: 0, x: origin.x * 0.6, y: origin.y * 0.6 }}
-              animate={{ scale: 1, opacity: 1, x: 0, y: 0 }}
-              exit={{ scale: 0.6, opacity: 0, x: origin.x * 0.6, y: origin.y * 0.6 }}
+              custom={dismiss}
+              variants={{
+                hidden: (d: { down: boolean; velocity: number }) =>
+                  d.down
+                    ? { y: "110vh", transition: { type: "spring", bounce: 0, duration: 0.45, velocity: d.velocity } }
+                    : { scale: 0.6, opacity: 0, x: origin.x * 0.6, y: origin.y * 0.6 },
+                visible: { scale: 1, opacity: 1, x: 0, y: 0 },
+              }}
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
               transition={spring}
+              style={{ y: sheetY }}
+              drag="y"
+              dragListener={false}
+              dragControls={dragControls}
+              dragConstraints={{ top: 0, bottom: 0 }}
+              dragElastic={{ top: 0.05, bottom: 0.9 }}
+              dragTransition={{ bounceStiffness: 500, bounceDamping: 45 }}
+              onDragEnd={onSheetDragEnd}
               className="relative max-w-4xl w-full"
               onClick={(e) => e.stopPropagation()}
             >
@@ -381,6 +322,15 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
                     backgroundRepeat: "repeat",
                   }}
                 />
+
+                {/* Grabber: drag down to dismiss (also the drag handle on desktop) */}
+                <div
+                  onPointerDown={(e) => dragControls.start(e)}
+                  className="absolute inset-x-0 top-0 z-20 flex h-8 cursor-grab touch-none items-start justify-center pt-2.5 active:cursor-grabbing"
+                  aria-hidden
+                >
+                  <span className="h-1.5 w-10 rounded-full bg-foreground/20" />
+                </div>
 
                 {/* Close Button */}
                 <button
@@ -485,74 +435,9 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
                     </div>
                   )}
 
-                  {/* Footer Action Links inside modal */}
-                  <div className="pt-6 border-t border-border/50 flex flex-wrap gap-3">
-                    {hasStoreLinks && (
-                      <div className="flex gap-2 w-full sm:w-auto">
-                        {project.appStoreUrl && (
-                          <a
-                            href={project.appStoreUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex-1 flex items-center justify-center gap-1.5 px-4 py-2.5 text-xs font-semibold rounded-lg bg-black/10 dark:bg-white/10 hover:bg-black/20 dark:hover:bg-white/20 transition-colors border border-border/50 text-foreground"
-                          >
-                            <Smartphone className="w-3.5 h-3.5" />
-                            <span>App Store</span>
-                            <ExternalLink className="w-3 h-3" />
-                          </a>
-                        )}
-                        {project.playStoreUrl && (
-                          <a
-                            href={project.playStoreUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex-1 flex items-center justify-center gap-1.5 px-4 py-2.5 text-xs font-semibold rounded-lg bg-black/10 dark:bg-white/10 hover:bg-black/20 dark:hover:bg-white/20 transition-colors border border-border/50 text-foreground"
-                          >
-                            <Smartphone className="w-3.5 h-3.5" />
-                            <span>Play Store</span>
-                            <ExternalLink className="w-3 h-3" />
-                          </a>
-                        )}
-                      </div>
-                    )}
-
-                    {project.devpostUrl && (
-                      <a
-                        href={project.devpostUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex-1 min-w-[150px] flex items-center justify-center gap-2 px-4 py-2.5 text-xs font-semibold rounded-lg bg-blue-500/10 hover:bg-blue-500/20 transition-colors border border-blue-500/30 text-blue-400 hover:text-blue-300"
-                      >
-                        <span>View on Devpost</span>
-                        <ExternalLink className="w-3 h-3" />
-                      </a>
-                    )}
-
-                    {project.liveUrl && (
-                      <a
-                        href={project.liveUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex-1 min-w-[150px] flex items-center justify-center gap-1.5 px-4 py-2.5 text-xs font-semibold rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 transition-colors border border-emerald-500/30 text-emerald-600 dark:text-emerald-400"
-                      >
-                        <Globe className="w-3.5 h-3.5" />
-                        <span>Live Site</span>
-                        <ExternalLink className="w-3 h-3" />
-                      </a>
-                    )}
-
-                    {project.url && !project.hideGitHubLink && (
-                      <a
-                        href={project.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex-1 min-w-[150px] flex items-center justify-center gap-1.5 px-4 py-2.5 text-xs font-semibold rounded-lg bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 transition-colors border border-border/50 text-muted-foreground hover:text-foreground"
-                      >
-                        <Github className="w-3.5 h-3.5" />
-                        <span>View on GitHub</span>
-                        <ExternalLink className="w-3 h-3" />
-                      </a>
-                    )}
+                  {/* Actions: one tinted primary, the rest neutral */}
+                  <div className="pt-6 border-t border-border/50">
+                    <ProjectLinks links={links} size="lg" />
                   </div>
                 </div>
               </div>
@@ -591,5 +476,40 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
         document.body
       )}
     </>
+  );
+}
+
+interface ProjectLink {
+  href: string;
+  label: string;
+  icon: typeof Github;
+}
+
+// Apple's color budget: one prominent (tinted) action per view, the rest monochrome
+function ProjectLinks({ links, size }: { links: ProjectLink[]; size: "sm" | "lg" }) {
+  if (links.length === 0) return null;
+  return (
+    <div className="flex flex-wrap gap-2">
+      {links.map(({ href, label, icon: Icon }, i) => (
+        <a
+          key={href + label}
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={
+            "press flex min-h-[44px] flex-1 items-center justify-center gap-1.5 rounded-xl border px-3 font-semibold " +
+            (size === "lg" ? "min-w-[150px] text-sm " : "min-w-[110px] text-xs ") +
+            (i === 0
+              ? "border-transparent bg-[var(--tint-bg)] text-white shadow-sm hover:bg-[var(--tint-bg-hover)]"
+              : "border-foreground/10 bg-foreground/[0.05] text-foreground/80 hover:bg-foreground/10 hover:text-foreground")
+          }
+        >
+          <Icon className="h-3.5 w-3.5" aria-hidden />
+          <span>{label}</span>
+          <ExternalLink className="h-3 w-3 opacity-70" aria-hidden />
+          <span className="sr-only">(opens in a new tab)</span>
+        </a>
+      ))}
+    </div>
   );
 }
