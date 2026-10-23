@@ -88,14 +88,14 @@ export function ProjectsTabs({
         <TabsList className="grid w-full grid-cols-4 mb-8 glass-effect h-auto p-1">
           <TabsTrigger
             value="all"
-            className="flex items-center gap-2 py-3 data-[state=active]:bg-background/50"
+            className="press flex items-center gap-2 py-3 data-[state=active]:bg-background/50"
           >
             <span>All</span>
             <span className="text-xs opacity-70">({allProjects.length})</span>
           </TabsTrigger>
           <TabsTrigger
             value="ml"
-            className="flex items-center gap-2 py-3 data-[state=active]:bg-background/50"
+            className="press flex items-center gap-2 py-3 data-[state=active]:bg-background/50"
           >
             <Brain className="w-4 h-4" />
             <span>ML/AI</span>
@@ -103,7 +103,7 @@ export function ProjectsTabs({
           </TabsTrigger>
           <TabsTrigger
             value="mobile"
-            className="flex items-center gap-2 py-3 data-[state=active]:bg-background/50"
+            className="press flex items-center gap-2 py-3 data-[state=active]:bg-background/50"
           >
             <Smartphone className="w-4 h-4" />
             <span>Mobile</span>
@@ -111,7 +111,7 @@ export function ProjectsTabs({
           </TabsTrigger>
           <TabsTrigger
             value="web"
-            className="flex items-center gap-2 py-3 data-[state=active]:bg-background/50"
+            className="press flex items-center gap-2 py-3 data-[state=active]:bg-background/50"
           >
             <Globe className="w-4 h-4" />
             <span>Web</span>

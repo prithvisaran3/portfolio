@@ -11,7 +11,7 @@ export default function ResumePage() {
   return (
     <div className="container mx-auto px-4 py-20">
       <div className="max-w-4xl mx-auto">
-        <div className="flex items-center justify-between mb-12">
+        <div className="flex flex-wrap items-center justify-between gap-4 mb-12">
           <SectionTitle>Resume</SectionTitle>
           <Button asChild size="lg" className="gap-2 rounded-full" variant="tint">
             <a href="/assets/PrithviSaranSathyasaran_Resume.pdf" download>
@@ -32,7 +32,7 @@ export default function ResumePage() {
               {resumeData.education.map((edu, index) => (
                 <Reveal key={index} delay={Math.min(index * 0.1, 0.3)}>
                   <GlassCard elevation={2} className="p-6">
-                    <div className="flex items-start justify-between mb-4">
+                    <div className="flex flex-wrap items-start justify-between gap-x-4 gap-y-2 mb-4">
                       <div className="flex-1">
                         <h3 className="text-xl font-semibold">{edu.degree}</h3>
                         <p className="text-primary font-medium">{edu.school}</p>
@@ -40,7 +40,7 @@ export default function ResumePage() {
                           <p className="text-sm font-semibold text-muted-foreground mt-1">GPA: {edu.gpa}</p>
                         )}
                       </div>
-                      <div className="text-right text-sm text-muted-foreground">
+                      <div className="text-sm text-muted-foreground sm:text-right">
                         <p>{edu.grad}</p>
                         {edu.location && <p>{edu.location}</p>}
                       </div>
@@ -79,14 +79,14 @@ export default function ResumePage() {
               {resumeData.experience.map((exp, index) => (
                 <Reveal key={index} delay={Math.min(index * 0.1, 0.3)}>
                   <GlassCard elevation={2} className="p-6">
-                    <div className="flex items-start justify-between mb-3">
+                    <div className="flex flex-wrap items-start justify-between gap-x-4 gap-y-2 mb-3">
                       <div>
                         <h3 className="text-xl font-semibold">{exp.roles ? exp.company : exp.role}</h3>
                         <p className="text-primary font-medium">
                           {exp.roles ? `Promoted · ${exp.roles.length} roles` : exp.company}
                         </p>
                       </div>
-                      <div className="text-right text-sm text-muted-foreground">
+                      <div className="text-sm text-muted-foreground sm:text-right">
                         <p>
                           {exp.start} – {exp.end}
                         </p>
@@ -138,7 +138,7 @@ export default function ResumePage() {
               {resumeData.projects.map((project, index) => (
                 <Reveal key={index} delay={Math.min(index * 0.1, 0.3)}>
                   <GlassCard elevation={2} className="p-6">
-                    <div className="flex items-start justify-between mb-3">
+                    <div className="flex flex-wrap items-start justify-between gap-x-4 gap-y-2 mb-3">
                       <h3 className="text-xl font-semibold">{project.name}</h3>
                       {project.timeframe && (
                         <p className="text-sm text-muted-foreground">{project.timeframe}</p>

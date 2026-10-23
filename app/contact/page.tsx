@@ -6,6 +6,7 @@ import { Mail, Github, Linkedin, ExternalLink } from "lucide-react";
 import { SectionTitle } from "@/components/ios/SectionTitle";
 import { GlassCard } from "@/components/ios/GlassCard";
 import { Button } from "@/components/ui/button";
+import { CopyEmail } from "@/components/ios/CopyEmail";
 import { spring } from "@/lib/motion";
 export default function ContactPage() {
   return (
@@ -27,12 +28,15 @@ export default function ContactPage() {
             <p className="text-muted-foreground mb-6">
               Always happy to connect about healthcare software, AI, and mobile development.
             </p>
-            <Button asChild size="lg" className="gap-2 rounded-full select-all" variant="tint">
-              <a href="mailto:prithvisaran.s@gmail.com">
-                <Mail className="w-4 h-4" />
-                prithvisaran.s@gmail.com
-              </a>
-            </Button>
+            <div className="flex flex-wrap items-center justify-center gap-3">
+              <Button asChild size="lg" className="gap-2 rounded-full px-6 select-all" variant="tint">
+                <a href="mailto:prithvisaran.s@gmail.com">
+                  <Mail className="w-4 h-4" />
+                  prithvisaran.s@gmail.com
+                </a>
+              </Button>
+              <CopyEmail email="prithvisaran.s@gmail.com" />
+            </div>
           </GlassCard>
         </motion.div>
 
