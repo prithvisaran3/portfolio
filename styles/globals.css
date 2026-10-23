@@ -78,6 +78,10 @@
   p, li {
     text-wrap: pretty;
   }
+  /* Long words (e.g. "radiopharmaceutical") wrap instead of overflowing at large text sizes */
+  main {
+    overflow-wrap: break-word;
+  }
   
   /* Improve touch targets on mobile */
   @media (max-width: 768px) {

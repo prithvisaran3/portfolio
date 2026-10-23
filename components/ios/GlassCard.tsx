@@ -5,12 +5,15 @@ interface GlassCardProps extends HTMLAttributes<HTMLDivElement> {
   elevation?: 1 | 2 | 3;
   // Only for surfaces that do something on click: adds hover lift and press feedback
   interactive?: boolean;
+  // "card" (default) is the content-layer material: frosted, no live blur. "glass" is real
+  // Liquid Glass with a backdrop blur, for floating controls only.
+  material?: "card" | "glass";
 }
 
 // Hover and press are pure CSS (see .glass-interactive in tokens.css), so feedback lands
 // on pointer-down with no per-card JavaScript.
 export const GlassCard = forwardRef<HTMLDivElement, GlassCardProps>(
-  ({ className, elevation = 1, interactive = false, children, ...props }, ref) => {
+  ({ className, elevation = 1, interactive = false, material = "card", children, ...props }, ref) => {
     const elevationClasses = {
       1: "shadow-lg",
       2: "shadow-xl",
@@ -22,9 +25,9 @@ export const GlassCard = forwardRef<HTMLDivElement, GlassCardProps>(
         ref={ref}
         className={cn(
           "relative overflow-hidden rounded-3xl",
-          "glass-effect",
+          material === "glass" ? "glass-effect" : "material-card",
           elevationClasses[elevation],
-          interactive && "glass-interactive cursor-pointer",
+          interactive && "glass-interactive specular cursor-pointer",
           className
         )}
         {...props}

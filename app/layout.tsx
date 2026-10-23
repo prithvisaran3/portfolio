@@ -1,12 +1,16 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { ThemeProvider } from "next-themes";
 import { createMetadata } from "@/lib/seo";
 import { LiquidBackdrop } from "@/components/ios/LiquidBackdrop";
 import { IslandNav } from "@/components/ios/IslandNav";
 import { MotionProvider } from "@/components/ios/MotionProvider";
+import { Specular } from "@/components/ios/Specular";
 import "@/styles/globals.css";
 
 export const metadata: Metadata = createMetadata();
+
+// Lets the mobile tab bar sit above the home indicator (safe-area insets)
+export const viewport: Viewport = { width: "device-width", initialScale: 1, viewportFit: "cover" };
 
 export default function RootLayout({
   children,
@@ -29,9 +33,10 @@ export default function RootLayout({
           disableTransitionOnChange={false}
         >
           <MotionProvider>
+            <Specular />
             <LiquidBackdrop />
             <IslandNav />
-            <main id="main" className="relative z-10 pt-24">
+            <main id="main" className="relative z-10 pt-24 pb-28 lg:pb-0">
               {children}
             </main>
           </MotionProvider>

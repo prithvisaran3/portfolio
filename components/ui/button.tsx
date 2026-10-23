@@ -18,9 +18,9 @@ const buttonVariants = cva(
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
-        glass: "glass-effect glass-effect-hover text-foreground",
+        glass: "glass-effect glass-effect-hover specular text-foreground",
         // Tinted glass for the one primary action in a view
-        tint: "glass-tint glass-effect-hover font-semibold",
+        tint: "glass-tint glass-effect-hover specular font-semibold",
       },
       size: {
         default: "h-10 px-4 py-2",
