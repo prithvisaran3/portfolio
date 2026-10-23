@@ -28,6 +28,18 @@ export default function ExperiencePage() {
     return Math.min(1, Math.max(0, (y - start) / (end - start || 1)));
   });
 
+  // The visible track runs from the first dot to the last, so nothing sticks out past
+  // either end; the fill is re-mapped to that span and still meets each dot as it lights
+  const span = cardPositions.length
+    ? { top: cardPositions[0], height: cardPositions[cardPositions.length - 1] - cardPositions[0] }
+    : null;
+  const spanRef = useRef({ top: 0, height: 1 });
+  if (span) spanRef.current = span;
+  const trackFill = useTransform(fill, (v) => {
+    const { top, height } = spanRef.current;
+    return Math.min(1, Math.max(0, (v - top) / (height || 1)));
+  });
+
   // Dots light up as the progress line reaches them; state changes only when the count does
   const [lit, setLit] = useState(0);
   useMotionValueEvent(fill, "change", (v) => {
@@ -75,11 +87,18 @@ export default function ExperiencePage() {
         <div ref={timelineRef} className="relative">
           {/* Left Side Timeline */}
           <div className="absolute left-8 top-0 bottom-0 w-0.5 hidden md:block" aria-hidden>
-            <div className="absolute inset-0 bg-gradient-to-b from-primary/20 via-primary/40 to-transparent" />
-            <motion.div
-              className="absolute top-0 left-0 h-full w-full origin-top bg-gradient-to-b from-primary via-primary/80 to-primary/40"
-              style={{ scaleY: fill }}
-            />
+            {span && (
+              <div
+                className="absolute inset-x-0 overflow-hidden rounded-full"
+                style={{ top: `${span.top * 100}%`, height: `${span.height * 100}%` }}
+              >
+                <div className="absolute inset-0 bg-primary/15" />
+                <motion.div
+                  className="absolute inset-0 origin-top bg-gradient-to-b from-primary via-primary/80 to-primary/50"
+                  style={{ scaleY: trackFill }}
+                />
+              </div>
+            )}
             {cardPositions.map((position, index) => (
               <div
                 key={index}
