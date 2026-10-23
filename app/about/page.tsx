@@ -78,9 +78,9 @@ export default function AboutPage() {
 
         {/* Quick Facts */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {quickFacts.map((fact) => (
-            <Reveal key={fact.label}>
-              <GlassCard elevation={2} className="p-6 h-full">
+          {quickFacts.map((fact, i) => (
+            <Reveal key={fact.label} delay={i * 0.08}>
+              <GlassCard elevation={2} className="lift p-6 h-full">
                 <div className="flex items-start gap-4">
                   <div className="p-3 rounded-full bg-primary/10 shrink-0">
                     <fact.icon className="w-6 h-6 text-primary" />

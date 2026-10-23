@@ -37,8 +37,7 @@ export default function ContactPage() {
         </motion.div>
 
         {/* Social Links */}
-        <Reveal
-        >
+        <Reveal>
           <h3 className="text-xl font-bold text-center mb-6">Connect With Me</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <a
@@ -82,8 +81,7 @@ export default function ContactPage() {
         </Reveal>
 
         {/* Availability */}
-        <Reveal
-        >
+        <Reveal>
           <GlassCard elevation={1} className="p-6">
             <h3 className="font-semibold mb-2">Current Status</h3>
             <div className="flex items-center gap-2">

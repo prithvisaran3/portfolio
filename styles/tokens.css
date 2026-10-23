@@ -22,6 +22,8 @@
   --tint-fg: #fff;
 
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  /* Light overshoot, for small elements popping in */
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 
   /* Gradient blobs */
   --blob-1-light: rgba(10, 132, 255, 0.15);
@@ -93,13 +95,57 @@
     inset 0 1px 0 0 var(--glass-highlight);
 }
 
-/* Gentle lift for static labels: a hover response without implying a click */
+/* Hover lift for cards and chips, as the original GlassCard had: rises with a light
+   spring on hover, settles on press. CSS only, so it costs nothing while scrolling. */
+.lift,
+.lift-chip {
+  transition:
+    transform 0.35s var(--ease-spring),
+    box-shadow 0.35s var(--ease-out);
+}
 @media (hover: hover) {
-  .lift {
-    transition: transform 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out);
-  }
   .lift:hover {
-    transform: translateY(-2px);
+    transform: translateY(-4px);
+    box-shadow:
+      0 18px 44px -8px var(--glass-shadow-hover),
+      inset 0 1px 0 0 var(--glass-highlight);
+  }
+  .lift-chip:hover {
+    transform: translateY(-4px) scale(1.04);
+    box-shadow:
+      0 12px 28px -6px var(--glass-shadow-hover),
+      inset 0 1px 0 0 var(--glass-highlight);
+  }
+}
+.lift-chip:active {
+  transform: scale(0.97);
+  transition-duration: 0.1s;
+}
+
+/* Soft pulse around the timeline dots (transform + opacity only) */
+@keyframes pulse-ring {
+  0% { transform: scale(1); opacity: 0.6; }
+  70%, 100% { transform: scale(2); opacity: 0; }
+}
+.pulse-ring {
+  animation: pulse-ring 2.4s var(--ease-out) infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .pulse-ring { animation: none; opacity: 0; }
+}
+
+/* Light sweep across a card on hover */
+.shimmer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(100deg, transparent 30%, rgba(255, 255, 255, 0.12) 50%, transparent 70%);
+  transform: translateX(-100%);
+}
+@media (hover: hover) {
+  .group:hover .shimmer {
+    transform: translateX(100%);
+    transition: transform 0.8s var(--ease-out);
   }
 }
 
@@ -146,28 +192,36 @@
   transition-duration: 0.1s;
 }
 
-/* Arrival reveal (see components/ios/Reveal.tsx) */
-.reveal {
+/* Scroll reveal (see components/ios/Reveal.tsx): opacity + transform only */
+.reveal,
+.reveal-item {
   opacity: 0;
-  transform: translate3d(0, 12px, 0);
   transition:
-    opacity 0.5s var(--ease-out),
-    transform 0.6s var(--ease-out);
+    opacity 0.55s var(--ease-out) var(--d, 0s),
+    transform 0.7s var(--ease-out) var(--d, 0s);
 }
-.reveal[data-shown] {
+.reveal-up { transform: translate3d(0, 20px, 0); }
+.reveal-left { transform: translate3d(-50px, 0, 0); }
+.reveal-right { transform: translate3d(50px, 0, 0); }
+.reveal-fade { transform: none; }
+.reveal-pop {
+  transform: scale(0.8);
+  transition-timing-function: var(--ease-out), var(--ease-spring);
+  transition-duration: 0.4s, 0.5s;
+}
+.reveal-item.reveal-left { transform: translate3d(-20px, 0, 0); }
+.reveal-item.reveal-up { transform: translate3d(0, 10px, 0); }
+
+.reveal[data-shown],
+[data-shown] .reveal-item {
   opacity: 1;
   transform: none;
 }
-.reveal[data-instant] {
-  transition: none;
-}
-.reveal-pop {
-  transform: scale(0.92);
-}
+
 @media (prefers-reduced-motion: reduce) {
   .reveal,
-  .reveal-pop {
-    transform: none;
+  .reveal-item {
+    transform: none !important;
   }
 }
 

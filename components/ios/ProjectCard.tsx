@@ -33,7 +33,7 @@ interface ProjectCardProps {
   index: number;
 }
 
-export function ProjectCard({ project }: ProjectCardProps) {
+export function ProjectCard({ project, index }: ProjectCardProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   // Offset of the card from the viewport centre, so the sheet grows out of the card
@@ -167,7 +167,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
 
   return (
     <>
-      <Reveal key={project.name} className="h-full">
+      <Reveal key={project.name} delay={Math.min((index % 3) * 0.1, 0.2)} className="h-full">
         <GlassCard
           ref={cardRef}
           interactive

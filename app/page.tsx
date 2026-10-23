@@ -99,9 +99,9 @@ export default function HomePage() {
       {/* Quick Highlights */}
       <section className="py-20" aria-label="Highlights">
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
-          {highlights.map((item) => (
-            <Reveal key={item.label}>
-              <GlassCard elevation={2} className="p-8 h-full">
+          {highlights.map((item, i) => (
+            <Reveal key={item.label} delay={i * 0.1}>
+              <GlassCard elevation={2} className="lift p-8 h-full">
                 <p className="text-4xl font-bold tracking-[-0.03em] mb-2">{item.value}</p>
                 <p className="text-muted-foreground">{item.label}</p>
               </GlassCard>
@@ -112,14 +112,16 @@ export default function HomePage() {
 
       {/* Featured Tech Stack */}
       <section className="py-20">
-        <Reveal className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-8">Core Technologies</h2>
+        <div className="max-w-4xl mx-auto text-center">
+          <Reveal as="div">
+            <h2 className="text-3xl font-bold mb-8">Core Technologies</h2>
+          </Reveal>
           <div className="flex flex-wrap justify-center gap-3">
             {coreTech.map((tech, index) => (
               <SkillChip key={tech} name={tech} index={index} />
             ))}
           </div>
-        </Reveal>
+        </div>
       </section>
     </div>
   );

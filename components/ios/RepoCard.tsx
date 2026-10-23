@@ -10,9 +10,10 @@ interface RepoCardProps {
   index: number;
 }
 
-export function RepoCard({ repo }: RepoCardProps) {
+export function RepoCard({ repo, index }: RepoCardProps) {
   return (
     <Reveal as="a"
+      delay={Math.min((index % 3) * 0.08, 0.16)}
       href={repo.html_url}
       target="_blank"
       rel="noopener noreferrer"

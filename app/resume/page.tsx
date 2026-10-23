@@ -30,9 +30,7 @@ export default function ResumePage() {
             </div>
             <div className="space-y-6">
               {resumeData.education.map((edu, index) => (
-                <Reveal
-                  key={index}
-                >
+                <Reveal key={index} delay={Math.min(index * 0.1, 0.3)}>
                   <GlassCard elevation={2} className="p-6">
                     <div className="flex items-start justify-between mb-4">
                       <div className="flex-1">
@@ -79,9 +77,7 @@ export default function ResumePage() {
             </div>
             <div className="space-y-6">
               {resumeData.experience.map((exp, index) => (
-                <Reveal
-                  key={index}
-                >
+                <Reveal key={index} delay={Math.min(index * 0.1, 0.3)}>
                   <GlassCard elevation={2} className="p-6">
                     <div className="flex items-start justify-between mb-3">
                       <div>
@@ -140,9 +136,7 @@ export default function ResumePage() {
             </div>
             <div className="space-y-6">
               {resumeData.projects.map((project, index) => (
-                <Reveal
-                  key={index}
-                >
+                <Reveal key={index} delay={Math.min(index * 0.1, 0.3)}>
                   <GlassCard elevation={2} className="p-6">
                     <div className="flex items-start justify-between mb-3">
                       <h3 className="text-xl font-semibold">{project.name}</h3>
@@ -189,8 +183,7 @@ export default function ResumePage() {
                 <Award className="w-6 h-6 text-primary" />
                 <h2 className="text-3xl font-bold">Certifications</h2>
               </div>
-              <Reveal
-              >
+              <Reveal>
                 <GlassCard elevation={2} className="p-6">
                   <ul className="space-y-2">
                     {resumeData.certifications.map((cert, index) => (

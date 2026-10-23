@@ -1,6 +1,6 @@
 "use client";
 
-import { Reveal } from "@/components/ios/Reveal";
+import { Reveal, RevealItem } from "@/components/ios/Reveal";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Briefcase, Calendar, MapPin } from "lucide-react";
 import { SectionTitle } from "@/components/ios/SectionTitle";
@@ -77,7 +77,10 @@ export default function ExperiencePage() {
                 className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 z-10"
                 style={{ top: `${position * 100}%` }}
               >
-                <div className="w-5 h-5 rounded-full bg-primary border-4 border-background shadow-lg shadow-primary/30" />
+                <Reveal variant="pop" className="relative">
+                  <span className="pulse-ring absolute inset-0 rounded-full bg-primary/30" />
+                  <div className="relative w-5 h-5 rounded-full bg-primary border-4 border-background shadow-lg shadow-primary/30" />
+                </Reveal>
               </div>
             ))}
           </div>
@@ -90,23 +93,26 @@ export default function ExperiencePage() {
                 ref={(el) => {
                   cardRefs.current[index] = el;
                 }}
+                variant={index % 2 === 0 ? "left" : "right"}
                 className="relative"
               >
                 {/* Connecting line from timeline, level with the dot */}
                 <div className="absolute -left-12 top-8 w-12 h-0.5 bg-gradient-to-r from-primary/40 to-transparent hidden md:block" />
 
+                <div className="group lift rounded-3xl">
                 <GlassCard elevation={2} className="p-5 sm:p-6 md:p-8">
+                  <span aria-hidden className="shimmer" />
                   <div className="mb-6">
-                    <h2 className="text-xl sm:text-2xl font-bold tracking-[-0.015em] mb-2">
+                    <RevealItem as="h2" delay={0.15} className="text-xl sm:text-2xl font-bold tracking-[-0.015em] mb-2">
                       {exp.roles ? exp.company : exp.role}
-                    </h2>
-                    <div className="flex items-center gap-2 text-primary font-semibold text-lg mb-3">
+                    </RevealItem>
+                    <RevealItem variant="left" delay={0.22} className="flex items-center gap-2 text-primary font-semibold text-lg mb-3">
                       <Briefcase className="w-5 h-5" />
                       <span>
                         {exp.roles ? `Promoted · ${exp.roles.length} roles` : exp.company}
                       </span>
-                    </div>
-                    <div className="flex flex-wrap gap-x-4 gap-y-1 text-sm text-muted-foreground">
+                    </RevealItem>
+                    <RevealItem variant="fade" delay={0.3} className="flex flex-wrap gap-x-4 gap-y-1 text-sm text-muted-foreground">
                       {exp.location && (
                         <div className="flex items-center gap-1.5">
                           <MapPin className="w-4 h-4" />
@@ -119,7 +125,7 @@ export default function ExperiencePage() {
                           {exp.start} – {exp.end}
                         </span>
                       </div>
-                    </div>
+                    </RevealItem>
                   </div>
 
                   {/* Role progression within one company, newest first */}
@@ -133,63 +139,82 @@ export default function ExperiencePage() {
                               r === 0 ? "bg-primary" : "bg-primary/40"
                             }`}
                           />
-                          <h3 className="text-lg font-semibold">{role.title}</h3>
-                          <p className="mb-3 text-sm text-muted-foreground">
+                          <RevealItem as="h3" variant="left" delay={0.35 + r * 0.25} className="text-lg font-semibold">
+                            {role.title}
+                          </RevealItem>
+                          <RevealItem as="p" variant="fade" delay={0.4 + r * 0.25} className="mb-3 text-sm text-muted-foreground">
                             {role.start} – {role.end}
-                          </p>
-                          <BulletList bullets={role.bullets} />
+                          </RevealItem>
+                          <BulletList bullets={role.bullets} baseDelay={0.45 + r * 0.25} />
                         </div>
                       ))}
                     </div>
                   ) : (
                     <div className="mb-6">
-                      <BulletList bullets={exp.bullets} />
+                      <BulletList bullets={exp.bullets} baseDelay={0.38} />
                     </div>
                   )}
 
                   {exp.stack && exp.stack.length > 0 && (
                     <ul className="flex flex-wrap gap-2" aria-label="Tech stack">
-                      {exp.stack.map((tech) => (
-                        <li
+                      {exp.stack.map((tech, t) => (
+                        <RevealItem
+                          as="li"
+                          variant="pop"
                           key={tech}
-                          className="px-3 py-1.5 text-xs font-medium rounded-full bg-primary/10 text-primary border border-primary/20"
+                          delay={0.6 + Math.min(t * 0.04, 0.4)}
+                          className="lift-chip px-3 py-1.5 text-xs font-medium rounded-full bg-primary/10 text-primary border border-primary/20"
                         >
                           {tech}
-                        </li>
+                        </RevealItem>
                       ))}
                     </ul>
                   )}
                 </GlassCard>
+                </div>
               </Reveal>
             ))}
           </div>
         </div>
 
         {/* Career Highlights */}
-        <Reveal as="section" className="mt-16">
-          <h2 className="text-3xl font-bold mb-8 text-center">Career Highlights</h2>
+        <section className="mt-16">
+          <Reveal as="div">
+            <h2 className="text-3xl font-bold mb-8 text-center">Career Highlights</h2>
+          </Reveal>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {careerHighlights.map((stat) => (
-              <GlassCard key={stat.label} elevation={2} className="p-6 text-center">
-                <p className="text-4xl font-bold tracking-[-0.03em] text-primary mb-2">{stat.value}</p>
-                <p className="text-muted-foreground">{stat.label}</p>
-              </GlassCard>
+            {careerHighlights.map((stat, i) => (
+              <Reveal key={stat.label} delay={i * 0.1}>
+                <GlassCard elevation={2} className="lift p-6 text-center">
+                  <RevealItem as="p" variant="pop" delay={0.15 + i * 0.1} className="text-4xl font-bold tracking-[-0.03em] text-primary mb-2">
+                    {stat.value}
+                  </RevealItem>
+                  <p className="text-muted-foreground">{stat.label}</p>
+                </GlassCard>
+              </Reveal>
             ))}
           </div>
-        </Reveal>
+        </section>
       </div>
     </div>
   );
 }
 
-function BulletList({ bullets }: { bullets: string[] }) {
+// Bullets slide in one after another once their card is revealed
+function BulletList({ bullets, baseDelay }: { bullets: string[]; baseDelay: number }) {
   return (
     <ul className="space-y-3">
       {bullets.map((bullet, i) => (
-        <li key={i} className="flex items-start gap-3">
+        <RevealItem
+          as="li"
+          variant="left"
+          key={i}
+          delay={baseDelay + Math.min(i * 0.07, 0.5)}
+          className="flex items-start gap-3"
+        >
           <span aria-hidden className="w-1.5 h-1.5 rounded-full bg-primary mt-2.5 flex-shrink-0" />
           <p className="text-muted-foreground leading-relaxed">{bullet}</p>
-        </li>
+        </RevealItem>
       ))}
     </ul>
   );

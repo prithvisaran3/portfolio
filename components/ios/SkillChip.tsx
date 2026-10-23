@@ -3,24 +3,30 @@ import { Reveal } from "./Reveal";
 
 interface SkillChipProps {
   name: string;
-  // Position in its group, for a short entrance stagger
+  // Position in its group, for the entrance stagger
   index?: number;
-  // Part of the current production stack; gets a subtle accent
-  current?: boolean;
+  className?: string;
 }
 
-// Pops in once with a short stagger (CSS transition, no overshoot). The outer element
-// owns the entrance transform so the chip's hover lift is never overridden.
-export function SkillChip({ name, index = 0, current = false }: SkillChipProps) {
+// The original glass chip: pops in with a short stagger and lifts on hover. It uses the
+// blur-free chip material, since dozens of live backdrop blurs were what made this page
+// drop frames; at chip size the two read the same.
+export function SkillChip({ name, index = 0, className }: SkillChipProps) {
   return (
-    <Reveal as="span" delay={Math.min(index * 0.025, 0.3)} className="reveal-pop inline-flex">
+    <Reveal as="span" variant="pop" delay={Math.min(index * 0.03, 0.45)} className="inline-flex">
       <span
         className={cn(
-          "glass-chip lift inline-flex items-center rounded-full px-4 py-2.5 text-sm font-medium",
-          current && "ring-1 ring-inset ring-primary/40 text-primary"
+          "glass-chip lift-chip relative inline-flex cursor-default items-center overflow-hidden rounded-3xl px-4 py-2.5 shadow-lg",
+          className
         )}
       >
-        {name}
+        {/* Inner highlight, as on GlassCard */}
+        <span
+          aria-hidden
+          className="pointer-events-none absolute inset-0 rounded-3xl"
+          style={{ background: "linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%)" }}
+        />
+        <span className="relative text-sm font-medium">{name}</span>
       </span>
     </Reveal>
   );

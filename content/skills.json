@@ -1,278 +1,212 @@
-[
-  {
-    "title": "Languages",
-    "skills": [
-      {
-        "name": "Python",
-        "current": true
-      },
-      {
-        "name": "TypeScript",
-        "current": true
-      },
-      {
-        "name": "SQL",
-        "current": true
-      },
-      {
-        "name": "JavaScript"
-      },
-      {
-        "name": "Bash",
-        "current": true
-      },
-      {
-        "name": "Dart"
-      },
-      {
-        "name": "Swift"
-      },
-      {
-        "name": "Java"
-      }
-    ]
-  },
-  {
-    "title": "Frontend & Mobile",
-    "skills": [
-      {
-        "name": "React 19",
-        "current": true
-      },
-      {
-        "name": "Next.js"
-      },
-      {
-        "name": "Vite",
-        "current": true
-      },
-      {
-        "name": "Tailwind CSS"
-      },
-      {
-        "name": "TanStack Query"
-      },
-      {
-        "name": "Zustand"
-      },
-      {
-        "name": "Framer Motion"
-      },
-      {
-        "name": "Flutter"
-      },
-      {
-        "name": "SwiftUI"
-      },
-      {
-        "name": "Ionic",
-        "current": true
-      },
-      {
-        "name": "Riverpod"
-      },
-      {
-        "name": "GetX"
-      }
-    ]
-  },
-  {
-    "title": "Backend & Data",
-    "skills": [
-      {
-        "name": "FastAPI",
-        "current": true
-      },
-      {
-        "name": "SQLAlchemy",
-        "current": true
-      },
-      {
-        "name": "Alembic",
-        "current": true
-      },
-      {
-        "name": "Django"
-      },
-      {
-        "name": "Node.js"
-      },
-      {
-        "name": "REST APIs"
-      },
-      {
-        "name": "MySQL",
-        "current": true
-      },
-      {
-        "name": "PostgreSQL",
-        "current": true
-      },
-      {
-        "name": "Firebase"
-      },
-      {
-        "name": "Supabase"
-      },
-      {
-        "name": "MongoDB"
-      }
-    ]
-  },
-  {
-    "title": "AI / ML",
-    "skills": [
-      {
-        "name": "Google Gemini (Vertex AI)",
-        "current": true
-      },
-      {
-        "name": "LLM structured extraction",
-        "current": true
-      },
-      {
-        "name": "PaddleOCR",
-        "current": true
-      },
-      {
-        "name": "LangGraph"
-      },
-      {
-        "name": "PyTorch"
-      },
-      {
-        "name": "Hugging Face"
-      },
-      {
-        "name": "LoRA fine-tuning"
-      },
-      {
-        "name": "scikit-learn"
-      },
-      {
-        "name": "Pandas"
-      },
-      {
-        "name": "NumPy"
-      },
-      {
-        "name": "Core ML"
-      },
-      {
-        "name": "OpenCV"
-      }
-    ]
-  },
-  {
-    "title": "Cloud & DevOps",
-    "skills": [
-      {
-        "name": "AWS (EC2, S3, IAM, Cognito)",
-        "current": true
-      },
-      {
-        "name": "Microsoft Entra ID",
-        "current": true
-      },
-      {
-        "name": "Docker",
-        "current": true
-      },
-      {
-        "name": "Docker Compose",
-        "current": true
-      },
-      {
-        "name": "nginx",
-        "current": true
-      },
-      {
-        "name": "Linux",
-        "current": true
-      },
-      {
-        "name": "cron",
-        "current": true
-      },
-      {
-        "name": "GitHub Actions",
-        "current": true
-      },
-      {
-        "name": "CI regression testing",
-        "current": true
-      }
-    ]
-  },
-  {
-    "title": "Tools & Practices",
-    "skills": [
-      {
-        "name": "Git"
-      },
-      {
-        "name": "Pytest",
-        "current": true
-      },
-      {
-        "name": "DBeaver",
-        "current": true
-      },
-      {
-        "name": "draw.io",
-        "current": true
-      },
-      {
-        "name": "Cursor",
-        "current": true
-      },
-      {
-        "name": "Claude Code",
-        "current": true
-      },
-      {
-        "name": "Devin",
-        "current": true
-      },
-      {
-        "name": "Jira"
-      },
-      {
-        "name": "Xcode"
-      },
-      {
-        "name": "Android Studio"
-      },
-      {
-        "name": "Stripe"
-      },
-      {
-        "name": "Mapbox"
-      },
-      {
-        "name": "MVVM"
-      }
-    ]
-  },
-  {
-    "title": "Healthcare Domain",
-    "skills": [
-      {
-        "name": "Revenue cycle management (RCM)",
-        "current": true
-      },
-      {
-        "name": "Medical coding (CPT/ICD-10)",
-        "current": true
-      },
-      {
-        "name": "EHR integrations",
-        "current": true
-      },
-      {
-        "name": "HIPAA-compliant engineering",
-        "current": true
-      }
-    ]
-  }
-]
+{
+  "languages": [
+    {
+      "name": "Python"
+    },
+    {
+      "name": "TypeScript"
+    },
+    {
+      "name": "SQL"
+    },
+    {
+      "name": "JavaScript"
+    },
+    {
+      "name": "Bash"
+    },
+    {
+      "name": "Dart"
+    },
+    {
+      "name": "Swift"
+    },
+    {
+      "name": "Java"
+    }
+  ],
+  "frameworks": [
+    {
+      "name": "React 19"
+    },
+    {
+      "name": "Next.js"
+    },
+    {
+      "name": "Vite"
+    },
+    {
+      "name": "Tailwind CSS"
+    },
+    {
+      "name": "TanStack Query"
+    },
+    {
+      "name": "Zustand"
+    },
+    {
+      "name": "Framer Motion"
+    },
+    {
+      "name": "Flutter"
+    },
+    {
+      "name": "SwiftUI"
+    },
+    {
+      "name": "Ionic"
+    },
+    {
+      "name": "Riverpod"
+    },
+    {
+      "name": "GetX"
+    },
+    {
+      "name": "FastAPI"
+    },
+    {
+      "name": "SQLAlchemy"
+    },
+    {
+      "name": "Alembic"
+    },
+    {
+      "name": "Pytest"
+    },
+    {
+      "name": "Django"
+    },
+    {
+      "name": "Node.js"
+    },
+    {
+      "name": "LangGraph"
+    },
+    {
+      "name": "PyTorch"
+    },
+    {
+      "name": "Hugging Face"
+    },
+    {
+      "name": "scikit-learn"
+    },
+    {
+      "name": "Pandas"
+    },
+    {
+      "name": "NumPy"
+    },
+    {
+      "name": "Core ML"
+    },
+    {
+      "name": "OpenCV"
+    }
+  ],
+  "tools": [
+    {
+      "name": "Google Gemini (Vertex AI)"
+    },
+    {
+      "name": "LLM structured extraction"
+    },
+    {
+      "name": "PaddleOCR"
+    },
+    {
+      "name": "LoRA fine-tuning"
+    },
+    {
+      "name": "MySQL"
+    },
+    {
+      "name": "PostgreSQL"
+    },
+    {
+      "name": "Firebase"
+    },
+    {
+      "name": "Supabase"
+    },
+    {
+      "name": "MongoDB"
+    },
+    {
+      "name": "REST APIs"
+    },
+    {
+      "name": "AWS (EC2, S3, IAM, Cognito)"
+    },
+    {
+      "name": "Microsoft Entra ID"
+    },
+    {
+      "name": "Docker"
+    },
+    {
+      "name": "Docker Compose"
+    },
+    {
+      "name": "nginx"
+    },
+    {
+      "name": "Linux"
+    },
+    {
+      "name": "cron"
+    },
+    {
+      "name": "GitHub Actions"
+    },
+    {
+      "name": "CI regression testing"
+    },
+    {
+      "name": "Git"
+    },
+    {
+      "name": "DBeaver"
+    },
+    {
+      "name": "draw.io"
+    },
+    {
+      "name": "Cursor"
+    },
+    {
+      "name": "Claude Code"
+    },
+    {
+      "name": "Devin"
+    },
+    {
+      "name": "Jira"
+    },
+    {
+      "name": "Xcode"
+    },
+    {
+      "name": "Android Studio"
+    },
+    {
+      "name": "Stripe"
+    },
+    {
+      "name": "Mapbox"
+    },
+    {
+      "name": "Revenue cycle management (RCM)"
+    },
+    {
+      "name": "Medical coding (CPT/ICD-10)"
+    },
+    {
+      "name": "EHR integrations"
+    },
+    {
+      "name": "HIPAA-compliant engineering"
+    }
+  ]
+}

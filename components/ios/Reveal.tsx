@@ -11,45 +11,88 @@ import {
 } from "react";
 import { cn } from "@/lib/utils";
 
+// One shared observer for every reveal on the page
+let observer: IntersectionObserver | null = null;
+function observe(el: Element) {
+  if (!observer) {
+    observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            (entry.target as HTMLElement).dataset.shown = "";
+            observer?.unobserve(entry.target);
+          }
+        }
+      },
+      { rootMargin: "0px 0px -8% 0px" }
+    );
+  }
+  observer.observe(el);
+  return () => observer?.unobserve(el);
+}
+
+type Variant = "up" | "left" | "right" | "pop" | "fade";
+
 interface RevealProps extends AnchorHTMLAttributes<HTMLElement> {
   as?: "div" | "section" | "span" | "a" | "li";
-  // Seconds; for short staggers within a group
+  variant?: Variant;
+  // Seconds
   delay?: number;
 }
 
-// Entrance on arrival, never on scroll: content in the first viewport eases in (CSS
-// opacity + transform, off the main thread); anything below the fold is shown at once,
-// so scrolling never triggers style changes or repaints.
+// Scroll reveal: the element (and any <RevealItem> inside it) animates in as it enters the
+// viewport. A single attribute flip per element drives CSS transitions on opacity and
+// transform, so the browser animates off the main thread instead of running a JS spring
+// per element.
 export const Reveal = forwardRef<HTMLElement, RevealProps>(
-  ({ as = "div", delay, className, style, children, ...props }, ref) => {
+  ({ as = "div", variant = "up", delay, className, style, children, ...props }, ref) => {
     const inner = useRef<HTMLElement>(null);
     useImperativeHandle(ref, () => inner.current as HTMLElement);
 
     useEffect(() => {
       const el = inner.current;
       if (!el) return;
-      if (el.getBoundingClientRect().top > window.innerHeight) {
-        el.dataset.instant = "";
-        el.dataset.shown = "";
-        return;
-      }
-      // Next frame, so the initial state is painted and the transition runs
-      const frame = requestAnimationFrame(() => {
-        el.dataset.shown = "";
-      });
-      return () => cancelAnimationFrame(frame);
+      return observe(el);
     }, []);
-
-    const merged: CSSProperties | undefined = delay
-      ? { ...style, transitionDelay: `${delay}s` }
-      : style;
 
     return createElement(
       as,
-      { ref: inner, className: cn("reveal", className), style: merged, ...props },
+      {
+        ref: inner,
+        className: cn("reveal", `reveal-${variant}`, className),
+        style: delay ? ({ ...style, "--d": `${delay}s` } as CSSProperties) : style,
+        ...props,
+      },
       children
     );
   }
 );
-
 Reveal.displayName = "Reveal";
+
+interface RevealItemProps extends AnchorHTMLAttributes<HTMLElement> {
+  as?: "div" | "span" | "li" | "p" | "h2" | "h3";
+  variant?: Variant;
+  delay?: number;
+}
+
+// Child of a <Reveal>: animates when its parent is revealed, after `delay`, so text inside
+// a card can stagger in without each line needing its own observer.
+export function RevealItem({
+  as = "div",
+  variant = "up",
+  delay = 0,
+  className,
+  style,
+  children,
+  ...props
+}: RevealItemProps) {
+  return createElement(
+    as,
+    {
+      className: cn("reveal-item", `reveal-${variant}`, className),
+      style: { ...style, "--d": `${delay}s` } as CSSProperties,
+      ...props,
+    },
+    children
+  );
+}
